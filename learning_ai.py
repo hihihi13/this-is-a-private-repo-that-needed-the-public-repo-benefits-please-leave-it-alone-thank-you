@@ -4,9 +4,7 @@ import datetime
 import requests
 from upstash_vector import Index
 
-# ========================================================
-# 🔒 SECURE KEY CODES (Reads safely from GitHub Vault)
-# ========================================================
+
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")  
 UPSTASH_URL = os.environ.get("UPSTASH_URL")
 UPSTASH_TOKEN = os.environ.get("UPSTASH_TOKEN")
@@ -20,7 +18,7 @@ print("Starting intensive 25-minute automated research block...")
 # Track time so we maximize our GitHub runtime without getting cut off (30-min hard limit)
 start_time = time.time()
 max_runtime_seconds = 25 * 60  # 25 minutes
-
+max_loops_per_session = 14
 loop_count = 0
 
 while (time.time() - start_time) < max_runtime_seconds:
