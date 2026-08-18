@@ -50,6 +50,8 @@ while (time.time() - start_time) < max_runtime_seconds:
         print(f"[{current_time}] Loop #{loop_count} - Hobby AI gathered {len(learned_fact)} bytes of expert data.")
 
         # 💾 Uses 'hobby_dense_fact' prefix to keep this data separated from school data
+        from upstash_vector import vector
+       
         vector_id = f"hobby_dense_fact_{int(time.time())}_{loop_count}"
         mock_embedding = [0.1] * 1536
         
