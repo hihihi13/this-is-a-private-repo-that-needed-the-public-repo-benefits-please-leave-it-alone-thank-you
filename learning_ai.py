@@ -18,6 +18,7 @@ print("Starting intensive 25-minute automated research block...")
 # Track time so we maximize our GitHub runtime without getting cut off (30-min hard limit)
 start_time = time.time()
 max_runtime_seconds = 25 * 60  # 25 minutes
+max_loops_per_session = 25
 loop_count = 0
 
 while (time.time() - start_time) < max_runtime_seconds:
@@ -50,14 +51,14 @@ while (time.time() - start_time) < max_runtime_seconds:
         print(f"[{current_time}] Loop #{loop_count} - Learning AI gathered {len(learned_fact)} characters of high-density knowledge.")
 
         # 2. Upload straight to your Upstash Cloud Memory
-        from upstash_vector import vector
-        
-        vector_id = f"dense_fact_{int(time.time())}_{loop_count}"
+ vector_id = f"dense_fact_{int(time.time())}_{loop_count}"
         mock_embedding = [0.1] * 1536
         
-        index.upsert(vectors=[
-            (vector_id, mock_embedding, {"fact": learned_fact, "timestamp": current_time})
-        ])
+        index.upsert(
+            vectors=[
+                (vector_id, mock_embedding, {"fact": learned_fact, "timestamp": current_time})
+            ]
+        )
         
         print("💾 High-density memory matrix safely pushed to Upstash cloud.")
 
