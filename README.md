@@ -1,1 +1,1 @@
-# learning-ai-core
+# AI that learns
