@@ -50,7 +50,7 @@ while (time.time() - start_time) < max_runtime_seconds:
         learned_fact = response.json()['choices']['message']['content']
         print(f"[{current_time}] Loop #{loop_count} - Learning AI gathered {len(learned_fact)} characters of high-density knowledge.")
 
-        # 2. Upload straight to your Upstash Cloud Memory
+               # 2. Upload straight to your Upstash Cloud Memory
         vector_id = f"dense_fact_{int(time.time())}_{loop_count}"
         mock_embedding = [0.1] * 1536
         
@@ -61,6 +61,7 @@ while (time.time() - start_time) < max_runtime_seconds:
         )
         
         print("💾 High-density memory matrix safely pushed to Upstash cloud.")
+
 
     except Exception as e:
         print(f"❌ Core glitch: {e}. Cooling down for 30 seconds before re-engaging.")
