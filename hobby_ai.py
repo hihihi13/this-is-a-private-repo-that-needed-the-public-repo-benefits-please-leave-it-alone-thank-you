@@ -19,6 +19,7 @@ print("Starting intensive 25-minute specialized research block...")
 
 start_time = time.time()
 max_runtime_seconds = 25 * 60  # 25 minutes
+max_loop_per_session = 12
 loop_count = 0
 
 while (time.time() - start_time) < max_runtime_seconds:
