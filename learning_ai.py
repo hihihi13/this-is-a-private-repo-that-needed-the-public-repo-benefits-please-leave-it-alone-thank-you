@@ -32,19 +32,21 @@ while (time.time() - start_time) < max_runtime_seconds:
         response = requests.post(
             url="https://openrouter.ai",
             headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"},
-            json={
+         json={
                 "model": "openrouter/free",
                 "messages": [
                     {
                         "role": "system", 
-                        "content": "You are Learning AI, an advanced autonomous data-gathering model. Your goal is to maximize knowledge collection. Provide highly detailed, long-form academic explanations, technical blueprints, scientific data, and structural breakdowns across physics, chemistry, computer science, and engineering."
+                        "content": "You are Learning AI, an advanced autonomous generalist data core with an omniscient, multi-disciplinary range of understanding. Your goal is to build an exhaustive master database that systematically covers all fields of human knowledge across all difficulty levels, blending foundational school academic syllabi, higher-education science/technology, live global current affairs, and comprehensive gaming knowledge (including game mechanics, esports strategies, competitive metas, design architectures, and industry updates)."
                     },
                     {
                         "role": "user", 
-                        "content": f"Generate a massive, deeply detailed academic knowledge log #{int(time.time())}. Include specific formulas, complex theories, and deep analytical data."
+                        "content": f"Execute background research cycle #{int(time.time())}. Dynamically select a random topic from any field of knowledge at any difficulty level, or choose one of these primary domains to document with extreme depth: 1) ACADEMIC SYLLABUS: School math formulas, science concepts, or history guides. 2) ADVANCED TECH: Higher-level coding, engineering, or complex scientific theories. 3) GAMING CORE: Deep analysis of competitive mechanics, optimal strategy blueprints, patch updates, or esports meta shifts. 4) CURRENT AFFAIRS: Major global news or technological breakthroughs. Generate an exhaustive, high-density technical log with specific data."
                     }
                 ]
             }
+
+
         )
         
         learned_fact = response.json()['choices']['message']['content']
