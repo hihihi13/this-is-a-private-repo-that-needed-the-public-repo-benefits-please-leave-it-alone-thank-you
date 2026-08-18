@@ -51,7 +51,7 @@ while (time.time() - start_time) < max_runtime_seconds:
         print(f"[{current_time}] Loop #{loop_count} - Learning AI gathered {len(learned_fact)} characters of high-density knowledge.")
 
         # 2. Upload straight to your Upstash Cloud Memory
- vector_id = f"dense_fact_{int(time.time())}_{loop_count}"
+        vector_id = f"dense_fact_{int(time.time())}_{loop_count}"
         mock_embedding = [0.1] * 1536
         
         index.upsert(
