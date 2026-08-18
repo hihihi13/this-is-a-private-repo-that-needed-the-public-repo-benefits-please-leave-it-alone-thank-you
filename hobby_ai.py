@@ -7,7 +7,7 @@ from upstash_vector import Index
 # ========================================================
 # 🔒 SECURE KEY CODES (Reuses your existing GitHub vault secrets)
 # ========================================================
-OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")  
+OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY_2")  
 UPSTASH_URL = os.environ.get("UPSTASH_URL")
 UPSTASH_TOKEN = os.environ.get("UPSTASH_TOKEN")
 
@@ -19,7 +19,6 @@ print("Starting intensive 25-minute specialized research block...")
 
 start_time = time.time()
 max_runtime_seconds = 25 * 60  # 25 minutes
-max_loop_per_session = 12
 loop_count = 0
 
 while (time.time() - start_time) < max_runtime_seconds:
