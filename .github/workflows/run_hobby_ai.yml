@@ -1,0 +1,24 @@
+name: Max Efficiency Hobby AI Loop
+on:
+  schedule:
+    # Runs twice a day, offset by 6 hours from your school script so they never collide
+    - cron: '0 6,18 * * *' 
+  workflow_dispatch:
+
+jobs:
+  run-hobby-core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install Libraries
+        run: pip install requests upstash-vector
+      - name: Execute Hobby AI Loop
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          UPSTASH_URL: ${{ secrets.UPSTASH_URL }}
+          UPSTASH_TOKEN: ${{ secrets.UPSTASH_TOKEN }}
+        run: python hobby_ai.py
