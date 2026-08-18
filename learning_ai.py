@@ -1,0 +1,70 @@
+import os
+import time
+import datetime
+import requests
+from upstash_vector import Index
+
+# ========================================================
+# 🔒 SECURE KEY CODES (Reads safely from GitHub Vault)
+# ========================================================
+OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")  
+UPSTASH_URL = os.environ.get("UPSTASH_URL")
+UPSTASH_TOKEN = os.environ.get("UPSTASH_TOKEN")
+
+# Connect to Free Cloud Database
+index = Index(url=UPSTASH_URL, token=UPSTASH_TOKEN)
+
+print("⚡ Learning AI Maximum Efficiency Core is ONLINE.")
+print("Starting intensive 25-minute automated research block...")
+
+# Track time so we maximize our GitHub runtime without getting cut off (30-min hard limit)
+start_time = time.time()
+max_runtime_seconds = 25 * 60  # 25 minutes
+
+loop_count = 0
+
+while (time.time() - start_time) < max_runtime_seconds:
+    try:
+        current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        loop_count += 1
+        
+        # 1. Force OpenRouter to generate massive, deep technical files
+        response = requests.post(
+            url="https://openrouter.ai",
+            headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"},
+            json={
+                "model": "openrouter/free",
+                "messages": [
+                    {
+                        "role": "system", 
+                        "content": "You are Learning AI, an advanced autonomous data-gathering model. Your goal is to maximize knowledge collection. Provide highly detailed, long-form academic explanations, technical blueprints, scientific data, and structural breakdowns across physics, chemistry, computer science, and engineering."
+                    },
+                    {
+                        "role": "user", 
+                        "content": f"Generate a massive, deeply detailed academic knowledge log #{int(time.time())}. Include specific formulas, complex theories, and deep analytical data."
+                    }
+                ]
+            }
+        )
+        
+        learned_fact = response.json()['choices']['message']['content']
+        print(f"[{current_time}] Loop #{loop_count} - Learning AI gathered {len(learned_fact)} characters of high-density knowledge.")
+
+        # 2. Upload straight to your Upstash Cloud Memory
+        vector_id = f"dense_fact_{int(time.time())}_{loop_count}"
+        mock_embedding = [0.1] * 1536
+        
+        index.upsert(vectors=[
+            (vector_id, mock_embedding, {"fact": learned_fact, "timestamp": current_time})
+        ])
+        
+        print("💾 High-density memory matrix safely pushed to Upstash cloud.")
+
+    except Exception as e:
+        print(f"❌ Core glitch: {e}. Cooling down for 30 seconds before re-engaging.")
+        time.sleep(30)
+
+    # Short delay between intense research cycles to prevent OpenRouter free-tier rate limits
+    time.sleep(45)
+
+print(f"⏱️ 25-Minute research block complete. Total dense matrices processed: {loop_count}. Powering down safely.")
