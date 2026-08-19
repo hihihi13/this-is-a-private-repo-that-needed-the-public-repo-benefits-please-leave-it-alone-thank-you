@@ -27,10 +27,10 @@ while (time.time() - start_time) < max_runtime_seconds:
         current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         loop_count += 1
         
-        # Force OpenRouter to target your exact list of advanced hobbies with extreme depth
+        # Force OpenRouter to target exact list of advanced hobbies with extreme depth
         response = requests.post(
-            url="https://openrouter.ai",
-            headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"},
+            url="https://openrouter.ai/api/v1/chat/completion",
+            headers={"Authorization": f"Bearer {OPENROUTER_API_KEY_2}", "Content-Type": "application/json"},
                         json={
                 "model": "openrouter/free",
                 "messages": [
@@ -46,8 +46,14 @@ while (time.time() - start_time) < max_runtime_seconds:
             }
 
         )
+        response.raise_for_status()
+
+        print("OpenRouter status:", response.status_code)
+
+        print("OpenRouter response:", response.text[:500])
         
-        learned_fact = response.json()['choices']['message']['content']
+      
+        learned_fact = response.json()['choices'][0]['message']['content']
         print(f"[{current_time}] Loop #{loop_count} - Hobby AI gathered {len(learned_fact)} bytes of expert data.")
 
         # 💾 Uses 'hobby_dense_fact' prefix to keep this data separated from school data
