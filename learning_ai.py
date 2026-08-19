@@ -21,7 +21,10 @@ max_runtime_seconds = 25 * 60  # 25 minutes
 max_loops_per_session = 25
 loop_count = 0
 
-while (time.time() - start_time) < max_runtime_seconds:
+while (
+    time.time() - start_time) < max_runtime_seconds:
+        loop_count < max_loops_per_session
+    
     try:
         current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         loop_count += 1
