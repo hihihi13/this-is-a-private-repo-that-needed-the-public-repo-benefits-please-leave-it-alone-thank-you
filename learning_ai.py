@@ -28,7 +28,7 @@ while (time.time() - start_time) < max_runtime_seconds:
         
         # 1. Force OpenRouter to generate massive, deep technical files
         response = requests.post(
-            url="https://openrouter.ai",
+            url="https://openrouter.ai/api/v1/chat/completion",
             headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"},
          json={
                 "model": "openrouter/free",
@@ -46,8 +46,13 @@ while (time.time() - start_time) < max_runtime_seconds:
 
 
         )
-        
-        learned_fact = response.json()['choices']['message']['content']
+        response.raise_for_status()
+
+        print("OpenRouter status:", response.status_code)
+
+        print("OpenRouter response:", response.text[:500])
+       
+        learned_fact = response.json()['choices'][0]['message']['content']
         print(f"[{current_time}] Loop #{loop_count} - Learning AI gathered {len(learned_fact)} characters of high-density knowledge.")
 
                # 2. Upload straight to your Upstash Cloud Memory
