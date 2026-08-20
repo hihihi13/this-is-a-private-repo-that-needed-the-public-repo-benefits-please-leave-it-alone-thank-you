@@ -2,6 +2,7 @@ import os
 import time
 import datetime
 import requests
+import json
 from upstash_vector import Index
 
 
@@ -12,6 +13,29 @@ UPSTASH_TOKEN = os.environ.get("UPSTASH_TOKEN")
 # Connect to Free Cloud Database
 index = Index(url=UPSTASH_URL, token=UPSTASH_TOKEN)
 
+# 📂 PERMANENT REPOSITORY KNOWLEDGE ARCHIVE
+ARCHIVE_FILE = "knowledge_archive.json"
+
+def save_to_github_archive(fact_text, timestamp, category_name):
+    """Always writes the facts to a local JSON archive file so it can be pushed to GitHub."""
+    existing_data = []
+    if os.path.exists(ARCHIVE_FILE):
+        try:
+            with open(ARCHIVE_FILE, "r") as f:
+                existing_data = json.load(f)
+        except Exception:
+            existing_data = []
+            
+    # Append the newly discovered topic facts
+    existing_data.append({
+        "fact": fact_text,
+        "timestamp": timestamp,
+        "category": category_name
+    })
+    
+    with open(ARCHIVE_FILE, "w") as f:
+        json.dump(existing_data, f, indent=4)
+
 print("⚡ Learning AI Maximum Efficiency Core is ONLINE.")
 print("Starting intensive 25-minute automated research block...")
 
@@ -21,10 +45,8 @@ max_runtime_seconds = 25 * 60  # 25 minutes
 max_loops_per_session = 25
 loop_count = 0
 
-while (
-    time.time() - start_time) < max_runtime_seconds:
+while (time.time() - start_time) < max_runtime_seconds:
         
-    
     try:
         current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         loop_count += 1
@@ -33,7 +55,7 @@ while (
         response = requests.post(
             url="https://openrouter.ai/api/v1/chat/completion",
             headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"},
-         json={
+            json={
                 "model": "openrouter/free",
                 "messages": [
                     {
@@ -46,19 +68,20 @@ while (
                     }
                 ]
             }
-
-
         )
         response.raise_for_status()
 
         print("OpenRouter status:", response.status_code)
-
         print("OpenRouter response:", response.text[:500])
        
         learned_fact = response.json()['choices'][0]['message']['content']
         print(f"[{current_time}] Loop #{loop_count} - Learning AI gathered {len(learned_fact)} characters of high-density knowledge.")
 
-               # 2. Upload straight to your Upstash Cloud Memory
+        # 1️⃣ ALWAYS SAVE TO GITHUB STORAGE FILE FIRST
+        save_to_github_archive(learned_fact, current_time, "general")
+        print("📁 Fact appended to local GitHub archive file.")
+
+        # 2️⃣ Upload straight to your Upstash Cloud Memory
         vector_id = f"dense_fact_{int(time.time())}_{loop_count}"
         mock_embedding = [0.1] * 1536
         
@@ -67,9 +90,7 @@ while (
                 (vector_id, mock_embedding, {"fact": learned_fact, "timestamp": current_time})
             ]
         )
-        
         print("💾 High-density memory matrix safely pushed to Upstash cloud.")
-
 
     except Exception as e:
         print(f"❌ Core glitch: {e}. Cooling down for 30 seconds before re-engaging.")
