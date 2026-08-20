@@ -10,15 +10,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+          
       - name: Install Libraries
         run: pip install requests upstash-vector
+        
       - name: Execute Hobby AI Loop
         env:
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_API_KEY_2: ${{ secrets.OPENROUTER_API_KEY }}
           UPSTASH_URL: ${{ secrets.UPSTASH_URL }}
           UPSTASH_TOKEN: ${{ secrets.UPSTASH_TOKEN }}
         run: python hobby_ai.py
+
+      - name: Sync and Commit Knowledge Archive to GitHub Repository
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@://github.com"
+          
+          # Track your main cumulative data file
+          git add knowledge_archive.json || true
+          
+          # Commits to main branch only if new data rows were added
+          git diff-index --quiet HEAD || git commit -m "🤖 Sync cumulative topic knowledge [skip ci]"
+          git push
