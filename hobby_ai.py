@@ -2,6 +2,7 @@ import time
 import datetime
 import requests
 import os
+import json
 from upstash_vector import Index
 
 # ========================================================
@@ -13,6 +14,29 @@ UPSTASH_TOKEN = os.environ.get("UPSTASH_TOKEN")
 
 # Connect to Free Cloud Database
 index = Index(url=UPSTASH_URL, token=UPSTASH_TOKEN)
+
+# 📂 PERMANENT REPOSITORY KNOWLEDGE ARCHIVE
+ARCHIVE_FILE = "knowledge_archive.json"
+
+def save_to_github_archive(fact_text, timestamp, category_name):
+    """Always writes the facts to a local JSON archive file so it can be pushed to GitHub."""
+    existing_data = []
+    if os.path.exists(ARCHIVE_FILE):
+        try:
+            with open(ARCHIVE_FILE, "r") as f:
+                existing_data = json.load(f)
+        except Exception:
+            existing_data = []
+            
+    # Append the newly discovered topic facts
+    existing_data.append({
+        "fact": fact_text,
+        "timestamp": timestamp,
+        "category": category_name
+    })
+    
+    with open(ARCHIVE_FILE, "w") as f:
+        json.dump(existing_data, f, indent=4)
 
 print("🎮🌌 Hobby AI Deep Research Core is ONLINE.")
 print("Starting intensive 25-minute specialized research block...")
@@ -29,9 +53,9 @@ while (time.time() - start_time) < max_runtime_seconds:
         
         # Force OpenRouter to target exact list of advanced hobbies with extreme depth
         response = requests.post(
-            url="https://openrouter.ai/api/v1/chat/completion",
-            headers={"Authorization": f"Bearer {OPENROUTER_API_KEY_2}", "Content-Type": "application/json"},
-                        json={
+            url="https://openrouter.ai",
+            headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"},
+            json={
                 "model": "openrouter/free",
                 "messages": [
                     {
@@ -44,19 +68,20 @@ while (time.time() - start_time) < max_runtime_seconds:
                     }
                 ]
             }
-
         )
         response.raise_for_status()
 
         print("OpenRouter status:", response.status_code)
-
         print("OpenRouter response:", response.text[:500])
         
-      
         learned_fact = response.json()['choices'][0]['message']['content']
         print(f"[{current_time}] Loop #{loop_count} - Hobby AI gathered {len(learned_fact)} bytes of expert data.")
 
-        # 💾 Uses 'hobby_dense_fact' prefix to keep this data separated from school data
+        # 1️⃣ ALWAYS SAVE TO GITHUB STORAGE FILE FIRST
+        save_to_github_archive(learned_fact, current_time, "hobby")
+        print("📁 Fact appended to local GitHub archive file.")
+
+        # 2️⃣ ALWAYS UPLOAD TO UPSTASH VECTOR IMMEDIATELY AFTER
         vector_id = f"hobby_dense_fact_{int(time.time())}_{loop_count}"
         mock_embedding = [0.1] * 1536
         
@@ -65,7 +90,6 @@ while (time.time() - start_time) < max_runtime_seconds:
                 (vector_id, mock_embedding, {"fact": learned_fact, "timestamp": current_time, "category": "hobby"})
             ]
         )
-        
         print("💾 Expert matrix safely pushed to cloud storage.")
 
     except Exception as e:
