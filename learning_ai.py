@@ -53,7 +53,7 @@ while (time.time() - start_time) < max_runtime_seconds:
         
         # 1. Force OpenRouter to generate massive, deep technical files
         response = requests.post(
-            url="https://openrouter.ai/api/v1/chat/completion",
+            url="https://openrouter.ai/api/v1/chat/completions",
             headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"},
             json={
                 "model": "openrouter/free",
