@@ -53,7 +53,7 @@ while (time.time() - start_time) < max_runtime_seconds:
         
         # Force OpenRouter to target exact list of advanced hobbies with extreme depth
         response = requests.post(
-            url="https://openrouter.ai",
+            url="https://openrouter.ai/api/v1/chat/completions",
             headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"},
             json={
                 "model": "openrouter/free",
