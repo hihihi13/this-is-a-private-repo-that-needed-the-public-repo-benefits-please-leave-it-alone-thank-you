@@ -7,6 +7,11 @@ on:
 jobs:
   run-learning-ai:
     runs-on: ubuntu-latest
+    
+    # 👇 FIXES EXIT CODE 128: Grants write permission back to your repository
+    permissions:
+      contents: write
+
     steps:
       - uses: actions/checkout@v4
       
@@ -33,6 +38,10 @@ jobs:
           # Track your main cumulative data file
           git add knowledge_archive.json || true
           
-          # Commits to main branch only if new data rows were added
-          git diff-index --quiet HEAD || git commit -m "🤖 Sync cumulative topic knowledge [skip ci]"
-          git push
+          # Commits and pushes cleanly to the active branch
+          if ! git diff-index --quiet HEAD --; then
+            git commit -m "🤖 Sync cumulative topic knowledge [skip ci]"
+            git push origin HEAD
+          else
+            echo "No data file changes detected. Skipping push."
+          fi
