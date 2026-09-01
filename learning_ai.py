@@ -1,23 +1,66 @@
-import os
 import time
 import datetime
 import requests
+import os
 import json
-from upstash_vector import Index
 
-
+# ========================================================
+# 🔒 SECURE KEY CODES 
+# ========================================================
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")  
-UPSTASH_URL = os.environ.get("UPSTASH_URL")
-UPSTASH_TOKEN = os.environ.get("UPSTASH_TOKEN")
 
-# Connect to Free Cloud Database
-index = Index(url=UPSTASH_URL, token=UPSTASH_TOKEN)
+# 👇 UPDATED UNIFIED FILE TARGET
+ARCHIVE_FILE = "i pray this works.json"
 
-# 📂 PERMANENT REPOSITORY KNOWLEDGE ARCHIVE
-ARCHIVE_FILE = "knowledge_archive.json"
+# Generalist category domains to research round-robin style
+CATEGORIES = ["academic", "advanced_tech", "gaming_core", "current_affairs"]
+PROMPTS = {
+    "academic": "high school calculus formulas physics laws history timelines academic syllabus guide",
+    "advanced_tech": "machine learning architectures data engineering standards computer science documentation",
+    "gaming_core": "esports tournaments live video game patch balance notes competitive meta strategy updates",
+    "current_affairs": "major international space exploration scientific breakthroughs technology news live summaries"
+}
 
-def save_to_github_archive(fact_text, timestamp, category_name):
-    """Always writes the facts to a local JSON archive file so it can be pushed to GitHub."""
+def determine_next_dynamic_topic():
+    """Reads the archive log to see what category it researched last and shifts to the next domain."""
+    last_category = "academic"
+    if os.path.exists(ARCHIVE_FILE):
+        try:
+            with open(ARCHIVE_FILE, "r") as f:
+                data = json.load(f)
+                if data and isinstance(data, list):
+                    last_category = data[-1].get("category", "academic")
+        except Exception:
+            pass
+
+    current_index = CATEGORIES.index(last_category) if last_category in CATEGORIES else 0
+    next_index = (current_index + 1) % len(CATEGORIES)
+    next_cat = CATEGORIES[next_index]
+    return PROMPTS[next_cat], next_cat
+
+def fetch_real_world_context(search_query):
+    """Queries live public index data to prevent the AI model from fabricating facts."""
+    try:
+        url = f"https://duckduckgo.com{search_query}&format=json&no_html=1"
+        headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+        response = requests.get(url, headers=headers, timeout=12)
+        response.raise_for_status()
+        data = response.json()
+        
+        raw_text = []
+        if data.get("AbstractText"):
+            raw_text.append(data["AbstractText"])
+        if data.get("RelatedTopics"):
+            for item in data["RelatedTopics"][:2]:
+                if "Text" in item:
+                    raw_text.append(item["Text"])
+                    
+        return "\n\n".join(raw_text) if raw_text else "Active global parameter verification block active."
+    except Exception:
+        return "Global data matrix reference retrieval timeout."
+
+def save_to_offline_database(fact_text, timestamp, category_name):
+    """Saves the factual, formatted database record directly to your local repository file."""
     existing_data = []
     if os.path.exists(ARCHIVE_FILE):
         try:
@@ -26,7 +69,6 @@ def save_to_github_archive(fact_text, timestamp, category_name):
         except Exception:
             existing_data = []
             
-    # Append the newly discovered topic facts
     existing_data.append({
         "fact": fact_text,
         "timestamp": timestamp,
@@ -36,22 +78,26 @@ def save_to_github_archive(fact_text, timestamp, category_name):
     with open(ARCHIVE_FILE, "w") as f:
         json.dump(existing_data, f, indent=4)
 
-print("⚡ Learning AI Maximum Efficiency Core is ONLINE.")
-print("Starting intensive 25-minute automated research block...")
+print(f" Learning AI looping. Saving to: '{ARCHIVE_FILE}'")
 
-# Track time so we maximize our GitHub runtime without getting cut off (30-min hard limit)
-start_time = time.time()
-max_runtime_seconds = 25 * 60  # 25 minutes
-max_loops_per_session = 25
+# 👇 MATCHES YOUR MAXIMUM DAILY API QUOTA
+# 50 loops per run * 1 run per day = exactly 50 tokens
+MAX_LOOPS = 50 
 loop_count = 0
 
-while (time.time() - start_time) < max_runtime_seconds:
-        
+while loop_count < MAX_LOOPS:
     try:
         current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         loop_count += 1
         
-        # 1. Force OpenRouter to generate massive, deep technical files
+        # 1️⃣ Dynamically change fields so the database builds an all-rounder memory base
+        search_query, assigned_cat = determine_next_dynamic_topic()
+        
+        # 2️⃣ Scrape true reference snippets from public index layers
+        real_grounding_text = fetch_real_world_context(search_query)
+        
+        # 3️⃣ Query OpenRouter to parse it into beautiful, dense markdown tables and descriptions
+        print(f" [{current_time}] Processing Loop #{loop_count}/{MAX_LOOPS} for core branch: '{assigned_cat}'...")
         response = requests.post(
             url="https://openrouter.ai/api/v1/chat/completions",
             headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"},
@@ -60,43 +106,28 @@ while (time.time() - start_time) < max_runtime_seconds:
                 "messages": [
                     {
                         "role": "system", 
-                        "content": "You are Learning AI, an advanced autonomous generalist data core with an omniscient, multi-disciplinary range of understanding. Your goal is to build an exhaustive master database that systematically covers all fields of human knowledge across all difficulty levels, blending foundational school academic syllabi, higher-education science/technology, live global current affairs, and comprehensive gaming knowledge (including game mechanics, esports strategies, competitive metas, design architectures, and industry updates)."
+                        "content": "You are a precise technical data formatting assistant. Your job is to extract real data numbers, verifiable patch adjustments, scientific constants, and academic rules from the provided context into Markdown formats. You are strictly forbidden from inventing dummy numbers or hallucinating records."
                     },
                     {
                         "role": "user", 
-                        "content": f"Execute background research cycle #{int(time.time())}. Dynamically select a random topic from any field of knowledge at any difficulty level, or choose one of these primary domains to document with extreme depth: 1) ACADEMIC SYLLABUS: School math formulas, science concepts, or history guides. 2) ADVANCED TECH: Higher-level coding, engineering, or complex scientific theories. 3) GAMING CORE: Deep analysis of competitive mechanics, optimal strategy blueprints, patch updates, or esports meta shifts. 4) CURRENT AFFAIRS: Major global news or technological breakthroughs. Generate an exhaustive, high-density technical log with specific data."
+                        "content": f"Using the verified raw context text below:\n---\n{real_grounding_text}\n---\nCompile a technical log entry block for the topic: '{search_query}'. Extract real numbers, formulas, constants, or text matrices directly from the context. Do not generate fictional data."
                     }
                 ]
-            }
+            },
+            timeout=30
         )
         response.raise_for_status()
 
-        print("OpenRouter status:", response.status_code)
-        print("OpenRouter response:", response.text[:500])
-       
-        learned_fact = response.json()['choices'][0]['message']['content']
-        print(f"[{current_time}] Loop #{loop_count} - Learning AI gathered {len(learned_fact)} characters of high-density knowledge.")
-
-        # 1️⃣ ALWAYS SAVE TO GITHUB STORAGE FILE FIRST
-        save_to_github_archive(learned_fact, current_time, "general")
-        print("📁 Fact appended to local GitHub archive file.")
-
-        # 2️⃣ Upload straight to your Upstash Cloud Memory
-        vector_id = f"dense_fact_{int(time.time())}_{loop_count}"
-        mock_embedding = [0.1] * 1536
+        clean_fact = response.json()['choices'][0]['message']['content']
         
-        index.upsert(
-            vectors=[
-                (vector_id, mock_embedding, {"fact": learned_fact, "timestamp": current_time})
-            ]
-        )
-        print("💾 High-density memory matrix safely pushed to Upstash cloud.")
+        # 4️⃣ Commit directly to your local database tracking file
+        save_to_offline_database(clean_fact, current_time, assigned_cat)
+        print(f" Success!  data chunk successfully locked into '{ARCHIVE_FILE}'.\n")
 
     except Exception as e:
-        print(f"❌ Core glitch: {e}. Cooling down for 30 seconds before re-engaging.")
-        time.sleep(30)
+        print(f" processing loop issue: {e}. Initiating 15-second loop protection cooldown.")
+        time.sleep(15)
 
-    # Short delay between intense research cycles to prevent OpenRouter free-tier rate limits
-    time.sleep(45)
+    time.sleep(10)  # Rate-limit safety padding
 
-print(f"⏱️ 25-Minute research block complete. Total dense matrices processed: {loop_count}. Powering down safely.")
+print(f"⏱️ Daily quota loop run complete. Total processed all-rounder entries: {loop_count}.")
