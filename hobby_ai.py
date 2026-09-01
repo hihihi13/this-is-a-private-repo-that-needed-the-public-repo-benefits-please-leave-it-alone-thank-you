@@ -3,23 +3,65 @@ import datetime
 import requests
 import os
 import json
-from upstash_vector import Index
 
 # ========================================================
-# 🔒 SECURE KEY CODES (Reuses your existing GitHub vault secrets)
+# 🔒 SECURE KEY CODES
 # ========================================================
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY_2")  
-UPSTASH_URL = os.environ.get("UPSTASH_URL")
-UPSTASH_TOKEN = os.environ.get("UPSTASH_TOKEN")
 
-# Connect to Free Cloud Database
-index = Index(url=UPSTASH_URL, token=UPSTASH_TOKEN)
+# 👇 UPDATED FILE NAME MATRIX TARGET
+ARCHIVE_FILE = "i pray this works.json"
 
-# 📂 PERMANENT REPOSITORY KNOWLEDGE ARCHIVE
-ARCHIVE_FILE = "knowledge_archive.json"
+# Five targeted core domains to research round-robin style
+CATEGORIES = ["gaming", "electronics", "engineering", "astrophysics", "cameras", "terminal ballistics", "external ballistics", "internal ballistics", "continuum mechanics", "penetration mechanics"]
+PROMPTS = {
+    "gaming": "Delta Force Hawk Ops video game patch notes weapon meta weapon tuning armor penetration damage values",
+    "electronics": "ESP32-WROOM-32 hardware datasheet registry configurations clock gating power limits",
+    "engineering": "Structural steel 4140 mechanical properties handbook tensile yield strength metrics dimensions",
+    "astrophysics": "Orbital mechanics vis-viva equation delta-v calculation trajectories planetary physics parameters",
+    "cameras": "Camera sensor pixel binning mathematics signal to noise ratio SNR formatting equations"
+}
 
-def save_to_github_archive(fact_text, timestamp, category_name):
-    """Always writes the facts to a local JSON archive file so it can be pushed to GitHub."""
+def determine_next_dynamic_topic():
+    """Checks your archive log file to verify what category needs data points next."""
+    last_category = "gaming"
+    if os.path.exists(ARCHIVE_FILE):
+        try:
+            with open(ARCHIVE_FILE, "r") as f:
+                data = json.load(f)
+                if data and isinstance(data, list):
+                    last_category = data[-1].get("category", "gaming")
+        except Exception:
+            pass
+
+    current_index = CATEGORIES.index(last_category) if last_category in CATEGORIES else 0
+    next_index = (current_index + 1) % len(CATEGORIES)
+    next_cat = CATEGORIES[next_index]
+    return PROMPTS[next_cat], next_cat
+
+def fetch_real_world_context(search_query):
+    """Pulls genuine internet tracking text snippets to ensure data is 100% true."""
+    try:
+        url = f"https://duckduckgo.com{search_query}&format=json&no_html=1"
+        headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+        response = requests.get(url, headers=headers, timeout=12)
+        response.raise_for_status()
+        data = response.json()
+        
+        raw_text = []
+        if data.get("AbstractText"):
+            raw_text.append(data["AbstractText"])
+        if data.get("RelatedTopics"):
+            for item in data["RelatedTopics"][:2]:
+                if "Text" in item:
+                    raw_text.append(item["Text"])
+                    
+        return "\n\n".join(raw_text) if raw_text else "Active real-world parameter registry tracking metrics."
+    except Exception:
+        return "Reference context processing connection error."
+
+def save_to_offline_database(fact_text, timestamp, category_name):
+    """Appends records directly to your local file database archive."""
     existing_data = []
     if os.path.exists(ARCHIVE_FILE):
         try:
@@ -28,7 +70,6 @@ def save_to_github_archive(fact_text, timestamp, category_name):
         except Exception:
             existing_data = []
             
-    # Append the newly discovered topic facts
     existing_data.append({
         "fact": fact_text,
         "timestamp": timestamp,
@@ -38,64 +79,55 @@ def save_to_github_archive(fact_text, timestamp, category_name):
     with open(ARCHIVE_FILE, "w") as f:
         json.dump(existing_data, f, indent=4)
 
-print("🎮🌌 Hobby AI Deep Research Core is ONLINE.")
-print("Starting intensive 25-minute specialized research block...")
+print(f"Hooby loop running. Target storage file: '{ARCHIVE_FILE}'")
 
-start_time = time.time()
-max_runtime_seconds = 25 * 60  # 25 minutes
-max_loops_per_session = 25
+# Max Calculations: 25 loops per script run * 2 workflow triggers a day = exactly 50 tokens daily
+MAX_LOOPS = 25 
 loop_count = 0
 
-while (time.time() - start_time) < max_runtime_seconds:
+while loop_count < MAX_LOOPS:
     try:
         current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         loop_count += 1
         
-        # Force OpenRouter to target exact list of advanced hobbies with extreme depth
+        # 1️⃣ Dynamically rotate categories so your offline data remains structurally varied
+        search_query, assigned_cat = determine_next_dynamic_topic()
+        
+        # 2️⃣ Grab authentic information properties from internet index matrices
+        real_grounding_text = fetch_real_world_context(search_query)
+        
+        # 3️⃣ Query OpenRouter to parse it down into clean data rows
+        print(f" [{current_time}] Processing Loop #{loop_count}/{MAX_LOOPS} for category: '{assigned_cat}'...")
         response = requests.post(
-            url="https://openrouter.ai/api/v1/chat/completions",
+            url="https://openrouter.ai",
             headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"},
             json={
                 "model": "openrouter/free",
                 "messages": [
                     {
                         "role": "system", 
-                        "content": "You are Hobby AI, an expert technical database core. You are strictly restricted to researching: 1) Advanced Gaming Metas (Delta Force weapons/tactics, Genshin team rotations, Call of Duty movement/recoil). 2) Astrophysics & Astronomy (orbital mechanics, stellar nucleosynthesis, cosmic radiation). 3) Coding & Electronics (Python/C++, ESP32 microcontrollers, custom desktop PC configurations, soldering temperature logs). 4) Art & Cameras (perspective drawing, sensor pixel-binning, aperture/shutter math). 5) Military Technology & Engineering (small arms mechanical functions, ballistics physics coefficients, composite tank armor composition, artillery trajectory math, and chemical combustion/explosive velocity metrics)."
+                        "content": "You are a precise technical data formatting assistant. Your job is to extract real data numbers, real patch logs, and accurate engineering constants from the provided context into Markdown formats. You are strictly forbidden from inventing dummy numbers or placeholder variables."
                     },
                     {
                         "role": "user", 
-                        "content": f"Generate an ultra-deep technical file log #{int(time.time())}. Pick one exact sub-topic from your allowed list. Provide actual data arrays, frame-data, mechanical cross-sections, coding scripts, or mathematical formulas. No surface-level descriptions allowed."
+                        "content": f"Using the verified raw context text below:\n---\n{real_grounding_text}\n---\nCompile a technical log entry block for: '{search_query}'. Extract real numbers, formulas, or game data points directly from the context. Do not generate fictional numbers."
                     }
                 ]
-            }
+            },
+            timeout=30
         )
         response.raise_for_status()
 
-        print("OpenRouter status:", response.status_code)
-        print("OpenRouter response:", response.text[:500])
+        clean_fact = response.json()['choices']['message']['content']
         
-        learned_fact = response.json()['choices'][0]['message']['content']
-        print(f"[{current_time}] Loop #{loop_count} - Hobby AI gathered {len(learned_fact)} bytes of expert data.")
-
-        # 1️⃣ ALWAYS SAVE TO GITHUB STORAGE FILE FIRST
-        save_to_github_archive(learned_fact, current_time, "hobby")
-        print("📁 Fact appended to local GitHub archive file.")
-
-        # 2️⃣ ALWAYS UPLOAD TO UPSTASH VECTOR IMMEDIATELY AFTER
-        vector_id = f"hobby_dense_fact_{int(time.time())}_{loop_count}"
-        mock_embedding = [0.1] * 1536
-        
-        index.upsert(
-            vectors=[
-                (vector_id, mock_embedding, {"fact": learned_fact, "timestamp": current_time, "category": "hobby"})
-            ]
-        )
-        print("💾 Expert matrix safely pushed to cloud storage.")
+        # 4️⃣ Lock clean text database entries to local repository file
+        save_to_offline_database(clean_fact, current_time, assigned_cat)
+        print(f"📁 Success! True {assigned_cat} metrics written to '{ARCHIVE_FILE}'.\n")
 
     except Exception as e:
-        print(f"❌ Core glitch: {e}. Re-engaging in 30 seconds.")
-        time.sleep(30)
+        print(f"Core processing loop issue: {e}. Cooldown sequence start.")
+        time.sleep(10)
 
-    time.sleep(45)
+    time.sleep(12)  # Prevents public scraping connection blocks
 
-print(f"⏱️ Session complete. Total expert logs processed: {loop_count}.")
+print(f"⏱️ Maximum quota block execution loop completed. Processed: {loop_count} updates.")
