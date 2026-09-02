@@ -11,7 +11,7 @@ OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
 TAVILY_API_KEY = os.environ.get("TAVILY_API_KEY")  # Added Tavily environment key
 
 # 👇 UPDATED UNIFIED FILE TARGET
-ARCHIVE_FILE = "i pray this works.json"
+ARCHIVE_FILE = "i pray this works 3.json"
 
 # Generalist category domains to research round-robin style
 CATEGORIES = ["academic", "advanced_tech", "gaming_core", "current_affairs"]
