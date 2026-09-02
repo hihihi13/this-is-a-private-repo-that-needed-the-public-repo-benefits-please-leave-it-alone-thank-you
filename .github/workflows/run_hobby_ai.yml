@@ -25,12 +25,13 @@ jobs:
       - name: Execute Hobby AI Loop
         env:
           OPENROUTER_API_KEY_2: ${{ secrets.OPENROUTER_API_KEY }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}  # 🔥 FIXED: Feeds your key directly to your script
         run: python hobby_ai.py
 
       - name: Sync and Commit Knowledge Archive to GitHub Repository
         run: |
           git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@://github.com"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           
           # Tracks your newly named data file securely
           git add "i pray this works.json" || true
