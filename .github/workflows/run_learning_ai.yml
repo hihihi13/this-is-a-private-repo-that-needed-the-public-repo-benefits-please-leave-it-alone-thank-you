@@ -25,6 +25,7 @@ jobs:
       - name: Execute Learning AI Core
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}  # 🔥 FIXED: Maps your search key cleanly to learning_ai.py
         run: python learning_ai.py
 
       - name: Sync and Commit Knowledge Archive to GitHub Repository
@@ -33,7 +34,7 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           
           # Tracks your newly named data file securely
-          git add "i pray this works.json" || true
+          git add "i pray this works 3.json" || true
           
           if ! git diff-index --quiet HEAD --; then
             git commit -m "🤖 Learning AI Max Quota Factual Sync [skip ci]"
