@@ -8,6 +8,7 @@ import json
 # 🔒 SECURE KEY CODES 
 # ========================================================
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")  
+TAVILY_API_KEY = os.environ.get("TAVILY_API_KEY")  # Added Tavily environment key
 
 # 👇 UPDATED UNIFIED FILE TARGET
 ARCHIVE_FILE = "i pray this works.json"
@@ -39,23 +40,31 @@ def determine_next_dynamic_topic():
     return PROMPTS[next_cat], next_cat
 
 def fetch_real_world_context(search_query):
-    """Queries live public index data to prevent the AI model from fabricating facts."""
+    """Queries live public index data via Tavily to prevent the AI model from fabricating facts."""
+    if not TAVILY_API_KEY:
+        return "Tavily API key is missing. Skipping external matrix lookup context."
+
     try:
-        url = f"https://duckduckgo.com{search_query}&format=json&no_html=1"
-        headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
-        response = requests.get(url, headers=headers, timeout=12)
+        # Replaced old DuckDuckGo code block with standard Tavily POST request
+        response = requests.post(
+            "https://tavily.com",
+            json={
+                "api_key": TAVILY_API_KEY,
+                "query": search_query,
+                "search_depth": "basic",
+                "max_results": 3
+            },
+            timeout=15
+        )
         response.raise_for_status()
-        data = response.json()
+        results = response.json().get("results", [])
         
-        raw_text = []
-        if data.get("AbstractText"):
-            raw_text.append(data["AbstractText"])
-        if data.get("RelatedTopics"):
-            for item in data["RelatedTopics"][:2]:
-                if "Text" in item:
-                    raw_text.append(item["Text"])
-                    
-        return "\n\n".join(raw_text) if raw_text else "Active global parameter verification block active."
+        # Combine text content from search hits
+        raw_context = [res["content"] for res in results if "content" in res]
+        if raw_context:
+            return "\n\n".join(raw_context)
+            
+        return "Active global parameter verification block active."
     except Exception:
         return "Global data matrix reference retrieval timeout."
 
@@ -99,7 +108,7 @@ while loop_count < MAX_LOOPS:
         # 3️⃣ Query OpenRouter to parse it into beautiful, dense markdown tables and descriptions
         print(f" [{current_time}] Processing Loop #{loop_count}/{MAX_LOOPS} for core branch: '{assigned_cat}'...")
         response = requests.post(
-            url="https://openrouter.ai/api/v1/chat/completions",
+            url="https://openrouter.ai",
             headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"},
             json={
                 "model": "openrouter/free",
