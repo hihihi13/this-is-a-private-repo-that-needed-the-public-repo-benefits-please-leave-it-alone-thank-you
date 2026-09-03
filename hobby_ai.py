@@ -92,7 +92,7 @@ def fetch_real_world_context(search_query):
     try:
         # Replaced old DuckDuckGo code block with standard Tavily POST request
         response = requests.post(
-            "https://tavily.com",
+            "https://tavily.com/search",
             json={
                 "api_key": TAVILY_API_KEY,
                 "query": search_query,
@@ -154,7 +154,7 @@ while loop_count < MAX_LOOPS:
         print(f" [{current_time}] Processing Loop #{loop_count}/{MAX_LOOPS} for category: '{assigned_cat}'...")
         response = requests.post(
             # Fixed the root destination endpoint to point directly to the completions API routing layer
-            url="https://openrouter.ai",
+            url="https://openrouter.ai/api/v1/chat/completions",
             headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"},
             json={
                 "model": "openrouter/free",
