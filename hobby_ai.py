@@ -92,7 +92,7 @@ def fetch_real_world_context(search_query):
     try:
         # Replaced old DuckDuckGo code block with standard Tavily POST request
         response = requests.post(
-            "https://tavily.com/search",
+            "https://api.tavily.com",
             json={
                 "api_key": TAVILY_API_KEY,
                 "query": search_query,
