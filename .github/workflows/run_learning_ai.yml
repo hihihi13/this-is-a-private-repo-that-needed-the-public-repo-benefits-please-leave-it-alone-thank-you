@@ -1,41 +1,53 @@
 name: Learning AI Loop
+
 on:
   schedule:
     # Runs twice a day (Every 12 hours) to perfectly spread your quota
-    - cron: '0 0,12 * * *' 
+    - cron: '0 0,12 * * *'
   workflow_dispatch:
+
+# Prevents a manual run from racing a scheduled run (or another manual run) and
+# fighting over the same git push / archive file.
+concurrency:
+  group: learning-ai-loop
+  cancel-in-progress: false
 
 jobs:
   run-learning-ai:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
+    # 50 loops on /research (each ~30s-2min) can run long — give it real headroom.
+    # Adjust down once you've seen a real run's actual duration.
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Python environment
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-          
+
       - name: Install Cloud Libraries
         run: pip install requests
-        
+
       - name: Execute Learning AI Core
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}  # 🔥 FIXED: Maps your search key cleanly to learning_ai.py
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }} # Maps your search key cleanly to learning_ai.py
         run: python learning_ai.py
 
       - name: Sync and Commit Knowledge Archive to GitHub Repository
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          
+
+          # Pull first in case anything else touched the branch while this run was going
+          git pull --rebase origin HEAD || true
+
           # Tracks your newly named data file securely
           git add "i pray this works 3.json" || true
-          
+
           if ! git diff-index --quiet HEAD --; then
             git commit -m "🤖 Learning AI Max Quota Factual Sync [skip ci]"
             git push origin HEAD
