@@ -12,7 +12,7 @@ OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY_2")
 TAVILY_API_KEY = os.environ.get("TAVILY_API_KEY")  # Add this secret token to your GitHub secrets
 
 # 👇 FILE NAME MATRIX TARGET
-ARCHIVE_FILE = "i pray this works 2.json"
+ARCHIVE_FILE = "i hopefully pray this works.json"
 
 # Five... okay, way more than five targeted core domains to research round-robin style
 CATEGORIES = ["gaming", "electronics", "engineering", "astrophysics", "cameras", "terminal ballistics", "external ballistics", "internal ballistics", "continuum mechanics", "penetration mechanics", "robotics", "psychology",
