@@ -17,9 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    # /research calls are slower than plain /search, so give the job more headroom
-    # than the old script needed. Adjust if 25 loops still don't fit.
-    timeout-minutes: 90
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
 
@@ -29,12 +27,13 @@ jobs:
           python-version: '3.10'
 
       - name: Install Libraries
-        run: pip install requests
+        # ddgs = free, keyless DuckDuckGo search. trafilatura = free full-page text
+        # extraction from result URLs. TAVILY_API_KEY is no longer needed at all.
+        run: pip install requests ddgs trafilatura
 
       - name: Execute Hobby AI Loop
         env:
           OPENROUTER_API_KEY_2: ${{ secrets.OPENROUTER_API_KEY }}
-          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }} # Feeds your key directly to your script
         run: python hobby_ai.py
 
       - name: Sync and Commit Knowledge Archive to GitHub Repository
