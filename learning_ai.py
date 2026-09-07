@@ -1,20 +1,23 @@
 import time
+import random
 import datetime
 import requests
 import os
 import json
 import sys
 
+from ddgs import DDGS
+import trafilatura
+
 # ========================================================
 # 🔒 SECURE KEY CODES
 # ========================================================
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
-TAVILY_API_KEY = os.environ.get("TAVILY_API_KEY")  # Added Tavily environment key
+# TAVILY_API_KEY no longer needed — search is now via free/keyless DuckDuckGo (ddgs)
 
-# 👇 UPDATED UNIFIED FILE TARGET
+# 👇 UNIFIED FILE TARGET
 ARCHIVE_FILE = "i pray this works 3.json"
 
-# Generalist category domains to research round-robin style
 CATEGORIES = ["academic", "advanced_tech", "gaming_core", "current_affairs"]
 
 PROMPTS = {
@@ -43,76 +46,66 @@ def determine_next_dynamic_topic():
     return PROMPTS[next_cat], next_cat
 
 
-def fetch_real_world_context(search_query, max_wait=150, poll_every=5):
+def fetch_real_world_context(search_query, max_results=5, max_retries=3):
     """
-    Uses Tavily's /research endpoint to get a synthesized research report on the topic,
-    instead of raw search snippets. /research is ASYNC: submit a task, then poll for
-    its result using the request_id it hands back.
+    Free, keyless web search via DuckDuckGo (ddgs), enriched with full-page text
+    extraction (trafilatura) from the top couple of results, since DDG only gives
+    titles + short snippets on its own — not enough for the OpenRouter step to
+    reliably pull real numbers/formulas out of.
 
     Returns: (content_text, sources_list)
     """
-    if not TAVILY_API_KEY:
-        print("⚠️ Warning: TAVILY_API_KEY environment variable is missing.")
-        return "Tavily API key is missing. Skipping external matrix lookup context.", []
+    results = []
+    for attempt in range(1, max_retries + 1):
+        try:
+            with DDGS() as ddgs:
+                results = list(ddgs.text(search_query, max_results=max_results))
+        except Exception as e:
+            print(f"⚠️ DuckDuckGo search error (attempt {attempt}/{max_retries}): {e}")
+            results = []
 
-    headers = {
-        "Authorization": f"Bearer {TAVILY_API_KEY}",
-        "Content-Type": "application/json"
-    }
+        if results:
+            break
 
-    # 1) Submit the research task
-    try:
-        submit_response = requests.post(
-            "https://api.tavily.com/research",
-            headers=headers,
-            json={
-                "input": search_query,
-                "model": "mini",          # "mini" = fast/narrow, matches our per-category prompts
-                "output_length": "standard"
-            },
-            timeout=15
-        )
-        submit_response.raise_for_status()
-        task = submit_response.json()
-        request_id = task["request_id"]
-    except Exception as e:
-        print(f"⚠️ Web collection issue (submit stage): {e}")
+        print(f"⚠️ DuckDuckGo returned zero results for '{search_query}' "
+              f"(attempt {attempt}/{max_retries}) — likely rate-limited. Backing off.")
+        time.sleep(5 + random.uniform(0, 3) + attempt * 3)
+
+    if not results:
+        print(f"❌ DuckDuckGo gave no usable results for '{search_query}' after {max_retries} attempts.")
         return "Global data matrix reference retrieval timeout.", []
 
-    # 2) Poll until the task completes, fails, or we time out
-    elapsed = 0
-    while elapsed < max_wait:
+    sources = []
+    snippet_block = ""
+    for r in results:
+        title = r.get("title", "")
+        url = r.get("href", "")
+        body = r.get("body", "")
+        snippet_block += f"### {title}\n{body}\nSource: {url}\n\n"
+        if url:
+            sources.append({"title": title, "url": url})
+
+    # Enrich with full-page text from the top 2 results — snippets alone are too
+    # thin for the OpenRouter extraction step to find real numbers/formulas in.
+    enriched_block = ""
+    for r in results[:2]:
+        url = r.get("href")
+        if not url:
+            continue
         try:
-            status_response = requests.get(
-                f"https://api.tavily.com/research/{request_id}",
-                headers=headers,
-                timeout=15
-            )
-            status_response.raise_for_status()
-            data = status_response.json()
+            downloaded = trafilatura.fetch_url(url)
+            if downloaded:
+                extracted = trafilatura.extract(downloaded)
+                if extracted:
+                    enriched_block += f"\n\n--- Full text from {url} ---\n{extracted[:4000]}"
         except Exception as e:
-            print(f"⚠️ Web collection issue (poll stage): {e}")
-            return "Global data matrix reference retrieval timeout.", []
+            print(f"⚠️ Could not extract full text from {url}: {e}")
 
-        status = data.get("status")
+    full_context = (snippet_block + enriched_block).strip()
+    if not full_context:
+        return "Global data matrix reference retrieval timeout.", []
 
-        if status == "completed":
-            content = data.get("content", "")
-            sources = data.get("sources", [])
-            if content:
-                return content, sources
-            return "Active global parameter verification block active.", []
-
-        if status == "failed":
-            print(f"⚠️ Tavily research task failed for query: '{search_query}'")
-            return "Global data matrix reference retrieval timeout.", []
-
-        # status is "pending" or "in_progress" — wait and check again
-        time.sleep(poll_every)
-        elapsed += poll_every
-
-    print(f"⚠️ Tavily research task timed out after {max_wait}s for query: '{search_query}'")
-    return "Global data matrix reference retrieval timeout.", []
+    return full_context, sources
 
 
 def save_to_offline_database(fact_text, timestamp, category_name, sources):
@@ -136,6 +129,60 @@ def save_to_offline_database(fact_text, timestamp, category_name, sources):
         json.dump(existing_data, f, indent=4)
 
 
+def is_junk_response(text):
+    """
+    Detects non-answer output from OpenRouter's free-model router — e.g. a raw
+    moderation-classifier verdict ("User Safety: safe") leaking into the response
+    instead of the actual log entry. This isn't the topic being blocked — it's a
+    flaky underlying free model that `openrouter/free` randomly routed to on that
+    call. It happens on completely unrelated topics too (networking, engineering),
+    which confirms it isn't content-based.
+    """
+    if not text or not text.strip():
+        return True
+    lowered = text.strip().lower()
+    junk_markers = ["user safety: safe", "user safety:", "user safety"]
+    if any(lowered == m or lowered.startswith(m) for m in junk_markers):
+        return True
+    # A genuine log entry is always much longer than this — anything this short
+    # is almost certainly a non-answer rather than real formatted content.
+    if len(text.strip()) < 40:
+        return True
+    return False
+
+
+def query_openrouter_for_log_entry(system_prompt, user_prompt, max_attempts=3):
+    """
+    Calls OpenRouter and retries (staying on openrouter/free, which re-rolls the
+    underlying model each call) if the response looks like junk rather than a
+    real answer. Returns the clean text, or None if every attempt came back junk.
+    """
+    for attempt in range(1, max_attempts + 1):
+        response = requests.post(
+            url="https://openrouter.ai/api/v1/chat/completions",
+            headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"},
+            json={
+                "model": "openrouter/free",
+                "messages": [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt}
+                ]
+            },
+            timeout=30
+        )
+        response.raise_for_status()
+        text = response.json()['choices'][0]['message']['content']
+
+        if not is_junk_response(text):
+            return text
+
+        print(f"⚠️ OpenRouter returned a junk/non-answer response "
+              f"(attempt {attempt}/{max_attempts}): {text[:80]!r} — retrying.")
+        time.sleep(3)
+
+    return None
+
+
 print(f" Learning AI looping. Saving to: '{ARCHIVE_FILE}'")
 
 # 👇 MATCHES YOUR MAXIMUM DAILY API QUOTA
@@ -152,41 +199,28 @@ while loop_count < MAX_LOOPS:
         # 1️⃣ Dynamically change fields so the database builds an all-rounder memory base
         search_query, assigned_cat = determine_next_dynamic_topic()
 
-        # 2️⃣ Grab a synthesized research report + sources from Tavily
+        # 2️⃣ Grab search results + full-page context from DuckDuckGo (free, no key)
         print(f" [{current_time}] Processing Loop #{loop_count}/{MAX_LOOPS} for core branch: '{assigned_cat}'...")
         real_grounding_text, sources = fetch_real_world_context(search_query)
 
-        if real_grounding_text in (
-            "Global data matrix reference retrieval timeout.",
-            "Tavily API key is missing. Skipping external matrix lookup context.",
-            "Active global parameter verification block active."
-        ):
+        if real_grounding_text == "Global data matrix reference retrieval timeout.":
             failure_count += 1
             print(f"❌ No usable research context for '{assigned_cat}', skipping OpenRouter call.\n")
-            time.sleep(15)
+            time.sleep(8)
             continue
 
-        # 3️⃣ Query OpenRouter to parse it into beautiful, dense markdown tables and descriptions
-        response = requests.post(
-            url="https://openrouter.ai/api/v1/chat/completions",
-            headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"},
-            json={
-                "model": "openrouter/free",
-                "messages": [
-                    {
-                        "role": "system",
-                        "content": "You are a precise technical data formatting assistant. Your job is to extract real data numbers, verifiable patch adjustments, scientific constants, and academic rules from the provided context into Markdown formats. You are strictly forbidden from inventing dummy numbers or hallucinating records."
-                    },
-                    {
-                        "role": "user",
-                        "content": f"Using the verified raw context text below:\n---\n{real_grounding_text}\n---\nCompile a technical log entry block for the topic: '{search_query}'. Extract real numbers, formulas, constants, or text matrices directly from the context. Do not generate fictional data."
-                    }
-                ]
-            },
-            timeout=30
-        )
-        response.raise_for_status()
-        clean_fact = response.json()['choices'][0]['message']['content']
+        # 3️⃣ Query OpenRouter to parse it into beautiful, dense markdown tables and
+        #    descriptions, retrying if the free router lands on a flaky model that
+        #    returns junk instead of a real answer
+        system_prompt = "You are a precise technical data formatting assistant. Your job is to extract real data numbers, verifiable patch adjustments, scientific constants, and academic rules from the provided context into Markdown formats. You are strictly forbidden from inventing dummy numbers or hallucinating records."
+        user_prompt = f"Using the verified raw context text below:\n---\n{real_grounding_text}\n---\nCompile a technical log entry block for the topic: '{search_query}'. Extract real numbers, formulas, constants, or text matrices directly from the context. Do not generate fictional data."
+
+        clean_fact = query_openrouter_for_log_entry(system_prompt, user_prompt)
+
+        if clean_fact is None:
+            failure_count += 1
+            print(f"❌ OpenRouter kept returning junk/non-answers for '{assigned_cat}' after retries — skipping save.\n")
+            continue
 
         # 4️⃣ Commit directly to your local database tracking file, with sources for provenance
         save_to_offline_database(clean_fact, current_time, assigned_cat, sources)
@@ -198,7 +232,9 @@ while loop_count < MAX_LOOPS:
         print(f" processing loop issue: {e}. Initiating 15-second loop protection cooldown.")
         time.sleep(15)
 
-    time.sleep(10)  # Rate-limit safety padding
+    # Rate-limit safety padding — DuckDuckGo bot-detection tends to fire earlier
+    # than most real search APIs, especially from shared CI-runner IPs.
+    time.sleep(10 + random.uniform(0, 5))
 
 print(f"⏱️ Daily quota loop run complete. Total processed: {loop_count} | Success: {success_count} | Failed: {failure_count}")
 
