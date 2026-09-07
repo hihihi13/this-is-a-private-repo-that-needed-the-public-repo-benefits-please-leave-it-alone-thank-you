@@ -1,20 +1,23 @@
 import time
+import random
 import datetime
 import requests
 import os
 import json
 import sys
 
+from ddgs import DDGS
+import trafilatura
+
 # ========================================================
 # 🔒 SECURE KEY CODES
 # ========================================================
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY_2")
-TAVILY_API_KEY = os.environ.get("TAVILY_API_KEY")  # Add this secret token to your GitHub secrets
+# TAVILY_API_KEY no longer needed — search is now via free/keyless DuckDuckGo (ddgs)
 
 # 👇 FILE NAME MATRIX TARGET
 ARCHIVE_FILE = "i hopefully pray this works.json"
 
-# Five... okay, way more than five targeted core domains to research round-robin style
 CATEGORIES = ["gaming", "electronics", "engineering", "astrophysics", "cameras", "terminal ballistics", "external ballistics", "internal ballistics", "continuum mechanics", "penetration mechanics", "robotics", "psychology",
 "quantum_computing", "aerodynamics", "molecular_biology", "cryptography", "metallurgy", "networking", "thermodynamics", "machine_learning", "fluid_dynamics", "organic_chemistry", "quantitative_finance", "optics",
 "biomimetic_gaits", "servo_telemetry", "inverse_kinematics", "power_distribution","neurotransmitter_kinetics", "micro_expression_facs", "speech_prosody_analysis", "social_signaling_metrics",
@@ -83,76 +86,66 @@ def determine_next_dynamic_topic():
     return PROMPTS[next_cat], next_cat
 
 
-def fetch_real_world_context(search_query, max_wait=150, poll_every=5):
+def fetch_real_world_context(search_query, max_results=5, max_retries=3):
     """
-    Uses Tavily's /research endpoint to get a synthesized research report on the topic,
-    instead of raw search snippets. /research is ASYNC: you submit a task, then poll
-    for its result using the request_id it hands back.
+    Free, keyless web search via DuckDuckGo (ddgs), enriched with full-page text
+    extraction (trafilatura) from the top couple of results, since DDG only gives
+    titles + short snippets on its own — not enough for the OpenRouter step to
+    reliably pull real numbers/formulas out of.
 
     Returns: (content_text, sources_list)
     """
-    if not TAVILY_API_KEY:
-        print("⚠️ Warning: TAVILY_API_KEY environment variable is missing.")
-        return "Factual lookup system fallback baseline parameters engaged.", []
+    results = []
+    for attempt in range(1, max_retries + 1):
+        try:
+            with DDGS() as ddgs:
+                results = list(ddgs.text(search_query, max_results=max_results))
+        except Exception as e:
+            print(f"⚠️ DuckDuckGo search error (attempt {attempt}/{max_retries}): {e}")
+            results = []
 
-    headers = {
-        "Authorization": f"Bearer {TAVILY_API_KEY}",
-        "Content-Type": "application/json"
-    }
+        if results:
+            break
 
-    # 1) Submit the research task
-    try:
-        submit_response = requests.post(
-            "https://api.tavily.com/research",
-            headers=headers,
-            json={
-                "input": search_query,
-                "model": "mini",          # "mini" = fast/narrow, matches our per-category prompts
-                "output_length": "standard"
-            },
-            timeout=15
-        )
-        submit_response.raise_for_status()
-        task = submit_response.json()
-        request_id = task["request_id"]
-    except Exception as e:
-        print(f"⚠️ Web collection issue (submit stage): {e}")
+        print(f"⚠️ DuckDuckGo returned zero results for '{search_query}' "
+              f"(attempt {attempt}/{max_retries}) — likely rate-limited. Backing off.")
+        time.sleep(5 + random.uniform(0, 3) + attempt * 3)
+
+    if not results:
+        print(f"❌ DuckDuckGo gave no usable results for '{search_query}' after {max_retries} attempts.")
         return "Global data matrix reference retrieval timeout.", []
 
-    # 2) Poll until the task completes, fails, or we time out
-    elapsed = 0
-    while elapsed < max_wait:
+    sources = []
+    snippet_block = ""
+    for r in results:
+        title = r.get("title", "")
+        url = r.get("href", "")
+        body = r.get("body", "")
+        snippet_block += f"### {title}\n{body}\nSource: {url}\n\n"
+        if url:
+            sources.append({"title": title, "url": url})
+
+    # Enrich with full-page text from the top 2 results — snippets alone are too
+    # thin for the OpenRouter extraction step to find real numbers/formulas in.
+    enriched_block = ""
+    for r in results[:2]:
+        url = r.get("href")
+        if not url:
+            continue
         try:
-            status_response = requests.get(
-                f"https://api.tavily.com/research/{request_id}",
-                headers=headers,
-                timeout=15
-            )
-            status_response.raise_for_status()
-            data = status_response.json()
+            downloaded = trafilatura.fetch_url(url)
+            if downloaded:
+                extracted = trafilatura.extract(downloaded)
+                if extracted:
+                    enriched_block += f"\n\n--- Full text from {url} ---\n{extracted[:4000]}"
         except Exception as e:
-            print(f"⚠️ Web collection issue (poll stage): {e}")
-            return "Global data matrix reference retrieval timeout.", []
+            print(f"⚠️ Could not extract full text from {url}: {e}")
 
-        status = data.get("status")
+    full_context = (snippet_block + enriched_block).strip()
+    if not full_context:
+        return "Global data matrix reference retrieval timeout.", []
 
-        if status == "completed":
-            content = data.get("content", "")
-            sources = data.get("sources", [])
-            if content:
-                return content, sources
-            return "Active real-world parameter registry tracking metrics.", []
-
-        if status == "failed":
-            print(f"⚠️ Tavily research task failed for query: '{search_query}'")
-            return "Global data matrix reference retrieval timeout.", []
-
-        # status is "pending" or "in_progress" — wait and check again
-        time.sleep(poll_every)
-        elapsed += poll_every
-
-    print(f"⚠️ Tavily research task timed out after {max_wait}s for query: '{search_query}'")
-    return "Global data matrix reference retrieval timeout.", []
+    return full_context, sources
 
 
 def save_to_offline_database(fact_text, timestamp, category_name, sources):
@@ -191,17 +184,16 @@ while loop_count < MAX_LOOPS:
         # 1️⃣ Dynamically rotate categories so your offline data remains structurally varied
         search_query, assigned_cat = determine_next_dynamic_topic()
 
-        # 2️⃣ Grab a synthesized research report + sources from Tavily
+        # 2️⃣ Grab search results + full-page context from DuckDuckGo (free, no key)
         print(f" [{current_time}] Processing Loop #{loop_count}/{MAX_LOOPS} for category: '{assigned_cat}'...")
         real_grounding_text, sources = fetch_real_world_context(search_query)
 
-        if real_grounding_text in (
-            "Global data matrix reference retrieval timeout.",
-            "Factual lookup system fallback baseline parameters engaged."
-        ):
+        if real_grounding_text == "Global data matrix reference retrieval timeout.":
             failure_count += 1
             print(f"❌ No usable research context for '{assigned_cat}', skipping OpenRouter call.\n")
-            time.sleep(12)
+            # A little extra courtesy delay after a failure, on top of the loop's own
+            # rate-limit padding below, to go easier on DDG before the next query.
+            time.sleep(8)
             continue
 
         # 3️⃣ Query OpenRouter to parse it down into clean data rows
@@ -236,7 +228,9 @@ while loop_count < MAX_LOOPS:
         print(f"Core processing loop issue: {e}. Cooldown sequence start.")
         time.sleep(10)
 
-    time.sleep(12)  # Prevents public scraping connection blocks
+    # Rate-limit safety padding — DuckDuckGo bot-detection tends to fire earlier
+    # than most real search APIs, especially from shared CI-runner IPs.
+    time.sleep(12 + random.uniform(0, 5))
 
 print(f"⏱️ Loop completed. Processed: {loop_count} | Success: {success_count} | Failed: {failure_count}")
 
