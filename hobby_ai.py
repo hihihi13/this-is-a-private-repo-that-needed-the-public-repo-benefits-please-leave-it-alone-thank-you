@@ -169,6 +169,60 @@ def save_to_offline_database(fact_text, timestamp, category_name, sources):
         json.dump(existing_data, f, indent=4)
 
 
+def is_junk_response(text):
+    """
+    Detects non-answer output from OpenRouter's free-model router — e.g. a raw
+    moderation-classifier verdict ("User Safety: safe") leaking into the response
+    instead of the actual log entry. This isn't the topic being blocked — it's a
+    flaky underlying free model that `openrouter/free` randomly routed to on that
+    call. It happens on completely unrelated topics too (networking, engineering),
+    which confirms it isn't content-based.
+    """
+    if not text or not text.strip():
+        return True
+    lowered = text.strip().lower()
+    junk_markers = ["user safety: safe", "user safety:", "user safety"]
+    if any(lowered == m or lowered.startswith(m) for m in junk_markers):
+        return True
+    # A genuine log entry is always much longer than this — anything this short
+    # is almost certainly a non-answer rather than real formatted content.
+    if len(text.strip()) < 40:
+        return True
+    return False
+
+
+def query_openrouter_for_log_entry(system_prompt, user_prompt, max_attempts=3):
+    """
+    Calls OpenRouter and retries (staying on openrouter/free, which re-rolls the
+    underlying model each call) if the response looks like junk rather than a
+    real answer. Returns the clean text, or None if every attempt came back junk.
+    """
+    for attempt in range(1, max_attempts + 1):
+        response = requests.post(
+            url="https://openrouter.ai/api/v1/chat/completions",
+            headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"},
+            json={
+                "model": "openrouter/free",
+                "messages": [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt}
+                ]
+            },
+            timeout=30
+        )
+        response.raise_for_status()
+        text = response.json()['choices'][0]['message']['content']
+
+        if not is_junk_response(text):
+            return text
+
+        print(f"⚠️ OpenRouter returned a junk/non-answer response "
+              f"(attempt {attempt}/{max_attempts}): {text[:80]!r} — retrying.")
+        time.sleep(3)
+
+    return None
+
+
 print(f"Hobby loop running. Target storage file: '{ARCHIVE_FILE}'")
 
 MAX_LOOPS = 25
@@ -196,27 +250,17 @@ while loop_count < MAX_LOOPS:
             time.sleep(8)
             continue
 
-        # 3️⃣ Query OpenRouter to parse it down into clean data rows
-        response = requests.post(
-            url="https://openrouter.ai/api/v1/chat/completions",
-            headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"},
-            json={
-                "model": "openrouter/free",
-                "messages": [
-                    {
-                        "role": "system",
-                        "content": "You are a precise technical data formatting assistant. Your job is to extract real data numbers, real patch logs, and accurate engineering constants from the provided context into Markdown formats. You are strictly forbidden from inventing dummy numbers or placeholder variables."
-                    },
-                    {
-                        "role": "user",
-                        "content": f"Using the verified raw context text below:\n---\n{real_grounding_text}\n---\nCompile a technical log entry block for: '{search_query}'. Extract real numbers, formulas, or game data points directly from the context. Do not generate fictional numbers."
-                    }
-                ]
-            },
-            timeout=30
-        )
-        response.raise_for_status()
-        clean_fact = response.json()['choices'][0]['message']['content']
+        # 3️⃣ Query OpenRouter to parse it down into clean data rows, retrying if the
+        #    free router lands on a flaky model that returns junk instead of a real answer
+        system_prompt = "You are a precise technical data formatting assistant. Your job is to extract real data numbers, real patch logs, and accurate engineering constants from the provided context into Markdown formats. You are strictly forbidden from inventing dummy numbers or placeholder variables."
+        user_prompt = f"Using the verified raw context text below:\n---\n{real_grounding_text}\n---\nCompile a technical log entry block for: '{search_query}'. Extract real numbers, formulas, or game data points directly from the context. Do not generate fictional numbers."
+
+        clean_fact = query_openrouter_for_log_entry(system_prompt, user_prompt)
+
+        if clean_fact is None:
+            failure_count += 1
+            print(f"❌ OpenRouter kept returning junk/non-answers for '{assigned_cat}' after retries — skipping save.\n")
+            continue
 
         # 4️⃣ Lock clean text database entries to local repository file, with sources for provenance
         save_to_offline_database(clean_fact, current_time, assigned_cat, sources)
