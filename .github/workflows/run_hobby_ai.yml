@@ -1,4 +1,4 @@
-name: Hobby AI Loop
+  name: Hobby AI Loop
 
 on:
   schedule:
@@ -33,7 +33,7 @@ jobs:
 
       - name: Execute Hobby AI Loop
         env:
-          OPENROUTER_API_KEY_2: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_API_KEY_2: ${{ secrets.OPENROUTER_API_KEY_2 }}
         run: python hobby_ai.py
 
       - name: Sync and Commit Knowledge Archive to GitHub Repository
