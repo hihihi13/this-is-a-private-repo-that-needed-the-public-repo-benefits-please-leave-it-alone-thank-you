@@ -151,13 +151,19 @@ def is_junk_response(text):
     return False
 
 
-def query_openrouter_for_log_entry(system_prompt, user_prompt, max_attempts=3):
+def query_openrouter_for_log_entry(system_prompt, user_prompt, max_attempts=2):
     """
     Calls OpenRouter and retries (staying on openrouter/free, which re-rolls the
     underlying model each call) if the response looks like junk rather than a
     real answer. Returns the clean text, or None if every attempt came back junk.
+
+    Every attempt — including retries — increments the global OPENROUTER_CALLS_USED
+    counter, since failed/junk attempts still count against the daily free-tier quota.
     """
+    global OPENROUTER_CALLS_USED
+
     for attempt in range(1, max_attempts + 1):
+        OPENROUTER_CALLS_USED += 1
         response = requests.post(
             url="https://openrouter.ai/api/v1/chat/completions",
             headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"},
@@ -185,13 +191,27 @@ def query_openrouter_for_log_entry(system_prompt, user_prompt, max_attempts=3):
 
 print(f" Learning AI looping. Saving to: '{ARCHIVE_FILE}'")
 
-# 👇 MATCHES YOUR MAXIMUM DAILY API QUOTA
+# 👇 Upper ceiling on search loops — the real gate below is the OpenRouter call budget
 MAX_LOOPS = 50
+
+# 👇 OpenRouter's free tier (no credits purchased) caps at 50 requests/day, account-wide.
+#    This script runs twice a day, so each run gets a slice of that — 20 here, ×2 runs
+#    = 40/day, leaving a ~10-request buffer for retries, manual test runs, etc.
+#    Tune this down further if you still see 429s, or up if you confirm you have headroom.
+MAX_OPENROUTER_CALLS = 20
+OPENROUTER_CALLS_USED = 0
+
 loop_count = 0
 success_count = 0
 failure_count = 0
 
 while loop_count < MAX_LOOPS:
+    if OPENROUTER_CALLS_USED >= MAX_OPENROUTER_CALLS:
+        print(f"🛑 Reached this run's OpenRouter budget ({MAX_OPENROUTER_CALLS} calls) — "
+              f"stopping early to stay within the shared 50/day free-tier limit. "
+              f"Processed {loop_count} loops, used {OPENROUTER_CALLS_USED} OpenRouter calls.")
+        break
+
     try:
         current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         loop_count += 1
@@ -236,7 +256,8 @@ while loop_count < MAX_LOOPS:
     # than most real search APIs, especially from shared CI-runner IPs.
     time.sleep(10 + random.uniform(0, 5))
 
-print(f"⏱️ Daily quota loop run complete. Total processed: {loop_count} | Success: {success_count} | Failed: {failure_count}")
+print(f"⏱️ Daily quota loop run complete. Total processed: {loop_count} | Success: {success_count} | "
+      f"Failed: {failure_count} | OpenRouter calls used: {OPENROUTER_CALLS_USED}/{MAX_OPENROUTER_CALLS}")
 
 # Fail the workflow loudly if most of the run produced nothing usable, instead of
 # silently exiting 0 like before. Tune the threshold if a partial-failure run is fine for you.
