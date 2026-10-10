@@ -65,7 +65,8 @@ PROMPTS = {
 "genomic_editing": "base editors prime editing cas12a off target mutations target sequence efficiency metrics genomic mapping",
 "hypersonic_thermodynamics": "stagnation enthalpy bow shock wave boundary layer ionization re-entry heating mach equations",
 "high_frequency_trading": "limit order book mechanics market micro-structure latency arbitrage stochastic point processes market impact equations",
-"coding"
+"coding":"software engineering code quality refactoring API contracts "
+"coding":"unit testing performance tuning design patterns implementation details"
 }
 
 
