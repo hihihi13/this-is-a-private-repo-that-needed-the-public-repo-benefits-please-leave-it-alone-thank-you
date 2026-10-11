@@ -22,7 +22,7 @@ CATEGORIES = ["gaming", "electronics", "engineering", "astrophysics", "cameras",
 "quantum_computing", "aerodynamics", "molecular_biology", "cryptography", "metallurgy", "networking", "thermodynamics", "machine_learning", "fluid_dynamics", "organic_chemistry", "quantitative_finance", "optics",
 "biomimetic_gaits", "servo_telemetry", "inverse_kinematics", "power_distribution","neurotransmitter_kinetics", "micro_expression_facs", "speech_prosody_analysis", "social_signaling_metrics",
 "plasma_physics", "evolutionary_game_theory", "computational_neuroscience", "nanomaterial_engineering",
-"chaos_theory", "genomic_editing", "hypersonic_thermodynamics", "high_frequency_trading", "coding"]
+"chaos_theory", "genomic_editing", "hypersonic_thermodynamics", "high_frequency_trading"]
 
 PROMPTS = {
 "gaming": "Delta Force Hawk Ops video game patch notes weapon meta weapon tuning armor penetration damage values",
@@ -64,9 +64,7 @@ PROMPTS = {
 "chaos_theory": "lorenz attractor lyapunov exponent strange attractors phase space bifurcation non-linear differential equations",
 "genomic_editing": "base editors prime editing cas12a off target mutations target sequence efficiency metrics genomic mapping",
 "hypersonic_thermodynamics": "stagnation enthalpy bow shock wave boundary layer ionization re-entry heating mach equations",
-"high_frequency_trading": "limit order book mechanics market micro-structure latency arbitrage stochastic point processes market impact equations",
-"coding":"software engineering code quality refactoring API contracts "
-"coding":"unit testing performance tuning design patterns implementation details"
+"high_frequency_trading": "limit order book mechanics market micro-structure latency arbitrage stochastic point processes market impact equations"
 }
 
 
