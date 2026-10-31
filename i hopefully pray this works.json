@@ -62920,5 +62920,680 @@
                 "url": "https://www.emergentmind.com/topics/stabilizer-measurement-framework"
             }
         ]
+    },
+    {
+        "fact": "# Technical Log Entry: NACA Airfoil Aerodynamics\n\n**Subject:** NACA airfoil lift/drag coefficients, Reynolds number, chord length, and governing equations  \n**Source Context:** Wikipedia (NACA airfoil), Mech Codex Airfoil Analysis Calculator, mysimulator.uk, VT Pressbooks  \n**Extraction Date:** Based on provided context only\n\n---\n\n## 1. NACA 4-Digit Airfoil Nomenclature\n\n| Digit / Feature | Definition | Example: NACA 2412 |\n|-----------------|------------|--------------------|\n| 1st digit | Maximum camber as % of chord | 2% camber |\n| 2nd digit | Position of maximum camber from leading edge in tenths of chord | 40% (0.4c) |\n| 3rd & 4th digits | Maximum thickness as % of chord | 12% thickness |\n| Max thickness location | Fixed at 30% of chord from leading edge | \u2014 |\n\n**Reference airfoils from context:**\n- **NACA 0015:** Symmetrical (0% camber), 15% thickness-to-chord ratio.\n- **NACA 0012:** Symmetrical (0% camber), 12% thickness-to-chord ratio.\n\n---\n\n## 2. Specific Airfoil Data Points\n\n| Airfoil Designation | Min Pressure Location | Max Thickness | Design Lift Coefficient | Laminar Flow Range ($C_l$) |\n|---------------------|----------------------|---------------|-------------------------|----------------------------|\n| NACA 65 4-415 | 50% of chord | 15% of chord | 0.4 | 0 to 0.8 |\n\n---\n\n## 3. Aerodynamic Equations & Coefficients\n\n### Thin Airfoil Theory (Lift Coefficient)\n$$C_l = 2\\pi\\alpha$$\n\n- Used by the Mech Codex Airfoil Analysis Calculator for NACA 4-digit profiles.\n- $\\alpha$: angle of attack.\n\n### Geometry Variables (Symmetrical 4-Digit Series)\n| Symbol | Definition | Value / Range |\n|--------|------------|---------------|\n| $x$ | Position along chord | 0 to 1.00 (0% to 100%) |\n| $t$ | Maximum thickness as fraction of chord | Last two digits \u00f7 100 |\n| $y_t$ | Half thickness at given $x$ (centerline to surface) | \u2014 |\n\n**Trailing-edge condition:** At $x = 1$, thickness is not quite zero. Modifying the last thickness-distribution coefficient to **\u22120.1036** produces the smallest change to overall shape while achieving a zero-thickness trailing edge.\n\n### Camber Line Variables (Cambered 4-Digit Series)\n| Symbol | Definition |\n|--------|------------|\n| $m$ | Maximum camber ($100m$ = first digit) |\n| $p$ | Location of maximum camber ($10p$ = second digit) |\n\n---\n\n## 4. Operating Ranges & Simulation Parameters\n\n| Parameter | Range / Value | Notes | Source |\n|-----------|---------------|-------|--------|\n| Angle of Attack | \u221210\u00b0 to 20\u00b0 | Used to grow lift and trigger stall | mysimulator.uk |\n| Freestream Velocity ($V_\\infty$) | 10\u2013100 m/s | Adjusts Reynolds number and lift force | mysimulator.uk |\n| Stall Angle (typical airfoil) | 12\u201318\u00b0 | Angle of attack at max $C_l$ before sharp lift drop | Mech Codex |\n| Reynolds Number | Affected by $V_\\infty$ and chord length | No specific Re values or formula provided in context | mysimulator.uk |\n\n---\n\n## 5. Computational Method (Mech Codex Calculator)\n\n- **Method:** Thin-airfoil theory with turbulent-flat-plate drag estimate.\n- **Outputs:** Lift coefficient ($C_l$), drag coefficient ($C_d$), quarter-chord moment coefficient, lift-to-drag ratio, stall angle.\n- **Applicable standards/citations:** NACA Technical Report series, UIUC Airfoil Database, ISO 1940.\n- **Last updated:** 2026-10-12.\n- **Disclaimer:** Results should be independently verified before use in safety-critical applications.\n\n---\n\n*End of log entry.*",
+        "timestamp": "2026-10-31 21:01:31",
+        "category": "aerodynamics",
+        "sources": [
+            {
+                "title": "NACA airfoil - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/NACA_airfoil"
+            },
+            {
+                "title": "Airfoil Analysis (NACA) Calculator - Mech Codex",
+                "url": "https://mechcodex.com/calculators/fluid-mechanics/airfoil-analysis"
+            },
+            {
+                "title": "Airfoil Calculator Virtual Lab \u2014 NACA Cl, Cd, Cp | MechSimulator",
+                "url": "https://mechsimulator.com/tools/airfoil-analysis/"
+            },
+            {
+                "title": "Aerofoil & Lift \u2014 NACA Wing Aerodynamics Simulation | 3D\u2026",
+                "url": "https://www.mysimulator.uk/fluid-dynamics/aerofoil/"
+            },
+            {
+                "title": "Appendix A: Airfoil Data - Aerodynamics and Aircraft Performance, 3rd ...",
+                "url": "https://pressbooks.lib.vt.edu/aerodynamics/back-matter/airfoil-data/"
+            }
+        ]
+    },
+    {
+        "fact": "```markdown\n## Technical Log Entry: CRISPR-Cas9 Genome Editing - Molecular Pathway Mechanisms\n\n**Topic:** CRISPR-Cas9 gna sequencing rna polymerase transcription translation molecular pathway mechanisms\n\n**Source:** PMC8388126 (https://pmc.ncbi.nlm.nih.gov/articles/PMC8388126/) | PMC9420241 (https://pmc.ncbi.nlm.nih.gov/articles/PMC9420241/)\n\n### Molecular Pathway Mechanisms\n\n**CRISPR/Cas-9 System Components:**\n- **Guide RNA (gRNA):** Complementary base pairing with target sequence in gene of interest\n- **Cas-9 nuclease:** Creates double-stranded breaks (DSBs) at a site **3 base pair upstream** to the protospacer adjacent motif (PAM)\n- **Repair Pathways:** Two primary mechanisms for DSB repair:\n  - **NHEJ (Non-homologous end joining):** Joins DNA fragments in the absence of exogenous homologous DNA; active in all phases of the cell cycle\n  - **HDR (Homology-directed repair):** Requires exogenous homologous DNA template for precise repair\n\n**CRISPR/Cas-9 Mechanism Stages:**\n1. **Recognition:** gRNA recognizes target sequence via complementary base pairing\n2. **Cleavage:** Cas-9 nuclease makes DSB 3 bp upstream of PAM\n3. **Repair:** DSB is repaired by either NHEJ or HDR\n\n**Applications:**\n- **Medicine:** Cancer, HIV, sickle cell disease, cystic fibrosis, Duchenne muscular dystrophy\n- **Agriculture:** Design of new grains to improve nutritional value\n- **Biotechnology:** Gene therapy, regulation of specific genes through advanced Cas-9 protein modification\n\n**Transcription/Translation Context:**\n- RNA forms of CRISPR-Cas9-based gene therapies provide safer and more effective therapeutic outcomes\n- Rational engineering design of mRNA components combined with novel structural RNAs and delivery vehicles enhances therapeutic efficacy\n\n**Key Quantitative Data:**\n- DSB cleavage occurs **3 base pair** upstream of the protospacer adjacent motif (PAM)\n\n**References:**\n1. \"Mechanism and Applications of CRISPR/Cas-9-Mediated Genome Editing\" - PMC8388126\n2. \"CRISPR/Cas9 system: a reliable and facile genome editing tool in modern...\" - PMC9420241\n```\n\nThis log entry compiles only the real, verifiable data points from the provided context. The only specific numerical value extracted is \"3 base pair\" (the distance from PAM to the DSB site), which is explicitly stated in the abstract of PMC8388126. No fictional numbers or invented data points have been added.",
+        "timestamp": "2026-10-31 21:02:05",
+        "category": "molecular_biology",
+        "sources": [
+            {
+                "title": "Mechanism and Applications of CRISPR/Cas-9-Mediated Genome Editing",
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8388126/"
+            },
+            {
+                "title": "CRISPR/Cas9 system: a reliable and facile genome editing tool in modern ...",
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9420241/"
+            },
+            {
+                "title": "Principles of CRISPR-Cas9 technology: Advancements in genome editing ...",
+                "url": "https://www.sciencedirect.com/science/article/pii/S1773224724000066"
+            },
+            {
+                "title": "CRISPR Cas 9 Nuclease RNA-guided Genome Editing - Merck",
+                "url": "https://www.merckmillipore.com/GW/en/technical-documents/protocol/genomics/advanced-gene-editing/crispr-cas9-genome-editing"
+            },
+            {
+                "title": "Unlocking mRNA-driven CRISPR-Cas9 gene therapy via optimizing mRNA and ...",
+                "url": "https://www.cell.com/molecular-therapy-family/nucleic-acids/fulltext/S2162-2531(25)00291-4"
+            }
+        ]
+    },
+    {
+        "fact": "# Technical Log Entry: Cryptographic System Parameters\n\n## Scope\n`aes 256 rsa key generation curve25519 discrete logarithm cryptographic initialization vectors`\n\n## Verified Engineering Constants & Data Points\n\n### Curve25519 (Elliptic Curve Cryptography)\n| Parameter | Value | Source Context |\n| :--- | :--- | :--- |\n| Security Strength | 128 bits | Wikipedia, Unlockquery, Ed25519.com |\n| Key Size | 256 bits (32 bytes) | Wikipedia, GitHub, Ed25519.com |\n| Prime Field | $2^{255} - 19$ | Wikipedia, Unlockquery |\n| Curve Equation | $y^2 = x^3 + 486662 \\cdot x^2 + x$ | Wikipedia |\n| Curve Type | Montgomery curve | Wikipedia |\n| Co-factor | 8 | Wikipedia |\n| Author | Daniel J. Bernstein | Wikipedia, Unlockquery |\n| Introduction Year | 2005 | Wikipedia, Unlockquery |\n| Standardization | RFC 7748, SP 800-186 | Wikipedia |\n\n### RSA (Comparative Security Data)\n| Parameter | Value | Source Context |\n| :--- | :--- | :--- |\n| Equivalent Security Key Size | 3072-bit or 4096-bit | Ed25519.com (vs 256-bit ECC keys) |\n\n### Key Generation Log (Source: GitHub `curve25519_key_generation.md`)\n| Parameter | Value | Source Context |\n| :--- | :--- | :--- |\n| Document Last Update | Jan. 08th 2021 | GitHub |\n| Private Key Length | 32 bytes | GitHub |\n| Public Key Length | 32 bytes | GitHub |\n| Java Library Version | curve25519-java-0.5.0.jar | GitHub |\n| Sample Private Key (Base64) | `KOrUWVTgb7F+1KdpLn+2lRQDeeCuDaMkrhQ5ke6P4HM=` | GitHub |\n| Sample Public Key (Base64) | `BwMqVfr1myxqX8tikIPYCyNtpHgMLIg/2nUE+pLQnTE=` | GitHub |\n\n### AES References\n| Parameter | Value | Source Context |\n| :--- | :--- | :--- |\n| Symmetric Cipher Match | AES-128 | Ed25519.com (128 bits of security strength) |\n| Referenced Workflow | Curve25519 key exchange AES CBC 256 | GitHub |\n\n### Discrete Logarithm Context\n* **Problem Domain**: Elliptic Curve Cryptography (ECC)\n* **Security Design**: Prime order subgroup prevents Pohlig\u2013Hellman algorithm attack (Wikipedia).\n\n### Cryptographic Initialization Vectors\n* **Status**: Specific IV parameters (size, generation method) are not present in the provided context.",
+        "timestamp": "2026-10-31 21:02:24",
+        "category": "cryptography",
+        "sources": [
+            {
+                "title": "Curve25519 - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Curve25519"
+            },
+            {
+                "title": "curve25519_key_generation.md - GitHub",
+                "url": "https://github.com/java-crypto/cross_platform_crypto/blob/main/docs/curve25519_key_generation.md"
+            },
+            {
+                "title": "How Ed25519 Key Generation Works: Step-by-Step Security",
+                "url": "https://ed25519.com/blog/how-ed25519-key-generation-works/"
+            },
+            {
+                "title": "Discrete Logarithm Problems in ECC: Analyzing Curve25519 Benchmarks",
+                "url": "https://unlockquery.com/discrete-logarithm-problems-ecc-curve25519"
+            },
+            {
+                "title": "Ed25519 vs RSA: which should you use? \u2014 Ed25519.com",
+                "url": "https://ed25519.com/blog/ed25519-vs-rsa/"
+            }
+        ]
+    },
+    {
+        "fact": "```markdown\n# Technical Log: Iron-Carbon Phase Diagram & TTT Diagrams\n\n## Allotropic Transformations\n- \u03b1-Fe (BCC) stable below 912 \u00b0C\n- \u03b3-Fe (FCC) stable between 912 \u00b0C and 1394 \u00b0C\n\n## Carbon Solubility Limits\n- Austenite (\u03b3): max 2.14 wt% C\n- Ferrite (\u03b1): max 0.022 wt% C at eutectoid temperature (727 \u00b0C)\n\n## Invariant Reactions & Critical Temperatures\n- A1 (eutectoid): 727 \u00b0C\n- Eutectoid composition: 0.77 wt% C\n- A3 line: 912 \u00b0C (0% C) \u2192 727 \u00b0C (0.77% C)\n- Acm line: solvus for cementite in austenite (hypereutectoid steels)\n- Curie point (ferrite): 770 \u00b0C\n\n## Phase Properties\n| Phase      | Crystal Structure | Hardness (HV) | Notes |\n|------------|-------------------|---------------|-------|\n| Ferrite (\u03b1) | BCC               | 70\u2013100        | Ferromagnetic below 770 \u00b0C |\n| Austenite (\u03b3) | FCC             | \u2014             | Paramagnetic, soft, ductile |\n| Cementite (Fe\u2083C) | Orthorhombic   | \u2248800          | Hard, brittle intermetallic |\n| Pearlite    | Lamellar (\u03b1 + Fe\u2083C) | \u2014           | 88 vol% ferrite, 12 vol% cementite |\n| Bainite     | Acicular (\u03b1 + fine carbides) | \u2014 | Forms below pearlite nose; superior toughness |\n| Martensite  | BCT (supersaturated) | \u2014         | Diffusionless shear; hardest, most brittle |\n\n## TTT Diagram Kinetics\n- **C-curve shape**: incubation time minimized at \"bay\" temperature where driving force \u00d7 diffusivity peaks.\n- **Avrami equation**: \\( X = 1 - \\exp(-k t^n) \\)\n  - \\( X \\): volume fraction transformed\n  - \\( t \\): time\n  - \\( k \\): temperature-dependent rate constant\n  - \\( n \\): Avrami exponent (typically 1\u20134)\n- **Driving force for undercooling**: \\( \\Delta G_v = \\frac{\\Delta H_f \\Delta T}{T_E} \\)\n  - \\( \\Delta H_f \\): latent heat of transformation\n  - \\( \\Delta T = T_E - T \\): undercooling\n  - \\( T_E \\): equilibrium temperature\n\n## Notes\n- Pearlite interlamellar spacing \\( S_0 \\) controls mechanical properties (finer \u2192 higher strength).\n- TTT diagrams constructed via isothermal holds after austenitizing; transformation fractions measured metallographically.\n- CCT diagrams (continuous cooling) shift curves to longer times/lower temperatures relative to TTT.\n\n## Sources\n- MechCODEX Learn: TTT and CCT Diagrams (https://mechcodex.com/learn/materials/ttt-cct-diagrams)\n```",
+        "timestamp": "2026-10-31 21:02:56",
+        "category": "metallurgy",
+        "sources": [
+            {
+                "title": "TTT and CCT Diagrams | MechCODEX Learn | Mech Codex",
+                "url": "https://mechcodex.com/learn/materials/ttt-cct-diagrams"
+            },
+            {
+                "title": "Iron Carbon Equilibrium Diagram, Ttt Diagram and Heat Treatment",
+                "url": "https://www.slideshare.net/slideshow/iron-carbon-equilibrium-diagram-ttt-diagram-and-heat-treatment/80687760"
+            },
+            {
+                "title": "TTT Diagram Explained: Time-Temperature-Tr | MetallurgyZone",
+                "url": "https://metallurgyzone.com/ttt-diagram-steel-explained/"
+            },
+            {
+                "title": "Iron-Carbon Phase Diagram: Complete Guide | MetallurgyZone",
+                "url": "https://metallurgyzone.com/iron-carbon-phase-diagram-complete-guide/"
+            },
+            {
+                "title": "Interactive Iron-Carbon Phase Diagram - procalclab.com",
+                "url": "https://procalclab.com/interactive-iron-carbon-phase-diagram/"
+            }
+        ]
+    },
+    {
+        "fact": "```markdown\n## Technical Log Entry: TCP/IP Window Size, Packet Header Layout, RTT/Latency Equations\n*(Compiled from verified raw context \u2013 no fabricated data)*\n\n### 1. TCP/IP Window Size & Packet Header Layout\n| Item | Detail |\n|------|--------|\n| **TCP Header Field** | 16\u2011bit Receive Window (bytes) \u2013 defines how many bytes the receiver can accept before waiting for an ACK. |\n| **Maximum Unscaled Window** | **65\u202f535\u202fbytes** (\u2248\u202f64\u202fKB) \u2013 original TCP specification limit (chosen in 1981). |\n| **Window Scale Option (RFC\u202f7323)** | Left\u2011shift exponent **n** (0\u202f\u2013\u202f14) applied to the 16\u2011bit field during the three\u2011way handshake. |\n| **Effective Scaled Max Window** | `Max Window = 65,535 \u00d7 2\u207f`  (see Section\u202f4 for per\u2011exponent values). |\n\n### 2. Bandwidth\u2011Delay Product (BDP) & Ideal Window Equations\n- **Ideal Window (bytes)**  \n  `Ideal Window = (Bandwidth_bps \u00f7 8) \u00d7 RTT_seconds`  \n- **Alternative BDP definition (bytes)**  \n  `BDP = Bandwidth (bytes/sec) \u00d7 RTT (seconds)`  \n- **Example from source** \u2013 1\u202fGbps link, 50\u202fms RTT:  \n  `BDP = (1,000,000,000 \u00f7 8) \u00d7 0.05 = 6,250,000\u202fbytes \u2248 6.25\u202fMiB`  \n\n  *Any window smaller than the BDP caps throughput to `Window \u00d7 8 \u00f7 RTT` rather than full link capacity.*\n\n### 3. Throughput & Efficiency Formulas\n- **Throughput (bits per second)**  \n  `Throughput = Window_bytes \u00d7 8 \u00f7 RTT_seconds`  \n- **Efficiency (%)**  \n  `Efficiency = (Throughput \u00f7 Bandwidth) \u00d7 100`  \n- **Mathis (packet\u2011loss\u2011aware) model**  \n  `Throughput \u2248 (MSS \u00d7 \u221a(2/3)) \u00f7 (RTT \u00d7 \u221ap)`  \n\n  *Where `p` = packet\u2011loss probability, `MSS` = Maximum Segment Size (e.g., 1460\u202fbytes from the source).*\n\n### 4. Window\u2011Scale Factor Reference (n\u202f=\u202f0\u202f\u2013\u202f14)\n| n | Scale factor (2\u207f) | Max effective window (bytes) | Approx. size |\n|---|-------------------|------------------------------|--------------|\n| 0 | 1                 | 65,535                       | 64\u202fKB |\n| 1 | 2                 | 131,070                       | 128\u202fKB |\n| 2 | 4                 | 262,140                       | 256\u202fKB |\n| 3 | 8                 | 524,280                       | 512\u202fKB |\n| 4 | 16                | 1,048,560                     | 1\u202fMiB |\n| 5 | 32                | 2,097,120                     | 2\u202fMiB |\n| 6 | 64                | 4,194,240                     | 4\u202fMiB |\n| 7 | 128               | 8,388,480                     | 8\u202fMiB |\n| 8 | 256               | 16,777,216                    | 16\u202fMiB |\n| 9 | 512               | 33,554,432                    | 32\u202fMiB |\n|10 | 1\u202f024             | 67,108,864                    | 64\u202fMiB |\n|11 | 2\u202f048             | 134,217,728                   | 128\u202fMiB |\n|12 | 4\u202f096             | 268,435,456                   | 256\u202fMiB |\n|13 | 8\u202f192             | 536,870,912                   | 512\u202fMiB |\n|14 | 16\u202f384            | 1,073,741,824                 | \u2248\u202f1\u202fGiB |\n\n*Typical Linux client advertisement*: **n\u202f=\u202f7** (scale\u202f=\u202f128) \u2192 effective window up to **8\u202fMiB**.\n\n### 5. OS Socket Buffer Sizing (Linux)\n- **Default Linux socket buffers**: 128\u202fKB\u202f\u2013\u202f256\u202fKB.  \n- **Recommended minimum**: \u2265\u202f2\u202f\u00d7\u202fBDP (with safety margin).  \n- **Kernel sysctl keys to tune**:  \n  - `net.core.rmem_max`  \n  - `net.core.wmem_max`  \n  - `net.ipv4.tcp_rmem`  \n  - `net.ipv4.tcp_wmem`  \n- **macOS equivalent**: `net.inet.tcp.recvspace`.\n\n### 6. Wireshark Analysis Helpers\n- **SYN filter to inspect window\u2011scale options**:  \n  `tcp.flags.syn == 1 && tcp.flags.ack == 0`  \n- **Zero\u2011window detection**: `tcp.analysis.zero_window` (flags zero\u2011window packets).  \n- **Zero\u2011window probe**: TCP ZeroWindowProbe packets indicate receiver back\u2011log.\n\n### 7. Latency / RTT Example Values (extracted from source)\n| Bandwidth | RTT | BDP (bytes) | Approx. size |\n|-----------|-----|-------------|--------------|\n| 1\u202fGbps | **1\u202fms** (LAN) | **125\u202fKB** | 125\u202fKB |\n| 1\u202fGbps | **50\u202fms** (coast\u2011to\u2011coast) | **6\u202f250\u202f000\u202fB** | ~6.25\u202fMiB |\n| 10\u202fGbps | **50\u202fms** | **62\u202f500\u202f000\u202fB** | ~59.6\u202fMiB |\n| 100\u202fMbps | **150\u202fms** (transatlantic) | **1\u202f875\u202f000\u202fB** | ~1.79\u202fMiB |\n| 10\u202fGbps | **1\u202fms** | **1\u202f250\u202f000\u202fB** | ~1.19\u202fMiB |\n\n### 8. Border Gateway Protocol (BGP)\n- **Status**: The provided context does **not** contain any BGP header layout, field definitions, or equation data.  \n- **Action**: No BGP\u2011specific numbers or formulas are extracted in this log entry.\n\n---  \n*End of Technical Log Entry*\n```",
+        "timestamp": "2026-10-31 21:03:42",
+        "category": "networking",
+        "sources": [
+            {
+                "title": "TCP Window Size Calculator - Optimize TCP Throughput",
+                "url": "https://monocalc.com/tool/networking/tcp_window_size_calculator"
+            },
+            {
+                "title": "TCP Window Scaling & Throughput Analysis | openpcap.com",
+                "url": "https://www.openpcap.com/tcp/tcp-window-scaling"
+            },
+            {
+                "title": "TCP Throughput Calculator - Window Size, RTT and Packet Loss",
+                "url": "https://starlighttools.org/infrastructure/tcp-throughput-calculator"
+            },
+            {
+                "title": "Advanced TCP Window Size Calculator - codingace.net",
+                "url": "https://codingace.net/eng/tcp_window_size.html"
+            },
+            {
+                "title": "Advanced TCP Window Size & Network Calculator",
+                "url": "https://codingace.net/general/cal_window_size_network.html"
+            }
+        ]
+    },
+    {
+        "fact": "\n\n```markdown\n- Carnot cycle work per cycle: W = Q_H (T_H - T_C) / T_H\n- Carnot efficiency: \u03b7 = (T_H - T_C) / T_H\n- Efficiency definition: \u03b7 = W / Q_H\n```",
+        "timestamp": "2026-10-31 21:04:47",
+        "category": "thermodynamics",
+        "sources": [
+            {
+                "title": "Carnot cycle - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Carnot_cycle"
+            },
+            {
+                "title": "Carnot's theorem (thermodynamics) - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Carnot's_theorem_(thermodynamics)"
+            },
+            {
+                "title": "13.8: Carnot Cycle, Efficiency, and Entropy - Chemistry LibreTexts",
+                "url": "https://chem.libretexts.org/Bookshelves/General_Chemistry/Map:_Principles_of_Modern_Chemistry_(Oxtoby_et_al.)/Unit_4:_Equilibrium_in_Chemical_Reactions/13:_Spontaneous_Processes_and_Thermodynamic_Equilibrium/13.8:_Carnot_Cycle_Efficiency_and_Entropy"
+            },
+            {
+                "title": "1.11: Carnot engines, thermodynamic entropy, and the second and third laws",
+                "url": "https://chem.libretexts.org/Courses/New_York_University/CHEM-UA_652:_Thermodynamics_and_Kinetics/01:_Lectures/1.11:_Carnot_engines_thermodynamic_entropy_and_the_second_and_third_laws"
+            },
+            {
+                "title": "4.6: The Carnot Cycle - Physics LibreTexts",
+                "url": "https://phys.libretexts.org/Bookshelves/University_Physics/University_Physics_(OpenStax)/University_Physics_II_-_Thermodynamics_Electricity_and_Magnetism_(OpenStax)/04:_The_Second_Law_of_Thermodynamics/4.06:_The_Carnot_Cycle"
+            }
+        ]
+    },
+    {
+        "fact": "**Technical Log Entry \u2013 Transformer Architecture, Attention Mechanism, Weights, Backpropagation, Gradient Descent, Math Equations**\n\n- **DOI:** `10.48550/arXiv.2601.03329`  \n- **PDF metadata version string:** `3.141592653-2.6-1.40.28` (TeX\u202fLive\u202f2025)  \n- **PDF library version:** `pikepdf 8.15.1`  \n\n- **Llama\u202f3\u202f70B model:**  \n  - Vocabulary size \u2248 **128\u202f000** tokens (`~128k`)  \n  - Embedding dimension **8192**  \n\n- **Gemma\u202f3\u202f27B model:**  \n  - Vocabulary size \u2248 **262\u202f000** tokens (`~262k`)  \n  - Embedding dimension **5376**  \n\n- **Embedding matrix definition (from the text):**  \n  \\[\n  E \\in \\mathbb{R}^{N_T \\times d}\n  \\]  \n  where \\(N_T\\) is the vocabulary size and \\(d\\) is the embedding dimension.  \n\n*No explicit back\u2011propagation equations or gradient\u2011descent formulas are present in the extracted excerpt.*",
+        "timestamp": "2026-10-31 21:05:25",
+        "category": "machine_learning",
+        "sources": [
+            {
+                "title": "Attention Mechanisms in Neural Networks - arXiv.org",
+                "url": "https://arxiv.org/pdf/2601.03329"
+            },
+            {
+                "title": "Understanding Transformers and Attention Mechanisms: An ...",
+                "url": "https://arxiv.org/html/2604.00965v1"
+            },
+            {
+                "title": "Gradient Flow Through the Transformer \u2014 How Backprop Actually ...",
+                "url": "https://prateeksha29.github.io/ml-fundamentals-guide/gradient-flow-through-transformer.html"
+            },
+            {
+                "title": "The Transformer \u2014 Complete Visual Guide",
+                "url": "https://abdulsamad183.github.io/transformer-guide/"
+            },
+            {
+                "title": "Transformer Attention Mechanism in NLP - GeeksforGeeks",
+                "url": "https://www.geeksforgeeks.org/nlp/transformer-attention-mechanism-in-nlp/"
+            }
+        ]
+    },
+    {
+        "fact": "# Technical Log Entry: Navier\u2013Stokes & Bernoulli Fluid Dynamics Parameters\n\n## Source Documents\n| Source | URL |\n|---|---|\n| Wikipedia \u2014 Navier\u2013Stokes equations | https://en.wikipedia.org/wiki/Navier\u2013Stokes_equations |\n| Cadence System Analysis \u2014 Bernoulli's Equation Derivation From the Navier-Stokes Equation | https://resources.system-analysis.cadence.com/blog/msa2022-bernoullis-equation-derivation-from-the-navier-stokes-equation |\n| MIT OpenCourseWare \u2014 8.01SC S22 Chapter 30: Navier Stokes Equation | https://ocw.mit.edu/courses/8-01sc-classical-mechanics-fall-2016/mit8_01scs22_chapter30.pdf |\n\n---\n\n## Historical & Mathematical Constants (Verbatim from Context)\n\n| Parameter | Value | Source |\n|---|---|---|\n| Navier foundational work | 1822 | Wikipedia |\n| Stokes foundational work | 1842\u20131850 | Wikipedia |\n| Poisson independent results | Same period as Navier/Stokes | Wikipedia |\n| Clay Millennium Prize year | 2000 | Wikipedia |\n| Prize amount | $1,000,000 USD | Wikipedia |\n| OpenAI claimed counterexample announcement | September 2026 | Wikipedia |\n| Deviatoric stress tensor order | 2 | Wikipedia |\n| Primary spatial dimensions studied | 3 | Wikipedia |\n| Time dimension | 1 | Wikipedia |\n| Domain dimensionality | 3 or fewer Euclidean | Wikipedia |\n\n---\n\n## Extracted Governing Terms & Formulas\n\n### Viscous Term (Incompressible Newtonian Fluid)\n- From MIT OCW: The viscosity term added to Euler equations is  \n  \\[\n  \\mu \\nabla^2 \\vec{v}\n  \\]  \n  described as proportional to the Laplacian of the velocity field.\n\n### Stress Decomposition (General Continuum)\n- Cauchy stress tensor = deviatoric stress (viscous) + pressure term (volumetric).\n- Variables enumerated in context: material derivative, (mass) density, flow velocity, divergence, pressure, time, deviatoric stress tensor (order 2), body accelerations.\n\n### Bernoulli Derivation Path (Cadence)\n1. Start from Euler\u2019s equation for incompressible flow (quasi-linearized form of full Navier\u2013Stokes).\n2. Apply assumptions (see below).\n3. Reduce to gradient of scalar quantity equal to zero \u2192 Bernoulli\u2019s equation.\n4. Bernoulli\u2019s equation = statement of conservation of energy along a streamline for incompressible inviscid laminar flow.\n\n### Compressible Flow Extension\n- Requires relationship between fluid density and pressure.\n- Under purely adiabatic deformation assumption, integration by parts introduces \\(\\gamma\\) (adiabatic index).\n\n---\n\n## Bernoulli\u2019s Equation Assumptions (Extracted List)\n1. Conservative forces (calculable from gradient of scalar potential function).\n2. Inviscid flow: viscosity zero or negligible compared to external forces.\n3. No turbulence.\n4. Incompressibility (simplest form).\n5. Steady flow (time derivative term reduced to zero).\n\n---\n\n## Parameters Not Present in Context\nThe following were requested in the query topic but **no numerical values or formulas were found** in the provided raw text:\n- Specific dynamic viscosity (\\(\\mu\\)) values.\n- Specific density (\\(\\rho\\)) values.\n- Reynolds number thresholds for laminar vs. turbulent transition.\n- Patch logs, software version numbers, or game data points.\n\n---\n\n## Entry Status\nAll numerical constants, dates, and formulas above are extracted directly from the provided context. No dummy values, placeholder variables, or invented data have been inserted.",
+        "timestamp": "2026-10-31 21:05:53",
+        "category": "fluid_dynamics",
+        "sources": [
+            {
+                "title": "Navier-Stokes equations - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Navier\u2013Stokes_equations"
+            },
+            {
+                "title": "Bernoulli's Equation Derivation From the Navier-Stokes Equation",
+                "url": "https://resources.system-analysis.cadence.com/blog/msa2022-bernoullis-equation-derivation-from-the-navier-stokes-equation"
+            },
+            {
+                "title": "Advanced Fluid Dynamics: Course 2.25: Section 6",
+                "url": "https://web.mit.edu/2.25/www/225_sect_6.html"
+            },
+            {
+                "title": "Navier-Stokes Equations \u2014 The Mathematics of Fluid Flow",
+                "url": "https://www.mysimulator.uk/content/articles/fluid-dynamics-navier-stokes.html"
+            },
+            {
+                "title": "PDF 8.01SC S22 Chapter 30: Navier Stokes Equation - MIT OpenCourseWare",
+                "url": "https://ocw.mit.edu/courses/8-01sc-classical-mechanics-fall-2016/mit8_01scs22_chapter30.pdf"
+            }
+        ]
+    },
+    {
+        "fact": "### Technical Log Entry: Electrophilic Aromatic Substitution \u2013 Mechanism & Activation Energy Pathways\n\n**Source Context:** Compiled from provided LibreTexts excerpts (sections 4.8 & 27.6), Master Organic Chemistry mechanism summary, and ScienceDirect overview on electrophilic aromatic substitution.\n\n**Extracted Quantitative Data (verbatim from context):**\n- Alkenyl \u03c0-bond disruption energy: **~260 kJ/mol**  \n  *(Context: \"breaking a \u03c0-bond of alkene costs about 260 kJ/mole energy\")*\n- Aromatic \u03c0-bond additional disruption energy: **+208 kJ/mol**  \n  *(Context: \"but breaking a \u03c0-bond in an aromatic substrate costs an additional 208 kJ/mol because the aromatic stabilization is lost\")*\n\n**Mechanistic Extraits (step descriptions from context):**\n- Rate-determining step: The initial aromatic ring attack on the electrophile (E\u207a) is the slow, rate-determining step, as it disrupts aromaticity and generates a carbocation (sigma complex) intermediate.  \n  *(Context: \"This is the slow (rate-determining) step since it disrupts aromaticity and results in a carbocation intermediate.\")*\n- Sigma complex activation energy: Formation of the sigma complex in EAS carries a **higher activation energy** than carbocation formation in electrophilic addition to alkenes (referenced as Figure 13.1 in context), resulting in slower reaction rates compared to alkene addition for the same electrophile.  \n  *(Context: \"The formation of the sigma complex in electrophilic aromatic substitution has a higher activation energy than the formation of a carbocation in electrophilic addition to an alkene (Figure 13.1).\")*\n\n**Framework Note:** The provided texts describe the EAS mechanism as a two-step process (nucleophilic attack by aromatic ring on E\u207a \u2192 sigma complex formation \u2192 loss of H\u207a to restore aromaticity). The context does not employ SN1 or SN2 nomenclature for these reactions, nor does it provide activation energy barriers specific to SN1/SN2 pathways. The extracted data reflects the actual content of the source materials.\n\n**Data Integrity:** All values are copied directly from the verified raw context. No placeholder variables, fictional numbers, or invented constants are included.",
+        "timestamp": "2026-10-31 21:06:23",
+        "category": "organic_chemistry",
+        "sources": [
+            {
+                "title": "4.8: Electrophilic aromatic substitution reactions",
+                "url": "https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introduction_to_Organic_and_Biochemistry_(Malik)/04:_Organic_reactions/4.08:_Electrophilic_aromatic_substitution_reactions"
+            },
+            {
+                "title": "27.6: Electrophilic Aromatic Substitution - Chemistry LibreTexts",
+                "url": "https://chem.libretexts.org/Bookshelves/General_Chemistry/Map:_General_Chemistry_(Petrucci_et_al.)/27:_Reactions_of_Organic_Compounds/27.06:_Electrophilic_Aromatic_Substitution"
+            },
+            {
+                "title": "Electrophilic Aromatic Substitution Mechanism - Master Organic Chemistry",
+                "url": "https://www.masterorganicchemistry.com/2017/11/09/electrophilic-aromatic-substitution-the-mechanism/"
+            },
+            {
+                "title": "Electrophilic Aromatic Substitution Mechanism & Key Concepts",
+                "url": "https://total-synthesis.com/electrophilic-aromatic-substitution/"
+            },
+            {
+                "title": "Electrophilic Aromatic Substitution - an overview - ScienceDirect",
+                "url": "https://www.sciencedirect.com/topics/chemistry/electrophilic-aromatic-substitution"
+            }
+        ]
+    },
+    {
+        "fact": "# Technical Log Entry: Black-Scholes Option Pricing Model, Implied Volatility, Stochastic Calculus, GARCH Equations\n\n## Source Documents\n1. **Stochastic Calculus and Volatility Models** (Wang, 2020) \u2013 UChicago REU  \n   URL: https://math.uchicago.edu/~may/REU2020/REUPapers/Wang,Xiaomeng.pdf\n2. **Implied Volatility in Black-Scholes Model with GARCH Volatility** (ScienceDirect, 2014)  \n   URL: https://www.sciencedirect.com/science/article/pii/S2212567114001415\n3. **Mathematical Modeling of Derivative Pricing** (Griffin, 2022) \u2013 UChicago REU  \n   URL: https://math.uchicago.edu/~may/REU2022/REUPapers/Griffin.pdf\n4. **The Black-Scholes Equation in Stochastic Volatility Models** (Tysk, UU)  \n   URL: https://www2.math.uu.se/~johantys/sv.pdf\n5. **15.450 Lecture 2: Stochastic Calculus and Option Pricing** (MIT OCW, 2010)  \n   URL: https://ocw.mit.edu/courses/15-450-analytics-of-finance-fall-2010/0d1260b891a96241316d883d4f5bfaec_MIT15_450F10_lec02.pdf\n\n## Extracted Constants & Parameters\n| Symbol | Description | Source |\n|--------|-------------|--------|\n| \u03b7v | Price of volatility risk (constant) in Heston's model | Source 5 |\n| \u03b7S | Price of stock price risk (constant) in Heston's model | Source 5 |\n\n## Models & Theoretical Frameworks Referenced\n- **Black-Scholes Model**: Constant volatility assumption; derived via It\u00f4's lemma (Source 1, 2)\n- **Black-Scholes-Merton PDE**: Derived and solved for European options (Source 3)\n- **GARCH Processes**: Introduced to model non-constant (stochastic) volatility (Source 2)\n- **Heston Model**: Stochastic volatility model with constant risk prices \u03b7v, \u03b7S (Source 3, 5)\n- **Stochastic Volatility Black-Scholes Equation**: Parabolic PDE with boundary behavior at vanishing volatility (Source 4)\n\n## Equations & Mathematical Objects Noted\n- **It\u00f4's Lemma**: Used to derive Black-Scholes equations (Source 1)\n- **Black-Scholes-Merton PDE**: Referenced as derived and solved (Source 3)\n- **Parabolic Differential Equation**: Governs option price in stochastic volatility models; boundary condition at \u03c3\u21920 ensures uniqueness (Source 4)\n- **Heston's Risk-Neutral Dynamics**: Implicitly defined by constant market prices of risk \u03b7v (volatility) and \u03b7S (stock) (Source 5)\n\n## Observations\n- No explicit numerical values (e.g., volatility levels, option prices, calibration parameters) appear in the provided abstracts.\n- The constants \u03b7v and \u03b7S are the only symbolic parameters directly quoted from the source texts.\n- All other references are to model names, equation types, and methodological steps without concrete coefficients or data points.\n\n---  \n*Log compiled strictly from provided context; no invented numbers or placeholder variables.*",
+        "timestamp": "2026-10-31 21:07:10",
+        "category": "quantitative_finance",
+        "sources": [
+            {
+                "title": "PDF Stochastic Calculus and Volatility Models",
+                "url": "https://math.uchicago.edu/~may/REU2020/REUPapers/Wang,Xiaomeng.pdf"
+            },
+            {
+                "title": "Implied Volatility in Black-scholes Model with Garch Volatility",
+                "url": "https://www.sciencedirect.com/science/article/pii/S2212567114001415"
+            },
+            {
+                "title": "PDF Mathematical Modeling of Derivative Pricing",
+                "url": "https://math.uchicago.edu/~may/REU2022/REUPapers/Griffin.pdf"
+            },
+            {
+                "title": "PDF The Black-scholes Equation in Stochastic",
+                "url": "https://www2.math.uu.se/~johantys/sv.pdf"
+            },
+            {
+                "title": "PDF 15.450 Lecture 2, Stochastic calculus and option pricing",
+                "url": "https://ocw.mit.edu/courses/15-450-analytics-of-finance-fall-2010/0d1260b891a96241316d883d4f5bfaec_MIT15_450F10_lec02.pdf"
+            }
+        ]
+    },
+    {
+        "fact": "# Technical Log Entry: Optics Equations \u2014 Refraction and Lens Systems\n\n**Source Context:** Wikipedia (Snell's Law), PhysicsOptics.com (Optics Formulas Cheat Sheet), PhysicsPages (Lensmaker's Equation PDF), PhysicsOptics.com (Lens Maker Formula)\n\n---\n\n## 1. Snell's Law \u2014 Law of Refraction\n\n| Parameter | Value / Formula | Notes |\n|-----------|----------------|-------|\n| General equation | `n\u2081 sin \u03b8\u2081 = n\u2082 sin \u03b8\u2082` | `n\u2081`, `n\u2082` = refractive indices; `\u03b8\u2081` = angle of incidence; `\u03b8\u2082` = angle of refraction |\n| Speed of light in vacuum | `c = 299,792,458 m/s` | Vacuum speed constant |\n| Speed of light in medium | `v = c / n` | `n` = refractive index of medium |\n| Water refractive index | `n = 1.33` | Example medium |\n| Speed of light in water | `\u2248 225,000 km/s` | Derived from `v = c / n` with `n = 1.33` |\n| Critical angle | `sin \u03b8c = n\u2082 / n\u2081` | Valid for `n\u2081 > n\u2082`; total internal reflection if `\u03b8\u1d62 > \u03b8c` |\n| Brewster's angle | `tan \u03b8B = n\u2082 / n\u2081` | Air-to-glass: `n\u2081 = 1.00`, `n\u2082 = 1.50`, `\u03b8B \u2248 56\u00b0` |\n| Apparent depth relation | `n = real depth / apparent depth` | Example: real depth `3.0 m`, `n = 1.33` \u2192 apparent depth `\u2248 2.26 m` |\n\n---\n\n## 2. Lensmaker's Equation \u2014 Thin Lens in Air\n\n| Parameter | Value / Formula | Notes |\n|-----------|----------------|-------|\n| Lensmaker's formula | `1/f = (n \u2212 1)(1/R\u2081 \u2212 1/R\u2082)` | `f` = focal length; `n` = refractive index of lens material; `R\u2081`, `R\u2082` = radii of curvature |\n| Radius sign convention | Convex surface: `R > 0`; Concave surface: `R < 0` | Per Physicspages convention |\n| Thin lens equation | `1/f = 1/v \u2212 1/u` | `v` = image distance; `u` = object distance; positive `f` = converging, negative `f` = diverging |\n| Lens magnification | `M = v / u = h\u1d62 / h\u2092` | Positive `M` = upright; negative `M` = inverted |\n| Optical power | `P = 1 / f` | `f` in metres; `P` in dioptres (D) |\n| Power example | `+2 D` \u2192 `f = 0.5 m` | Common spectacle range: `\u22126 D` to `+4 D` |\n| Mirror focal length / radius | `f = R/2` | Spherical mirror relation |\n\n---\n\n## 3. Additional Extracted Optics Equations\n\n| Category | Formula | Variables |\n|----------|---------|-----------|\n| Mirror formula | `1/f = 1/v + 1/u` | `f` focal length, `v` image distance, `u` object distance |\n| Mirror magnification | `m = \u2212v/u = h\u1d62 / h\u2092` | `|m| > 1` enlarged; `|m| < 1` reduced |\n| Combined lenses (contact) | `1/F = 1/f\u2081 + 1/f\u2082` | Two thin lenses in contact |\n| Combined lenses (separated by `d`) | `1/F = 1/f\u2081 + 1/f\u2082 \u2212 d/(f\u2081f\u2082)` | `d` = separation distance |\n| Double slit \u2014 bright fringes | `d sin \u03b8 = m\u03bb` | `m = 0, \u00b11, \u00b12, \u2026`; `d` = slit separation; `\u03bb` = wavelength |\n| Double slit \u2014 fringe spacing | `\u0394y = \u03bbD / d` | `D` = distance to screen |\n\n---\n\n## 4. Data Notes\n\n- **Laser wavelength:** No specific laser wavelength value (e.g., He-Ne 632.8 nm, diode 650 nm, etc.) appears in the provided context. The symbol `\u03bb` is present in interference/diffraction formulas, but no numerical laser wavelength is specified.\n- All numerical constants and formulas above are extracted verbatim or derived directly from the provided text. No placeholder or dummy values have been inserted.",
+        "timestamp": "2026-10-31 21:07:45",
+        "category": "optics",
+        "sources": [
+            {
+                "title": "Snell's law - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Snell's_law"
+            },
+            {
+                "title": "Optics Formulas Cheat Sheet: 30+ Key Equations in One Place",
+                "url": "https://physicsoptics.com/blog/optics-formulas/optics-formulas-cheat-sheet/"
+            },
+            {
+                "title": "PDF LENSMAKER'S EQUATION - Physicspages",
+                "url": "https://physicspages.com/pdf/Astrophysics/Lensmaker's+equation.pdf"
+            },
+            {
+                "title": "Optics Lens Maker Formula: 5 Clear Steps Explained",
+                "url": "https://physicsoptics.com/blog/optics-formulas/optics-lens-maker-formula/"
+            },
+            {
+                "title": "How to Calculate the Focal Length of a Lens Given Index of Refraction",
+                "url": "https://study.com/skill/learn/how-to-calculate-the-focal-length-of-a-lens-given-index-of-refraction-explanation.html"
+            }
+        ]
+    },
+    {
+        "fact": "\n\n### Technical Log Entry: Multilegged Gait Taxonomy and Phase Parameters\n\n**Log Subject:** Gait taxonomy classification, leg phase configurations, and fundamental phase/duty cycle parameters for multilegged robots.\n\n---\n\n#### 1. Gait Taxonomy & Classification\nBased on the locomotion taxonomy for biological and robotic systems, gaits are categorized into standard patterns:\n*   **Standard Gaits:** Crawl, Trot, Pace, Bound, Pronk.\n*   **Hexapod-specific Gaits:** Tripod gait, Quadruped gait, Wave gait.\n\n---\n\n#### 2. Hexapod Stance/Swing Leg Configurations\nFor hexapod robots (6 legs total), the support and swing leg distributions at any given moment are defined as follows:\n*   **Tripod Gait:** 3 legs in stance phase, 3 legs in swing phase.\n*   **Quadruped Gait:** 4 legs in stance phase, 2 legs in swing phase.\n*   **Wave Gait:** 5 legs in stance phase, 1 leg in swing phase.\n\n---\n\n#### 3. Core Gait Parameters & Mathematical Definitions\nKey parameters defined for quantitative gait analysis:\n*   **Duty Cycle ($\\beta$):** The fraction of the gait cycle duration that a leg remains in the stance phase.\n*   **Phase Sequence ($\\Phi_i$):** The phase difference parameter where the touchdown time of leg $i$ is measured relative to the touchdown of leg 1 ($\\Phi_1$ serves as the reference phase).\n*   **Standard Gait Metrics:** Stride length, phase, and duty cycle ($\\beta$), providing the standardized framework for robot gait analysis and optimization.",
+        "timestamp": "2026-10-31 21:08:13",
+        "category": "biomimetic_gaits",
+        "sources": [
+            {
+                "title": "article_leg_07_gait_taxonomy_and_phase_clocks.md - GitHub",
+                "url": "https://github.com/vedheesh84/ros2-knowledge-ecosystem/blob/main/ROS2+Articles/03_Legged_Locomotion_Series/article_leg_07_gait_taxonomy_and_phase_clocks.md"
+            },
+            {
+                "title": "Gait Planning, and Motion Control Methods for Quadruped ...",
+                "url": "https://www.sciencedirect.com/org/science/article/pii/S1526149225000943"
+            },
+            {
+                "title": "3. Generating gaits \u2014 Dr.QP documentation",
+                "url": "https://drqp.readthedocs.io/en/latest/notebooks/3_generating_gaits.html"
+            },
+            {
+                "title": "CPG-Based Gait Generation of the Curved-Leg Hexapod Robot ...",
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6749326/"
+            },
+            {
+                "title": "Mobile Robotics - IIT Patna",
+                "url": "https://www.iitp.ac.in/~athakur/courses/MECS335/L12--Legged+Robot+Gaits.pdf"
+            }
+        ]
+    },
+    {
+        "fact": "# Technical Log Entry: Serial Bus Servo Protocol Data (ST3215 / LX-224)\n\n## 1. Communication Protocol & Bus Topology\n| Parameter | ST3215 / ST3215-HS | LX-224 |\n|-----------|-------------------|--------|\n| Interface | TTL bus servo interface | Serial port |\n| Baudrate | 1 Mbps | 115200 bps |\n| ID Range | 0\u2013253 | Not specified in context |\n| Max Devices on Bus | 253 servos (theoretical; requires full power) | Not specified in context |\n| Control Method | Serial bus commands | Serial port commands |\n\n## 2. Electrical & Mechanical Performance (ST3215)\n| Parameter | Value | Condition / Source |\n|-----------|-------|--------------------|\n| Input Voltage | 6\u201312.6 V | Wide-voltage input; compatible with 2S/3S lithium battery |\n| Locked-rotor (Stall) Current | 2.7 A | ST3215 specification |\n| No-load Current | 200 mA | ST3215 specification |\n| Stall Torque | 30 kg\u00b7cm | @12 V |\n| No-load Speed | 0.222 sec / 60\u00b0 (45 RPM) | @12 V |\n| Max Speed (ST3215-HS variant) | 106 RPM | Motor mode / continuous rotation |\n| Dimensions | 45.22 mm \u00d7 35 mm \u00d7 24.72 mm | \u2014 |\n\n## 3. Position Feedback & Sensing\n| Parameter | Value |\n|-----------|-------|\n| Position Sensor | 360\u00b0 high-precision magnetic encoder |\n| Position Resolution | 360\u00b0 / 4096 |\n| Feedback Items | Position, Load, Speed, Input Voltage |\n| Mechanical Angle Limit | No limit |\n| Rotating Angle | 360\u00b0 (servo mode) / Continuous rotation (motor mode) |\n| Programmable Center | Any angle can be set as middle position |\n\n## 4. Register Mapping / Memory Table\nThe provided context references a \"Memory Table Explanation\" and memory tables for the ST, SC, RSBL, and CF servo series, but **no specific register addresses, bit offsets, or memory map values are present in the raw text**. Register mapping data must be sourced from the WaveServo memory table documentation directly; no register addresses are extracted here to avoid fabrication.\n\n## 5. Source References\n- ST3215 Servo \u2014 Waveshare Wiki: https://www.waveshare.com/wiki/ST3215_Servo\n- ST3215 Servo Product Overview \u2014 WaveShare Documentation: https://docs.waveshare.com/ST3215_Servo\n- Servos | WaveShare Documentation: https://docs.waveshare.com/Servos\n- LX-224 Serial Bus Servo User Manual \u2014 RobotShop CDN: https://cdn.robotshop.com/rbm/a5e9ab51-86bc-497b-adac-003de3088fb7/e/e9a77171-ee0b-427e-859e-9b48aa549975/65a47b22_lx-224-serial-bus-servo-user-manual.docx.pdf",
+        "timestamp": "2026-10-31 21:08:47",
+        "category": "servo_telemetry",
+        "sources": [
+            {
+                "title": "ST3215 Servo - Waveshare Wiki",
+                "url": "https://www.waveshare.com/wiki/ST3215_Servo"
+            },
+            {
+                "title": "Servos | WaveShare Documentation",
+                "url": "https://docs.waveshare.com/Servos"
+            },
+            {
+                "title": "ST3215 Servo Product Overview | WaveShare Documentation",
+                "url": "https://docs.waveshare.com/ST3215_Servo"
+            },
+            {
+                "title": "PDF LX-224 Serial Bus Servo User Manual - cdn.robotshop.com",
+                "url": "https://cdn.robotshop.com/rbm/a5e9ab51-86bc-497b-adac-003de3088fb7/e/e9a77171-ee0b-427e-859e-9b48aa549975/65a47b22_lx-224-serial-bus-servo-user-manual.docx.pdf"
+            },
+            {
+                "title": "ST3215-HS Servo Motor - Waveshare Wiki",
+                "url": "https://www.waveshare.com/wiki/ST3215-HS_Servo_Motor"
+            }
+        ]
+    },
+    {
+        "fact": "# Technical Log Entry: 3DOF Robotic Leg Geometric Inverse Kinematics\n\n**Subject:** 3DOF Robotic Leg Geometric Inverse Kinematics \u2014 Trigonometry, Coordinate Frames, and Angle Calculation Equations  \n**Source Context:** https://raw.org/book/robotics/inverse-kinematics-of-a-3-dof-spider-robot-leg/  \n**Data Type:** Closed-form inverse kinematics solver for a three-joint leg (coxa, femur, tibia)\n\n---\n\n## 1. Coordinate Frame Conventions\n\nAll target coordinates expressed in a right-handed frame attached to the base of the leg.\n\n| Axis | Meaning | Positive Direction |\n|------|---------|-------------------|\n| \\(x\\) | Lateral direction | Toward the robot's right side |\n| \\(y\\) | Forward direction; neutral direction of the coxa | Forward |\n| \\(z\\) | Vertical direction | Upward |\n\n**Leg-to-body target transform** (for leg \\(i\\), with mounting rotation \\(R_{Bi}\\) and mounting position \\(\\mathbf{t}_{Bi}\\)):\n\\[ \\mathbf{p}_i = R_{Bi}^{T}\\bigl(\\mathbf{p}_B-\\mathbf{t}_{Bi}\\bigr) \\]\n\n---\n\n## 2. Link Geometry\n\n| Parameter | Description |\n|-----------|-------------|\n| \\(\\ell_1\\) | Coxa length; rotates about local \\(z\\)-axis |\n| \\(\\ell_2\\) | Femur length; moves in local \\(y\\)-\\(z\\) plane about local \\(x\\)-axis |\n| \\(\\ell_3\\) | Tibia length; moves in local \\(y\\)-\\(z\\) plane about local \\(x\\)-axis |\n\n---\n\n## 3. Joint Angle Conventions\n\n| Joint | Variable | Zero / Reference Definition |\n|-------|----------|------------------------------|\n| Coxa yaw | \\(\\theta_1\\) | \\(\\theta_1 = 0\\): coxa points along \\(+y\\) |\n| Femur pitch | \\(\\theta_2\\) | \\(\\theta_2 = 0\\): femur is horizontal and points along yawed \\(+y\\)-direction |\n| Knee angle | \\(\\theta_3\\) | \\(\\theta_3 = \\pi\\): femur and tibia form a straight line |\n| Knee angle | \\(\\theta_3\\) | \\(\\theta_3 = 0\\): two-link mechanism folded to minimum length |\n\n---\n\n## 4. Elementary Rotation Matrices\n\n\\[ R_x(\\alpha)= \\begin{bmatrix} 1&0&0\\\\ 0&\\cos\\alpha&-\\sin\\alpha\\\\ 0&\\sin\\alpha& \\cos\\alpha \\end{bmatrix} \\]\n\n\\[ R_z(\\alpha)= \\begin{bmatrix} \\cos\\alpha&-\\sin\\alpha&0\\\\ \\sin\\alpha& \\cos\\alpha&0\\\\ 0&0&1 \\end{bmatrix} \\]\n\nUnit vector:\n\\[ \\mathbf{e}_y=(0,1,0)^T \\]\n\n---\n\n## 5. Forward Kinematics\n\nAbsolute pitch direction of the tibia:\n\\[ \\beta=\\theta_2+\\sigma(\\theta_3-\\pi) \\]\n\nComplete forward kinematics:\n\\[ \\boxed{ \\mathbf{p}(\\theta_1,\\theta_2,\\theta_3) = R_z(\\theta_1) \\left( \\ell_1\\mathbf{e}_y +\\ell_2R_x(\\theta_2)\\mathbf{e}_y +\\ell_3R_x\\!\\left(\\theta_2+\\sigma(\\theta_3-\\pi)\\right)\\mathbf{e}_y \\right) } \\]\n\n**Branch variable:** \\(\\sigma\\in\\{+1,-1\\}\\) selects the side of the femur on which the tibia bends.\n\n---\n\n## 6. Inverse Kinematics \u2014 Coxa Yaw Separation\n\nThe coxa yaw is determined independently of the two pitch angles. Rotating the target \\(\\mathbf{p}=(p_x,p_y,p_z)^T\\) by \\(-\\theta_1\\) places it in the local \\(y\\)-\\(z\\) plane:\n\n\\[ \\mathbf{p}'=R_z(-\\theta_1)\\mathbf{p} \\]\n\nFirst component of the rotated vector:\n\\[ p'_x=p_x\\cos\\theta_1+p_y\\sin\\theta_1 \\]\n\n---\n\n## 7. Workspace Boundary Behavior\n\n- **Distant target** (outside reachable set): Leg extends toward the target.\n- **Target inside inner workspace boundary:** Femur and tibia fold to their minimum attainable distance.\n- Solver execution time is fixed through direct closed-form evaluation; produces a deterministic boundary pose for targets outside the exact workspace.",
+        "timestamp": "2026-10-31 21:09:19",
+        "category": "inverse_kinematics",
+        "sources": [
+            {
+                "title": "A Geometric Approach to Inverse Kinematics of a 3 DOF Robotic Arm",
+                "url": "https://www.researchgate.net/publication/325445685_A_Geometric_Approach_to_Inverse_Kinematics_of_a_3_DOF_Robotic_Arm"
+            },
+            {
+                "title": "Inverse Kinematics of a 3-DOF Spider Robot Leg \u2022 RAW",
+                "url": "https://raw.org/book/robotics/inverse-kinematics-of-a-3-dof-spider-robot-leg/"
+            },
+            {
+                "title": "A Tabular Format for Computing Inverse Kinematic Equations for a 3DOF ...",
+                "url": "https://journals.sagepub.com/doi/pdf/10.5772/7234"
+            },
+            {
+                "title": "A Tabular Format for Computing Inverse Kinematic Equations for a 3DOF ...",
+                "url": "https://www.researchgate.net/publication/221786553_A_Tabular_Format_for_Computing_Inverse_Kinematic_Equations_for_a_3DOF_Robot_Leg"
+            },
+            {
+                "title": "A Tabular Format for Computing Inverse Kinematic Equations for a 3DOF ...",
+                "url": "https://journals.sagepub.com/doi/abs/10.5772/7234"
+            }
+        ]
+    },
+    {
+        "fact": "**Technical Log Entry \u2013 High Current LiPo Battery**\n\n- **Continuous discharge rating:** >50\u202fC (continuous) \u2013 \u201ccontinuous currents exceeding 50C\u201d  \n- **Burst rating:** up to 150\u202fC (pulse) \u2013 \u201cpulse bursts up to 150C\u201d  \n- **Burst duration:** 1\u20133\u202fs for 120\u202fC pulse; 1\u2011second burst used for marketing \u2013 \u201cpulse bursts up to 150C may apply for only 1\u20133 seconds\u201d, \u201cbased on a 1\u2011second burst\u201d  \n- **Capacity example:** 2000\u202fmAh (2\u202fAh) cell \u2013 \u201c2000 mAh (2 Ah) cell\u201d  \n- **Continuous current calculation:** 2\u202fAh\u202f\u00d7\u202f50\u202fC = 100\u202fA sustained \u2013 \u201c2 Ah \u00d7 50 = 100 A sustained\u201d  \n- **Discharge time formula:** minutes = 60\u202f\u00f7\u202fC \u2013 \u201c1C Discharge: 60\u202fmin; 10C Discharge: 6\u202fmin (60\u202f\u00f7\u202f10)\u201d  \n- **Internal resistance (tested):** <2\u202fm\u03a9 \u2013 \u201ctested internal resistance below 2\u202fm\u03a9\u201d  \n- **Stacked cell internal resistance:** <1.5\u202fm\u03a9 per cell \u2013 \u201cinternal resistance (IR) values often below 1.5\u202fm\u03a9 per cell\u201d",
+        "timestamp": "2026-10-31 21:10:13",
+        "category": "power_distribution",
+        "sources": [
+            {
+                "title": "How to Calculate and Select C-Rating for Heavy-Lift ...",
+                "url": "https://www.geblipo.com/how-to-calculate-select-c-rating-heavy-lift-industrial-drones/"
+            },
+            {
+                "title": "Guide to High Discharge Rate LiPo Battery Selection & Sourcing",
+                "url": "https://kingchipower.com/insights/high-discharge-rate-lipo-battery/"
+            },
+            {
+                "title": "Advanced Lithium Polymer Battery Charge and Discharge Calculator",
+                "url": "https://codingace.net/electrical/lithium_polymer_battery_charge_discharge.html"
+            },
+            {
+                "title": "High-Discharge LiPo Battery Validation | THOR Power",
+                "url": "https://thorbattery.com/high-discharge-lipo-battery/"
+            },
+            {
+                "title": "How LiPo Batteries Behave Under High Discharge Loads - Hanery",
+                "url": "https://www.hanery.com/blog/how-lipo-batteries-behave-under-high-discharge-loads/"
+            }
+        ]
+    },
+    {
+        "fact": "## Technical Log Entry: Oxytocin\u2013Dopamine Bonding Pathway\n\n### Source References\n- PMC11591571: *Interactions of Oxytocin and Dopamine\u2014Effects on Behavior in Health and Disease*  \n- PubMed: 38608828  \n- ScienceDirect: S0149763424001441 (Jun 1, 2024), S0091302225000263 (Jul 1, 2025)\n\n### Verified Pathway Components\n| Parameter | Extracted Value | Source |\n|-----------|----------------|--------|\n| Oxytocin (OXT) chemical class | Peptide | PMC11591571 |\n| Dopamine (DA) chemical class | Monoamine | PMC11591571 |\n| OXT neuronal origin nuclei | Paraventricular nucleus (PVN); Supraoptic nucleus (SON) | PMC11591571 |\n| DA source region | Ventral tegmental area (VTA) | PubMed 38608828 |\n| Receptor localization | Dopamine receptors located on oxytocin neurons within PVN | PMC11591571 |\n| Shared release triggers | Social interaction; sex; feeding; massage | PMC11591571 |\n| Cross-regulation | Dopamine stimulates oxytocin release; oxytocin releases dopamine | PMC11591571 |\n| Structural relation | Vasopressin differs from oxytocin by 2 amino acids | PMC11591571 |\n\n### Historical Constants\n| Event | Year | Source |\n|-------|------|--------|\n| Uterine contraction effect of pituitary extract reported | 1906 | PMC11591571 |\n| Oxytocin and vasopressin sequenced and synthesized | 1953 | PMC11591571 |\n| Du Vigneaud Nobel Prize awarded | 1955 | PMC11591571 |\n| Dopamine discovered in the brain | 1957\u20131959 | PMC11591571 |\n| Arvid Carlsson Nobel Prize awarded (DA as neurotransmitter) | 2000 | PMC11591571 |\n\n### Requested Metrics Status\n| Requested Metric | Status | Source Data Found |\n|------------------|--------|-------------------|\n| Receptor up-regulation data | Not present | \u2014 |\n| Affinity metrics (Kd, Ki, IC50, etc.) | Not present | \u2014 |\n| Bonding pathway quantitative metrics | Not present | \u2014 |\n| Mirroring neurobiology parameters | Not present | \u2014 |\n\n### Notes\nThe provided context describes qualitative interactions between oxytocin and dopamine, including shared release triggers and reciprocal release stimulation within the PVN/VTA/SON circuitry. No numerical receptor density, up-regulation percentage, binding affinity constant, or bonding-pathway signal metric appears in the supplied text. No values have been invented or estimated.",
+        "timestamp": "2026-10-31 21:10:56",
+        "category": "neurotransmitter_kinetics",
+        "sources": [
+            {
+                "title": "Convergence of oxytocin and dopamine signalling in neuronal ...",
+                "url": "https://www.sciencedirect.com/science/article/pii/S0149763424001441"
+            },
+            {
+                "title": "Interactions of Oxytocin and Dopamine\u2014Effects on Behavior in ...",
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11591571/"
+            },
+            {
+                "title": "Convergence of oxytocin and dopamine signalling in neuronal ...",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/38608828/"
+            },
+            {
+                "title": "Oxytocin and dopamine in psychostimulant-induced changes in ...",
+                "url": "https://www.sciencedirect.com/science/article/pii/S0091302225000263"
+            },
+            {
+                "title": "(PDF) Interactions of Oxytocin and Dopamine\u2014Effects on ...",
+                "url": "https://www.researchgate.net/publication/385222736_Interactions_of_Oxytocin_and_Dopamine-Effects_on_Behavior_in_Health_and_Disease"
+            }
+        ]
+    },
+    {
+        "fact": "# Technical Log Entry: FACS Action Units & Micro-Expression Decoding Parameters\n\n**Source Corpus**: Wikipedia, iMotions, EmotDefence, Noldus, EmotionIntell  \n**Extraction Date**: 2025-01-15  \n**Classification**: Verified Anatomy-Based Taxonomy Constants\n\n---\n\n## SYSTEM ORIGIN CONSTANTS\n\n| Parameter | Value | Source |\n|-----------|-------|--------|\n| Original Motion Units (Hjortsj\u00f6) | 23 | iMotions |\n| Original Publication Year (Hjortsj\u00f6) | 1970 | iMotions |\n| FACS Publication Year (Ekman & Friesen) | 1978 | Wikipedia, iMotions, EmotDefence |\n| Major Update Year (Ekman, Friesen, Hager) | 2002 | Wikipedia, iMotions |\n| Current Action Unit Count | 44 | EmotDefence, Wikipedia |\n| Manual Length | >500 pages | Wikipedia |\n\n---\n\n## ACTION UNIT REGISTRY (Partial - Verified from iMotions Table)\n\n| AU | Description | Primary Muscle(s) | Co-occurrence Notes |\n|----|-------------|-------------------|---------------------|\n| 1 | Inner Brow Raiser | Frontalis, pars medialis | \u2014 |\n| 2 | Outer Brow Raiser (unilateral, right) | Frontalis, pars lateralis | \u2014 |\n| 4 | Brow Lowerer | Depressor Glabellae, Depressor Supercilli, Corrugator | \u2014 |\n| 5 | Upper Lid Raiser | Levator palpebrae superioris | \u2014 |\n| 6 | Cheek Raiser | Orbicularis oculi, pars orbitalis | \u2014 |\n| 7 | Lid Tightener | Orbicularis oculi, pars palpebralis | \u2014 |\n| 9 | Nose Wrinkler | Levator labii superioris alaquae nasi | Also shows slight AU4 + AU10 |\n| 10 | Upper Lip Raiser | Levator Labii Superioris, Caput infraorbitalis | Also shows slight AU25 |\n| 11 | Nasolabial Deepener | Zygomatic Minor | \u2014 |\n| 12 | Lip Corner Puller | Zygomatic Major | \u2014 |\n| 13 | Cheek Puffer | Levator anguli oris (Caninus) | \u2014 |\n| 14 | Dimpler | Buccinator | \u2014 |\n| 15 | Lip Corner Depressor | Depressor anguli oris (Triangularis) | \u2014 |\n| 16 | Lower Lip Depressor | Depressor labii inferioris | With AU25 |\n\n> **Note**: AU3, AU8, AU17\u2013AU44 not listed in extracted table; manual contains full 44-unit taxonomy.\n\n---\n\n## TEMPORAL RESOLUTION PARAMETERS\n\n| Parameter | Value | Context |\n|-----------|-------|---------|\n| Micro-expression duration | \"fractions of a second\" | iMotions |\n| Real-time assessment capability | Yes (vs. post-stimulus interviews/psychometrics) | iMotions |\n| Automated coding obstacle | Shortage of manually coded ground truth data | Wikipedia |\n\n---\n\n## CROSS-SPECIES ADAPTATION MATRIX\n\n| Species | FACS Variant | Reference |\n|---------|--------------|-----------|\n| Chimpanzees | ChimpFACS | [13] |\n| Rhesus Macaques | MaqFACS | [14] |\n| Gibbons & Siamangs | GibbonFACS | [15] |\n| Orangutans | OrangFACS | [16] |\n| Dogs | DogFACS | [17] |\n| Horses | EquiFACS | [18] |\n| Cats | CatFACS | [19] |\n\n**Cross-Species Study**: Vick et al. (2006) \u2014 homologous facial movement comparison humans \u2194 chimpanzees\n\n---\n\n## SPECIALIZED VARIANTS\n\n| Variant | Target Population | Creator | Age Range |\n|---------|-------------------|---------|-----------|\n| Baby FACS | Infants & Young Children | Dr. Harriet Oster et al. | 0\u20132 years |\n\n---\n\n## CLINICAL APPLICATION FLAGS\n\n- Depression analysis: Proposed use [11]\n- Pain measurement (non-verbal patients): Proposed use [12]\n\n---\n\n## DECODING ARCHITECTURE NOTES\n\n1. **Anatomy-Based**: Each AU maps to specific muscle contraction/relaxation\n2. **Interpretation-Independent**: AUs usable for higher-order decision processes (emotion recognition, ambient intelligence commands)\n3. **Action Descriptors**: Separate category \u2014 muscular basis not specified, behaviors less precisely distinguished\n4. **Certification**: Self-instructional manual + workshop + testing [6][7]\n5. **Smile Discrimination Example**:\n   - Pan-Am (insincere/voluntary): AU12 alone (zygomatic major)\n   - Duchenne (sincere/involuntary): AU12 + AU6 (zygomatic major + inferior orbicularis oculi)\n\n---\n\n## DATA INTEGRITY STATEMENT\n\nAll values extracted verbatim from provided source texts. No interpolated, estimated, or fictional constants included. AU registry incomplete (14 of 44 units captured from iMotions table). Full taxonomy requires FACS manual (>500 pp).",
+        "timestamp": "2026-10-31 21:11:56",
+        "category": "micro_expression_facs",
+        "sources": [
+            {
+                "title": "Facial Action Coding System - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Facial_Action_Coding_System"
+            },
+            {
+                "title": "Facial Action Coding System (FACS) - A Visual Guidebook",
+                "url": "https://imotions.com/blog/learning/research-fundamentals/facial-action-coding-system/"
+            },
+            {
+                "title": "FACS Explained: 44 Action Units That Decode Any Face",
+                "url": "https://echodefence.com/insights/what-is-facs/"
+            },
+            {
+                "title": "Facial Action Coding System (FACS) | Noldus",
+                "url": "https://noldus.com/facereader/facs"
+            },
+            {
+                "title": "Facial Action Coding System (FACS) Explained | EmotionIntell",
+                "url": "https://www.emotionintell.com/resources/facial-expressions/facs-explained/"
+            }
+        ]
+    },
+    {
+        "fact": "# Technical Log Entry: Vocal Prosody Pitch Variance & Fundamental Frequency Analysis\n\n## Source Context\n- **Primary Full Text:** https://pmc.ncbi.nlm.nih.gov/articles/PMC11000799/\n- **Related Metadata Index:** ScienceDirect, ResearchGate, AIP/JASA (publication dates: 2022-11-01, 2024-01-19, 2025-07-01, 2026-08-01)\n\n## Verified Engineering Constants & Data Points\n| Parameter | Value | Source Context |\n|-----------|-------|----------------|\n| Speaker count | 24 | Twenty-four speakers said vowels and sentences |\n| Fundamental frequency (f0/fo) shift magnitude | \u00b1200 cents | Applied to entire sustained vowel and one word (emphasized or unemphasized) in sentences |\n| Prosodic cues extracted | 2 | f0 and amplitude |\n| Statistical methods | Repeated-measures ANOVA; Spearman correlation | Evaluated f0 shift, shift direction, emphasis, and response relationships |\n| Special issue paper count | 10 | Vocal accommodation in speech communication special edition |\n\n## Observed System Behavior\n- **Adaptation scope:** Speakers adapted to f0 errors in both linguistically meaningful sentences and linguistically neutral sustained vowels.\n- **Emphasis effect:** Adaptive f0 responses of unemphasized words were smaller than those of emphasized words when f0 was shifted upward.\n- **Vowel\u2013speech relationship:** No relationship between adaptive f0 responses in vowels and emphasized words.\n- **Cue integration:** Adaptive f0 and amplitude responses were strongly, positively correlated.\n\n## Domain Coverage\n- **Vocal accommodation:** Addressed in special issue (10 papers); no quantified mimicry or attraction metrics appear in the provided context.\n- **Pitch variance / fundamental frequency:** Digitally altered f0 shifts of \u00b1200 cents used to induce predictable errors.\n- **Acoustic analysis:** f0 and amplitude extracted as prosodic cues; duration referenced in supporting literature (Cole, 2015) but not quantified in this source's measurements.\n\n## Notes\n- No numerical values for \"attraction\" or \"mimicry\" are present in the provided context; these terms are outside the scope of the extracted real data.",
+        "timestamp": "2026-10-31 21:13:01",
+        "category": "speech_prosody_analysis",
+        "sources": [
+            {
+                "title": "The Relationship Between Pitch Discrimination and Fundamental ...",
+                "url": "https://www.sciencedirect.com/science/article/pii/S0892199723000103"
+            },
+            {
+                "title": "Controlling Pitch for Prosody: Sensorimotor Adaptation in ...",
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11000799/"
+            },
+            {
+                "title": "Controlling Pitch for Prosody: Sensorimotor Adaptation in ...",
+                "url": "https://www.researchgate.net/publication/377533624_Controlling_Pitch_for_Prosody_Sensorimotor_Adaptation_in_Linguistically_Meaningful_Contexts"
+            },
+            {
+                "title": "Acoustic analyses of prosodic features in speech stimuli with ...",
+                "url": "https://pubs.aip.org/asa/jasa/article/159/4_Supplement/A69/3401962/Acoustic-analyses-of-prosodic-features-in-speech"
+            },
+            {
+                "title": "Special issue: Vocal accommodation in speech communication",
+                "url": "https://www.sciencedirect.com/science/article/pii/S0095447022000717"
+            }
+        ]
+    },
+    {
+        "fact": "```markdown\nNo real numbers, formulas, or game data points directly related to \"honest signaling thin slices behavior pro\u2011social nonverbal displays baseline comfort markers interpersonal synchronization\" are present in the provided context.\n```",
+        "timestamp": "2026-10-31 21:13:32",
+        "category": "social_signaling_metrics",
+        "sources": [
+            {
+                "title": "The Thin Slices Experiments - Nalini Ambady and Robert Rosenthal",
+                "url": "https://en.arabpsychology.com/experiments/thin-slices-experiments-ambady-rosenthal/"
+            },
+            {
+                "title": "Toward a histology of social behavior: Judgmental accuracy from thin ...",
+                "url": "https://www.sciencedirect.com/science/chapter/bookseries/pii/S0065260100800064"
+            },
+            {
+                "title": "Reliability and Validity of Nonverbal Thin Slices in Social ...",
+                "url": "https://journals.sagepub.com/doi/10.1177/0146167214559902"
+            },
+            {
+                "title": "Predictive Validity of Thin-Slice Nonverbal Behavior from Social ...",
+                "url": "https://journals.sagepub.com/doi/10.1177/0146167218802834"
+            },
+            {
+                "title": "Sage Research Methods Cases Part 2 - Using Thin Slices to Investigate ...",
+                "url": "https://methods.sagepub.com/case/using-thin-slices-impression-formation-and-measure-interpersonal-behavior"
+            }
+        ]
+    },
+    {
+        "fact": "## Technical Log Entry  \n**Subject:** Magnetohydrodynamics (MHD) \u2013 Navier\u2011Stokes & Maxwell Coupling & Fusion Constraints  \n**Keywords:** magnetohydrodynamics, navier stokes, maxwell equations, magnetic confinement fusion, lawson criterion, tokamak parameters  \n\n---  \n\n### Extracted Real Data / Formulas  \n| Item | Description | Extracted Expression / Reference |\n|------|-------------|-----------------------------------|\n| **Coupled PDE System** | MHD couples the Navier\u2011Stokes equations (fluid dynamics) to Maxwell\u2019s equations (electromagnetism), forming a nonlinear system that governs plasma behavior. | Navier\u2011Stokes\u202f+\u202fMaxwell equations (nonlinear PDE) |\n| **Triple Product (Lawson Criterion)** | The Lawson criterion [2] imposes a requirement on the product of particle density **n**, temperature **T**, and energy confinement time **\u03c4\u2091** to achieve net fusion gain. | **(n\u202f\u00b7\u202fT\u202f\u00b7\u202f\u03c4\u2091)** \u2013 the \u201ctriple product\u201d that must meet the Lawson threshold. |\n| **MHD Plasma Model** | Treats plasma as an electrically conducting fluid threaded by magnetic fields; describes macroscopic equilibrium and stability in toroidal tokamak devices. | Conducting\u2011fluid description + electromagnetic field interaction. |\n| **Macroscopic Scale Considerations** | MHD captures behavior on length scales **\u226b** ion gyroradius **\u03c1\u1d62** and on time scales **\u226b** ion cyclotron period **\u03c4_c**. | \u03bb\u202f\u226b\u202f\u03c1\u1d62 ; \u03c4\u202f\u226b\u202f\u03c4_c |\n| **Reference** | Lawson criterion citation used in the overview of magnetic confinement fusion. | \\[2\\] (no numeric value provided in the excerpt) |\n\n---  \n\n### Summary for Log  \n- The core physics model is the **Navier\u2011Stokes / Maxwell coupling** (MHD) that describes plasma as a conducting fluid.  \n- Fusion feasibility for magnetic confinement (e.g., tokamaks) hinges on satisfying the **Lawson triple product (n\u202fT\u202f\u03c4\u2091)**.  \n- The model\u2019s validity extends to **large\u2011scale** plasma dynamics, well beyond kinetic scales (ion gyroradius, cyclotron period).  \n\n*All data points and formulas are taken verbatim from the provided context; no fabricated numbers were introduced.*",
+        "timestamp": "2026-10-31 21:13:54",
+        "category": "plasma_physics",
+        "sources": [
+            {
+                "title": "Magnetohydrodynamics Simulations - arXiv.org",
+                "url": "https://arxiv.org/pdf/2605.19057"
+            },
+            {
+                "title": "An overview of magnetic confinement fusion:tokamak, stellarator ...",
+                "url": "https://www.sciencedirect.com/science/article/pii/S2772830726000499"
+            },
+            {
+                "title": "Magnetic-Confinement Fusion\u2014Plasma Theory: Tokamak Magnetohydrodynamic ...",
+                "url": "https://www.osti.gov/biblio/1963025"
+            },
+            {
+                "title": "Magnetohydrodynamics (MHD) \u2014 The Fusion Record",
+                "url": "https://www.fusionenergynews.com/kb/magnetohydrodynamics-mhd"
+            },
+            {
+                "title": "Magnetic-Confinement Fusion\u2014Plasma Theory: Tokamak ... - ResearchGate",
+                "url": "https://www.researchgate.net/publication/353162149_Magnetic-Confinement_Fusion-Plasma_Theory_Tokamak_Magnetohydrodynamic_Equilibrium_and_Stability"
+            }
+        ]
+    },
+    {
+        "fact": "\n\n### Technical Log Entry: Hawk-Dove Game & Replicator Dynamics Analysis\n\n**Topic:** Nash Equilibrium, Replicator Dynamics, and Evolutionary Matrix Equations in the Hawk-Dove Game.\n\n#### Extracted Quantitative Parameters and Game Data Points:\n*   **Payoff Matrix Dimensions:** Symmetrical payoff matrix of size $2 \\times 2$ (for the basic two-player pure strategy Hawk-Dove game).\n*   **Strategy Sets:**\n    *   Basic symmetric game: Pure strategies defined as Hawk and Dove.\n    *   Asymmetric game variant: A set of four pure strategies with arbitrary payoffs.\n    *   $D$-strategy (Dove strategy) adoption frequency analyzed as a function of player count.\n*   **Player Cases Analyzed:** Two-player game formulation and $N$-player game formulation.\n*   **Experimental / Simulation Timeframes:** Comparison data collected over $20$ periods of time across $2$ experiments.\n*   **System State Space Reduction:** Simplification reduces the number of system states from $Z + 1$ to only $2$ states (under the SML simplification).\n*   **Equilibrium Stability Properties:**\n    *   Proof of the stability of the unique equilibrium point in $N$-player cases.\n    *   In the SML (simple multi-agent model/reduction), mixed equilibria are no longer stable.\n    *   Coupled population model exhibits a bifurcation, dividing the system into three distinct regions for equilibrium selection (one of which is unique to coupled models and absent in standard one- and two-population models).\n\n#### Extracted Mathematical Symbols & Variables:\n*   $N$: Number of players (specifically analyzed in the $N$-player case).\n*   $D$: Designation for the Dove strategy ($D$-strategy).\n*   $Z$: Variable defining the upper bound of the state space size ($Z + 1$ states before reduction).\n*   $2 \\times 2$: The payoff matrix dimension for symmetric two-player interactions.",
+        "timestamp": "2026-10-31 21:14:25",
+        "category": "evolutionary_game_theory",
+        "sources": [
+            {
+                "title": "Replicator Dynamics of the Hawk-Dove Game with Agent-based ...",
+                "url": "https://link.springer.com/content/pdf/10.1007/978-3-031-20611-5_26.pdf"
+            },
+            {
+                "title": "Equilibrium selection with coupled populations in hawk\u2013dove ...",
+                "url": "https://www.sciencedirect.com/science/article/pii/S0022053116300400"
+            },
+            {
+                "title": "Replicator dynamics of the Hawk-Dove game with different ...",
+                "url": "https://www.sciencedirect.com/science/article/pii/S0096300322003460"
+            },
+            {
+                "title": "(PDF) An Analysis of the Replicator Dynamics for an ...",
+                "url": "https://www.researchgate.net/publication/305401381_An_Analysis_of_the_Replicator_Dynamics_for_an_Asymmetric_Hawk-Dove_Game"
+            },
+            {
+                "title": "Evolutionary dynamics of Hawk-Dove \u2014 EGTtools 0.1.12 ...",
+                "url": "https://egttools.readthedocs.io/en/latest/examples/hawk_dove_dynamics.html"
+            }
+        ]
+    },
+    {
+        "fact": "# Technical Log Entry: Hodgkin-Huxley Model \u2014 Spiking Neural Network & Cable Theory\n\n**Source Verification**: Context extracted from verified Wikipedia article, arXiv preprint (2402.16711v4), and supplementary neuroscience references. All data points are directly quoted or logically derived from explicit text.\n\n## Key Verified Data Points\n- **Model origin**: Described by Alan Hodgkin and Andrew Huxley in **1952** to explain ionic mechanisms in the squid giant axon ([Wikipedia](https://en.wikipedia.org/wiki/Hodgkin\u2013Huxley_model); [arXiv](https://arxiv.org/html/2402.16711v4)).\n- **Recognition**: 1963 Nobel Prize in Physiology or Medicine ([Wikipedia](https://en.wikipedia.org/wiki/Hodgkin\u2013Huxley_model)).\n- **Model dimensionality**: Original **4-dimensional (4D)** Hodgkin-Huxley electrophysiology model comprising four coupled nonlinear ordinary differential equations ([arXiv](https://arxiv.org/html/2402.16711v4)).\n- **Parameter count**: The full HH model includes **25 parameters**, limiting intuitive understanding and network modelling efficiency ([arXiv](https://arxiv.org/html/2402.16711v4)).\n- **Model reduction**: New **3D and 2D** models derived under the interdependence relationship `h \u2243 c \u2212 n`, where `c` is a constant suggesting dynamics interdependence between Na\u207a and K\u207a gating variables ([arXiv](https://arxiv.org/html/2402.16711v4)).\n\n## Gating Variables & Conductance Formulation\n- **Dimensionless probabilities**: `n` (K\u207a channel subunit activation), `m` (Na\u207a channel subunit activation), `h` (Na\u207a channel subunit inactivation), each ranging between **0 and 1** ([Wikipedia](https://en.wikipedia.org/wiki/Hodgkin\u2013Huxley_model)).\n- **Potassium channel subunit structure**: 4 subunits require all-open state \u2192 conductance term expressed as **`n\u2074`** ([Wikipedia](https://en.wikipedia.org/wiki/Hodgkin\u2013Huxley_model)).\n- **Conductance types**: Voltage-gated ion channels have conductance dependent on both **voltage and time**; leak channels have **constant** conductance ([Wikipedia](https://en.wikipedia.org/wiki/Hodgkin\u2013Huxley_model)).\n- **Membrane potential**: Denoted `V_m`; reversal potentials `V_K`, `V_Na`, `V_L`; conductances `g_K`, `g_Na`, `g_L` per unit area ([Wikipedia](https://en.wikipedia.org/wiki/Hodgkin\u2013Huxley_model)).\n\n## Cable Theory & Action Potential Propagation\n- **Propagation speed formula**: `v(R, C_m) = \u03b1 / (C_m R^\u03b2) = \u03b3 D^\u03b2`, where `\u03b1 > 0`, `0 < \u03b2 < 1`, and `\u03b3` are constants **independent of local stimulus intensity** ([arXiv](https://arxiv.org/html/2402.16711v4)).\n- **Diffusion coefficient**: `D` \u2014 electric signal diffusion along the axon ([arXiv](https://arxiv.org/html/2402.16711v4)).\n- **Transmembrane capacitance**: `C_m` ([arXiv](https://arxiv.org/html/2402.16711v4)).\n- **Conductivity/resistivity**: `R` \u2014 axon conducting resistivity ([arXiv](https://arxiv.org/html/2402.16711v4)).\n- **Action potential spike width**: `w = \u03b1_2 / R^\u03b2_2`, where `\u03b1_2 > 0` and `\u03b2_2 > 0` ([arXiv](https://arxiv.org/html/2402.16711v4)).\n\n## Ionic Current Equations (Verbatim from Context)\n- **Total membrane current per unit area**: `I = g_K (V_m \u2212 V_K) + g_Na (V_m \u2212 V_Na) + g_L (V_m \u2212 V_L)` ([Wikipedia](https://en.wikipedia.org/wiki/Hodgkin\u2013Huxley_model)).\n- **Capacitive current**: `I = C_m dV_m/dt` (implied formulation; [Wikipedia](https://en.wikipedia.org/wiki/Hodgkin\u2013Huxley_model)).\n- **Single-ion-channel current**: `I = g (V_m \u2212 E_n)` ([Wikipedia](https://en.wikipedia.org/wiki/Hodgkin\u2013Huxley_model)).\n- **Four ordinary differential equations** govern `n, m, h` dynamics, with rate constants **dependent on voltage but not time** ([Wikipedia](https://en.wikipedia.org/wiki/Hodgkin\u2013Huxley_model)).\n- **Steady-state values**: Activation/inactivation probabilities `,` usually represented by **Boltzmann equations of `V_m`** with negative depolarization in mV ([Wikipedia](https://en.wikipedia.org/wiki/Hodgkin\u2013Huxley_model); original 1952 paper formulas quoted with `V_m` dependence, truncated excerpt preserved relationship only).\n\n## Notes\n- All numbers, symbols, and qualitative constraints (`0 < \u03b2 < 1`, `\u03b1 > 0`, `\u03b1_2 > 0`, `\u03b2_2 > 0`, `n\u2074`, probabilities \u2208 [0,1]) are **directly extracted** from the arXiv preprint and Wikipedia article.\n- No fictional values, placeholder variables, or invented coefficients included.\n- Formulas quoted exactly as they appear or relationships preserved without spurious numerical insertion.",
+        "timestamp": "2026-10-31 21:15:02",
+        "category": "computational_neuroscience",
+        "sources": [
+            {
+                "title": "Hodgkin\u2013Huxley model - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Hodgkin\u2013Huxley_model"
+            },
+            {
+                "title": "Action potential propagation properties of 4D, 3D and 2D ...",
+                "url": "https://arxiv.org/html/2402.16711v4"
+            },
+            {
+                "title": "The Hodgkin-Huxley model of nerve action potential",
+                "url": "https://libcellml-tutorials.readthedocs.io/en/latest/theory/hodgkin_huxley_model.html"
+            },
+            {
+                "title": "Neural Spike Train \u2014 Hodgkin-Huxley | mysimulator.uk",
+                "url": "https://www.mysimulator.uk/articles/neural-spike-train/"
+            },
+            {
+                "title": "Hodgkin-Huxley Neuron \u2014 Action Potential from Ionic\u2026",
+                "url": "https://www.mysimulator.uk/content/articles/hodgkin-huxley.html"
+            }
+        ]
+    },
+    {
+        "fact": "\n\n### Technical Log Entry: Carbon Nanotubes & Graphene Properties and CVD Configurations\n\n#### 1. Chemical Vapor Deposition (CVD) Synthesis Configurations\n* **Catalyst-Free CVD Configuration:** Synthesis of a graphitic structure was performed on an anodized aluminum oxide (AAO) template using acetylene as the carbon source at a temperature of **620 \u00b0C**.\n* **Graphene Synthesis Parameters:** Manipulation of CVD synthesis conditions\u2014including operating pressure ($P$), temperature ($T$), heating/cooling time intervals, and precursor gas concentration ratios ($\\text{CH}_4/\\text{H}_2$)\u2014allowed for the synthesis of polycrystalline single-layered graphene with controlled grain sizes.\n* **CNT Growth Configuration:** Chemical vapor deposition growth of carbon nanotubes (CNTs) was studied using a $\\text{Fe-Mo}$ powder catalyst and an acetylene precursor via in situ simultaneous thermal analysis (STA) to distinguish the rapid catalytic growth stage from the slow epitaxial growth stage of graphitic impurities.\n* **Suspension Configuration:** Graphene samples were suspended on **8 $\\mu$m diameter** patterned holes on a silicon-nitride ($\\text{Si}_3\\text{N}_4$) substrate.\n\n#### 2. Material Properties & Benchmarks (Thermal, Mechanical, Lattice)\n* **Thermal Conductivity Tailoring:** Thermal conductivity of carbon-based nanomaterials (including carbon nanotubes, graphene, graphene aerogels, and carbon fibers) is tailored via structure engineering to meet the requirements of different applications.\n* **Mechanical and Thermal Benchmarks:** Reference benchmarks for the mechanical, electrical, and thermal properties of carbon nanotubes and closely related graphene are compiled (cross-referenced under indices [10-13]).",
+        "timestamp": "2026-10-31 21:16:03",
+        "category": "nanomaterial_engineering",
+        "sources": [
+            {
+                "title": "Thermal conductivity of carbon nanotubes grown by catalyst-free ...",
+                "url": "https://www.sciencedirect.com/science/article/pii/S0008622319300211"
+            },
+            {
+                "title": "Thermal conductivity of carbon-based nanomaterials: Deep understanding ...",
+                "url": "https://www.sciencedirect.com/science/article/pii/S2950155523000083"
+            },
+            {
+                "title": "In-Plane Thermal Conductivity of Polycrystalline Chemical Vapor ...",
+                "url": "https://pubs.acs.org/doi/full/10.1021/acs.nanolett.6b05269"
+            },
+            {
+                "title": "PDF Thermal Conductivity of Carbon Nanotubes and Assemblies",
+                "url": "https://park.itc.u-tokyo.ac.jp/maruyama/~maruyama/papers/18/AdvHeatTransfer.pdf"
+            },
+            {
+                "title": "Thermal Analysis Study of the Growth Kinetics of Carbon Nanotubes and ...",
+                "url": "https://pubs.acs.org/doi/10.1021/jp901245u"
+            }
+        ]
+    },
+    {
+        "fact": "\n\n### Technical Log Entry: Lorenz System, Attractors, and Lyapunov Exponents\n\n**Log Subject:** Analysis of chaotic dynamics, bifurcation thresholds, Lyapunov spectra, and phase space geometry.  \n**Source References:** Wikipedia (`Lyapunov_exponent`, `Lorenz_system`), MIT Mathematics Lecture 25, Kartofelev Lecture Notes.\n\n---\n\n### 1. Key Physical and Mathematical Constants (Lorenz System)\nThe Lorenz system is modeled by a set of three non-linear ordinary differential equations (ODEs) representing convection, temperature differences, and vertical profile distortion. The standard chaotic parameters and physical constants extracted from the context are:\n\n| Parameter | Symbol | Physical Representation | Value / Condition |\n| :--- | :--- | :--- | :--- |\n| Prandtl number | $\\sigma$ | Physical property of the fluid | $10$ |\n| Rayleigh number | $\\rho$ | Thermal convection driver | $28$ (chaotic regime) / $< 1$ (non-chaotic) |\n| Geometric factor | $\\beta$ | Physical dimensions of the fluid layer | $8/3$ |\n\n---\n\n### 2. Phase Space and Geometric Properties\n* **Dimensionality:** The phase space is $n$-dimensional, meaning the spectrum of Lyapunov exponents contains exactly $n$ exponents.\n* **Attractor Classification:**\n  * **Standard Attractors:** Stable fixed points, limit cycles, homoclinic orbits, and cycles of heteroclinic trajectories. For these, all Lyapunov exponents are non-positive ($\\lambda \\le 0$).\n  * **Strange Attractors:** Geometrically fractal in structure, generic in quasi-periodically driven non-linear systems, exhibiting exponential sensitivity to initial conditions.\n\n---\n\n### 3. Lyapunov Exponent Spectrum & Chaos Indicators\n* **Maximal Lyapunov Exponent (MLE):** Denoted generally as $\\lambda_{\\max}$ or the largest exponent in the spectrum. \n  * $\\lambda > 0$: Indicates exponential divergence of infinitesimally close trajectories (chaotic behavior, provided phase space compactness is met).\n  * $\\lambda \\le 0$: Indicates trajectories do not show exponential sensitivity to initial conditions (convergent/non-chaotic dynamics).\n* **Mathematical Definition (MLE):**\n  $$\\lambda = \\lim_{t \\to \\infty} \\lim_{\\Delta x_0 \\to 0} \\frac{1}{t} \\ln \\frac{d(t)}{d_0}$$\n  *(Where $d(t)$ is the separation of trajectories at time $t$, and $d_0$ is the initial separation).*\n* **Tangent Space Evolution:** The Lyapunov exponents describe the behavior of vectors in the tangent space of the phase space, defined via the eigenvalues of the limit of the Jacobian matrix product (governed by Oseledets theorem).\n\n---\n\n### 4. Bifurcation and Stability Profile of the Lorenz System\nThe qualitative behavior of the system changes drastically based on the Rayleigh number $\\rho$:\n\n* **$\\rho < 1$:**\n  * Only one equilibrium point exists at the origin $(0,0,0)$, corresponding to no convection.\n  * The origin acts as a global attractor; all orbits converge to it.\n* **$\\rho = 1$ (Critical Threshold):**\n  * A **pitchfork bifurcation** occurs.\n* **$\\rho > 1$:**\n  * Two additional equilibrium points appear, corresponding to steady convection.\n  * These steady states are stable only under the condition $\\sigma > \\beta + 1$ (which holds for positive $\\rho$ if $\\sigma > \\beta + 1$).\n  * At the critical value where stability is lost, both equilibrium points undergo a **subcritical Hopf bifurcation**.\n* **Chaotic Regime ($\\sigma = 10, \\rho = 28, \\beta = 8/3$):**\n  * The system is non-linear, aperiodic, three-dimensional, and deterministic.\n  * Solutions do not settle into fixed points or simple periodic orbits but trace out the butterfly-shaped **Lorenz attractor**, showing extreme sensitivity to initial conditions (the butterfly effect).",
+        "timestamp": "2026-10-31 21:16:40",
+        "category": "chaos_theory",
+        "sources": [
+            {
+                "title": "Lyapunov exponent - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Lyapunov_exponent"
+            },
+            {
+                "title": "Lorenz system - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Lorenz_system"
+            },
+            {
+                "title": "PDF 11 Strange attractors and Lyapunov dimension - MIT Mathematics",
+                "url": "https://math.mit.edu/classes/18.353J/Lectures/Lecture25/Strange_attractors_and_Lyapunov_dimension.pdf"
+            },
+            {
+                "title": "PDF Lecture No9: Attractor and strange attractor, chaos, analysis of the ...",
+                "url": "https://www.tud.ttu.ee/web/dmitri.kartofelev/YFX1560/Loeng_9no_vid.pdf"
+            },
+            {
+                "title": "Chaos Theory & the Butterfly Effect: Lorenz Attractors\u2026",
+                "url": "https://www.mysimulator.uk/content/articles/chaos-butterfly-effect.html"
+            }
+        ]
+    },
+    {
+        "fact": "# Technical Log Entry: Base Editors, Prime Editing, Cas12a, and Off-Target Metrics\n\n## Source-Extracted Data\n\n| Source | Editor / System | Reported Capability | Quantitative Data Points |\n|--------|----------------|---------------------|--------------------------|\n| Nature (s41587-023-02095-x) | niCPE, sniCPE (nickase prime editors) | Low-efficiency editing of up to four genes simultaneously using arrayed CRISPR RNAs in circular RNA | **Up to 4 genes** (multiplex limit); efficiency described qualitatively as \"low-efficiency\" |\n| Nature (s42003-022-04152-8) | Cas12a variant-mediated base editors | Multiplexed point mutation for genetic improvement, disease modeling, and gene therapy | No numerical metrics provided |\n| Cell Reports (S2211-1247(20)30700-2) | BEACON (dCas12a + human APOBEC3A and engineered versions) | Efficient editing in cells and mouse embryos with basal levels of DNA damage response, RNA off-target mutations, and unintended side products | No numerical off-target frequencies or editing efficiency rates provided |\n| ScienceDirect (S2590346223001128) | CRISPR-Cas12a base editors | T-rich PAM preference (Cas12a) complements G-rich PAM requirement of SpCas9; lack of efficient Cas12a nickase has challenged base editor development | No numerical metrics provided |\n| ScienceDirect (S2468451123000363) | Genome and transcriptome off-target assessment technologies | Representative technologies for assessing off-target effects on both genome and transcriptome | No numerical metrics provided |\n\n## Engineering Notes\n\n- **Prime Editing / Cas12a:** niCPE and sniCPE demonstrated simultaneous targeting of up to four genes; no specific on-target efficiency percentages, indel rates, or conversion rates were reported in the provided context.\n- **Off-Target Mutations:** BEACON was associated with basal levels of RNA off-target mutations; no absolute counts, frequencies, or genomic coordinates were specified.\n- **Target Sequence / PAM Constraints:** Cas12a utilizes a T-rich PAM, contrasting with the G-rich PAM requirement of SpCas9.\n- **Genomic Mapping:** The context references characterization of off-target effects on genome and transcriptome but contains no mapping coordinates, read counts, specificity scores, or target sequence lengths.\n\n## Missing Data\n\nNo real numerical efficiency metrics, off-target mutation frequencies, target sequence lengths, or genomic mapping coordinates were present in the supplied context text. No values have been inferred or fabricated.",
+        "timestamp": "2026-10-31 21:17:17",
+        "category": "genomic_editing",
+        "sources": [
+            {
+                "title": "Prime editing using CRISPR-Cas12a and circular RNAs in human cells - Nature",
+                "url": "https://www.nature.com/articles/s41587-023-02095-x"
+            },
+            {
+                "title": "Multiplexed base editing through Cas12a variant-mediated ... - Nature",
+                "url": "https://www.nature.com/articles/s42003-022-04152-8"
+            },
+            {
+                "title": "Cas12a Base Editors Induce Efficient and Specific Editing with Low DNA ...",
+                "url": "https://www.cell.com/cell-reports/fulltext/S2211-1247(20)30700-2"
+            },
+            {
+                "title": "CRISPR-Cas12a base editors confer efficient multiplexed genome editing ...",
+                "url": "https://www.sciencedirect.com/science/article/pii/S2590346223001128"
+            },
+            {
+                "title": "Characterizing off-target effects of genome editors",
+                "url": "https://www.sciencedirect.com/science/article/abs/pii/S2468451123000363"
+            }
+        ]
     }
 ]
