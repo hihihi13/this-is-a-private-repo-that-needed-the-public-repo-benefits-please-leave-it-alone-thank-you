@@ -5,6 +5,8 @@ import requests
 import os
 import json
 import sys
+import xml.etree.ElementTree as ET
+from urllib.parse import quote
 
 from ddgs import DDGS
 import trafilatura
@@ -68,7 +70,7 @@ PROMPTS = {
 }
 
 
-def determine_next_dynamic_topic():
+def determine_next_dynamic_topic(skip=0):
     """Checks your archive log file to verify what category needs data points next."""
     last_category = "gaming"
     if os.path.exists(ARCHIVE_FILE):
@@ -81,39 +83,135 @@ def determine_next_dynamic_topic():
             pass
 
     current_index = CATEGORIES.index(last_category) if last_category in CATEGORIES else 0
-    next_index = (current_index + 1) % len(CATEGORIES)
+    # skip = how many categories already failed this run. Without it, a category that
+    # fails never gets saved, so the "last saved category" never changes and the loop
+    # retries the SAME query over and over (which is what a failing run looked like).
+    next_index = (current_index + 1 + skip) % len(CATEGORIES)
     next_cat = CATEGORIES[next_index]
     return PROMPTS[next_cat], next_cat
 
 
+def fetch_arxiv_context(query, max_results=2):
+    """
+    Free, keyless search of arXiv's public API. Returns (text_block, sources_list).
+    arXiv is fully open-access, so the abstract (and often the full PDF) is always
+    legitimately available — no login, no paywall, no key required.
+    """
+    try:
+        url = f"https://export.arxiv.org/api/query?search_query=all:{quote(query)}&max_results={max_results}"
+        resp = requests.get(url, timeout=15)
+        resp.raise_for_status()
+        root = ET.fromstring(resp.content)
+        ns = {"atom": "http://www.w3.org/2005/Atom"}
+
+        text_block = ""
+        sources = []
+        for entry in root.findall("atom:entry", ns):
+            title = entry.findtext("atom:title", default="", namespaces=ns).strip()
+            summary = entry.findtext("atom:summary", default="", namespaces=ns).strip()
+            link = entry.findtext("atom:id", default="", namespaces=ns).strip()
+            if not title or not summary:
+                continue
+            text_block += f"### {title} (arXiv)\n{summary}\nSource: {link}\n\n"
+            sources.append({"title": title, "url": link})
+
+        return text_block, sources
+    except Exception as e:
+        print(f"⚠️ arXiv lookup failed for '{query}': {e}")
+        return "", []
+
+
+def fetch_semantic_scholar_context(query, max_results=2):
+    """
+    Free, keyless search of Semantic Scholar's Graph API. Returns abstracts (and
+    open-access PDF links where available) for real papers — no login, no paywall.
+    """
+    try:
+        url = "https://api.semanticscholar.org/graph/v1/paper/search"
+        params = {
+            "query": query,
+            "limit": max_results,
+            "fields": "title,abstract,url,year,openAccessPdf"
+        }
+        resp = requests.get(url, params=params, timeout=15)
+        resp.raise_for_status()
+        papers = resp.json().get("data", [])
+
+        text_block = ""
+        sources = []
+        for p in papers:
+            title = p.get("title", "")
+            abstract = p.get("abstract", "")
+            link = p.get("url", "")
+            year = p.get("year", "")
+            if not title or not abstract:
+                continue
+            text_block += f"### {title} ({year}, Semantic Scholar)\n{abstract}\nSource: {link}\n\n"
+            sources.append({"title": title, "url": link})
+
+        return text_block, sources
+    except Exception as e:
+        print(f"⚠️ Semantic Scholar lookup failed for '{query}': {e}")
+        return "", []
+
+
+def fetch_academic_context(query, max_results=2):
+    """
+    Combines arXiv + Semantic Scholar into one academic-source block. Runs
+    alongside DDG rather than replacing it — DDG covers current events/products/
+    game patches; academic APIs cover peer-reviewed science, which is exactly
+    what DuckDuckGo alone struggled with (paywalled ScienceDirect/ResearchGate
+    hits that trafilatura can't extract text from).
+    """
+    arxiv_text, arxiv_sources = fetch_arxiv_context(query, max_results)
+    s2_text, s2_sources = fetch_semantic_scholar_context(query, max_results)
+    return (arxiv_text + s2_text), (arxiv_sources + s2_sources)
+
+
 def fetch_real_world_context(search_query, max_results=5, max_retries=3):
     """
-    Free, keyless web search via DuckDuckGo (ddgs), enriched with full-page text
-    extraction (trafilatura) from the top couple of results, since DDG only gives
-    titles + short snippets on its own — not enough for the OpenRouter step to
-    reliably pull real numbers/formulas out of.
+    Combines free, keyless web search (DuckDuckGo) with free, keyless academic
+    search (arXiv + Semantic Scholar). DDG snippets are enriched with full-page
+    text extraction (trafilatura) from the top couple of results; academic
+    results contribute real paper abstracts, which tend to survive where DDG's
+    web results hit paywalls.
 
     Returns: (content_text, sources_list)
     """
     results = []
-    for attempt in range(1, max_retries + 1):
+    # Long keyword-stuffed queries often return nothing, and DDG blocks datacenter IPs
+    # (like GitHub's) fairly often. So try the full query, then a shortened one, and on
+    # each try rotate through different search engines ddgs can use.
+    short_query = " ".join(search_query.split()[:6])
+    attempts = [
+        (search_query, "auto"),
+        (short_query, "duckduckgo"),
+        (short_query, "bing"),
+        (short_query, "brave"),
+        (short_query, "mojeek"),
+    ][:max(max_retries, 5)]
+
+    for attempt, (q, backend) in enumerate(attempts, start=1):
         try:
             with DDGS() as ddgs:
-                results = list(ddgs.text(search_query, max_results=max_results))
+                results = list(ddgs.text(q, max_results=max_results, backend=backend))
+        except TypeError:
+            # Older ddgs versions don't accept backend=
+            try:
+                with DDGS() as ddgs:
+                    results = list(ddgs.text(q, max_results=max_results))
+            except Exception as e:
+                print(f"⚠️ Search error (attempt {attempt}): {e}")
+                results = []
         except Exception as e:
-            print(f"⚠️ DuckDuckGo search error (attempt {attempt}/{max_retries}): {e}")
+            print(f"⚠️ Search error via '{backend}' (attempt {attempt}/{len(attempts)}): {e}")
             results = []
 
         if results:
             break
 
-        print(f"⚠️ DuckDuckGo returned zero results for '{search_query}' "
-              f"(attempt {attempt}/{max_retries}) — likely rate-limited. Backing off.")
-        time.sleep(5 + random.uniform(0, 3) + attempt * 3)
-
-    if not results:
-        print(f"❌ DuckDuckGo gave no usable results for '{search_query}' after {max_retries} attempts.")
-        return "Global data matrix reference retrieval timeout.", []
+        print(f"⚠️ No results via '{backend}' for '{q}' (attempt {attempt}/{len(attempts)}). Trying next.")
+        time.sleep(3 + random.uniform(0, 3))
 
     sources = []
     snippet_block = ""
@@ -142,7 +240,16 @@ def fetch_real_world_context(search_query, max_results=5, max_retries=3):
             print(f"⚠️ Could not extract full text from {url}: {e}")
 
     full_context = (snippet_block + enriched_block).strip()
+
+    # Supplement with academic sources — free, keyless, and often successful
+    # exactly where DDG's web results hit a paywall or thin snippet.
+    academic_text, academic_sources = fetch_academic_context(search_query)
+    if academic_text:
+        full_context = (full_context + "\n\n" + academic_text).strip()
+        sources = sources + academic_sources
+
     if not full_context:
+        print(f"❌ No usable results (web or academic) for '{search_query}'.")
         return "Global data matrix reference retrieval timeout.", []
 
     return full_context, sources
@@ -229,6 +336,7 @@ MAX_LOOPS = 25
 loop_count = 0
 success_count = 0
 failure_count = 0
+consecutive_failures = 0
 
 while loop_count < MAX_LOOPS:
     try:
@@ -236,7 +344,7 @@ while loop_count < MAX_LOOPS:
         loop_count += 1
 
         # 1️⃣ Dynamically rotate categories so your offline data remains structurally varied
-        search_query, assigned_cat = determine_next_dynamic_topic()
+        search_query, assigned_cat = determine_next_dynamic_topic(skip=consecutive_failures)
 
         # 2️⃣ Grab search results + full-page context from DuckDuckGo (free, no key)
         print(f" [{current_time}] Processing Loop #{loop_count}/{MAX_LOOPS} for category: '{assigned_cat}'...")
@@ -248,7 +356,14 @@ while loop_count < MAX_LOOPS:
             # A little extra courtesy delay after a failure, on top of the loop's own
             # rate-limit padding below, to go easier on DDG before the next query.
             time.sleep(8)
+            # If search is blocked outright, stop early instead of burning an hour
+            # hammering it. Better to fail fast and try again at the next scheduled run.
+            consecutive_failures += 1
+            if consecutive_failures >= 6:
+                print("🛑 6 searches in a row returned nothing - search is blocked from this runner right now. Stopping early.")
+                break
             continue
+        consecutive_failures = 0
 
         # 3️⃣ Query OpenRouter to parse it down into clean data rows, retrying if the
         #    free router lands on a flaky model that returns junk instead of a real answer
