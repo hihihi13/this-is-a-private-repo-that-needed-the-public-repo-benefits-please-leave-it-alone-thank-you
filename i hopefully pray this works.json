@@ -76024,5 +76024,741 @@
                 "url": "http://arxiv.org/abs/1311.6128v2"
             }
         ]
+    },
+    {
+        "fact": "```markdown\n# Technical Log Entry: Base Editors / Prime Editing \u2014 Extracted Data\n\n## Query Scope\n`base editors \u00b7 prime editing \u00b7 cas12a \u00b7 off-target mutations \u00b7 target sequence \u00b7 efficiency metrics \u00b7 genomic mapping`\n\nSources containing relevant data: 2 (GATA2/SAMD9/SAMD9L mapping [2023]; Search-and-replace PE review [2020]).\nTwo context entries (active-particle target search; MSTAR LLVM/SAR) contain no gene-editing data and are excluded.\n\nNote: `cas12a` does not appear anywhere in the provided context. No Cas12a figures can be extracted.\n\n---\n\n## 1. Editor Chemistry & Architecture (from 2020 review)\n\n| Editor | Editing action | DSB required |\n|--------|----------------|--------------|\n| CBE (cytosine base editor) | C\u2192T substitution | No |\n| ABE (adenine base editor) | A\u2192G substitution | No |\n| PE (prime editor) | Base substitutions, small indels, and combinations | No |\n\n- Both CBE and ABE are limited to **base transitions** only.\n- Editing-window / PAM constraints restrict arbitrary-position editing and cause **bystander mutations** within/near protospacers.\n\nPE complex composition (3 components):\n- Cas9 **H840A nickase** fused to **M-MLV RTase** (Moloney murine leukemia virus reverse transcriptase)\n- Engineered **pegRNA** \u2014 spacer at 5\u2032 end; primer binding site + RT template at 3\u2032 end\n- Single-guide RNA (**sgRNA**) \u2014 nicks non-edited strand, triggering mismatch repair\n\nPE off-target behavior:\n- Off-target effects occur at **low frequency** (vs. other CRISPR-derived tools).\n- Two opposite-strand nicks may cause **more indels**; matching nicking-sgRNA spacers to the edited strand can minimize indels.\n\n---\n\n## 2. PAM / Target-Sequence Constraints (from 2023 mapping study)\n\n- Canonical PAM: **[NGG]**\n- Non-canonical PAM: **[NG]**\n- Near-PAMless editor: **SpRY-NRN / NYN**\n- Mutation size range catalogued: SNVs and **<20 bp indels**\n\n---\n\n## 3. Genomic Mapping \u2014 Mutation Database (from 2023 study)\n\n| Gene | Total cases | SNVs (count) | SNV % |\n|------|------------|--------------|-------|\n| GATA2 | 506 | 421 | 83.2% |\n| SAMD9 | 195 | 184 | 94.4% |\n| SAMD9L | 187 | 174 | 93.1% |\n\n(Remaining cases per gene = indels.)\n\n---\n\n## 4. Efficiency Metrics \u2014 Editability by Editor Class (from 2023 study)\n\n| Gene | ABE-editable | CBE-editable | PE-rescue |\n|------|--------------|--------------|-----------|\n| GATA2 | 59.9% (303/506) | 4.5% (23/506) | 35.6% (180/506) |\n| SAMD9 | 34.4% (67/195) | 30.3% (59/195) | 35.4% (69/195) |\n| SAMD9L | 47.1% (88/187) | 20.3% (38/187) | 32.6% (61/187) |\n\nTop-mutation amenability to base editing:\n- **GATA2:** 5/5 top mutations editable\n- **SAMD9:** 5/5 top mutations editable\n- **SAMD9L:** 4/5 top mutations editable\n\n---\n\n## 5. Workflow Milestones (from 2023 study)\n\n- Focus set: **5 most recurrent mutations** per gene\n- PAM editing windows and bystander effects screened across [NGG], [NG], SpRY-NRN/NYN\n- Outcome: \u22651 candidate guide RNA identified per mutation with **predicted low bystander editing**\n- Pending: guide RNA validation, off-target analysis, editing-efficiency assessment in model cell lines\n\n---\n\n## Source Citations\n- GATA2/SAMD9/SAMD9L mapping (2023, Semantic Scholar) \u2014 https://www.semanticscholar.org/paper/46326834845cd8f80b2aff389e91da0c8aef99a4 ; prior report cited: Sahoo, *Nature Medicine* 2021\n- Search-and-replace PE review (2020, Semantic Scholar) \u2014 https://www.semanticscholar.org/paper/4170e5539e2475200025a8c2cbd29647835244f8\n```\n\nEvery figure above is taken directly from the context; none were generated. The one gap is Cas12a \u2014 the query lists it, but the source text never mentions it, so no Cas12a data exists to extract.",
+        "timestamp": "2026-11-15 13:28:43",
+        "category": "genomic_editing",
+        "sources": [
+            {
+                "title": "Target search by active particles",
+                "url": "http://arxiv.org/abs/2311.17854v1"
+            },
+            {
+                "title": "Towards a Large Language-Vision Question Answering Model for MSTAR Automatic Target Recognition",
+                "url": "http://arxiv.org/abs/2605.10772v1"
+            },
+            {
+                "title": "Systematic Mapping of Gene-Editable Mutations in GATA2 and SAMD9/SAMD9L Syndromes",
+                "url": "https://www.semanticscholar.org/paper/46326834845cd8f80b2aff389e91da0c8aef99a4"
+            },
+            {
+                "title": "Search-and-replace editing of genetic information",
+                "url": "https://www.semanticscholar.org/paper/4170e5539e2475200025a8c2cbd29647835244f8"
+            }
+        ]
+    },
+    {
+        "fact": "**Technical Log Entry Block**  \n*Topic:* *Stagnation enthalpy, bow\u2011shock wave boundary\u2011layer ionization, re\u2011entry heating, Mach equations*  \n\n---\n\n### Sources (verified raw context)\n1. **\u201cConditions of excitation of magnetospheric convection by the electric current generated in the bow shock\u201d** \u2013 arXiv:physics/0306041v1  \n2. **\u201cOptical hydrogen absorption consistent with a thin bow shock leading the hot Jupiter HD\u202f189733b\u201d** \u2013 arXiv:1507.05916v3  \n\n> **Note:** Neither abstract contains explicit \u201cstagnation enthalpy\u201d, \u201cre\u2011entry heating\u201d or detailed \u201cMach equation\u201d expressions. The entries below therefore pull every real quantity, formula fragment, or numerical estimate that **does** appear in the supplied text.\n\n---\n\n### Extracted Real Numbers & Quantities  \n\n| Quantity | Value / Description | Source |\n|----------|----------------------|--------|\n| Near\u2011wall layer thickness (polarization) | **\u2248\u202f1 gyroradius of protons** | \u00a71 |\n| Characteristic time for field disappearance (when plasma velocity = drift velocity) | **\u223c\u202f1 / \u03a9\u209a** (inverse proton gyrofrequency) | \u00a71 |\n| Speed of the electric\u2011field front penetration | **Fast magnetosonic wave** (no explicit numeric speed) | \u00a71 |\n| Time to reach new steady state | **Estimated** (no numeric value given) | \u00a71 |\n| Offset of pre\u2011transit absorption relative to optical transit | **125\u202fminutes** before predicted transit | \u00a72 |\n| Projected linear distance from planet to stellar disk | **7.2 planetary radii** | \u00a72 |\n| Absorption depth (in\u2011transit vs. pre\u2011transit) | In\u2011transit **~50\u202f% lower** than pre\u2011transit | \u00a72 |\n| Equatorial planetary magnetic field strength (from model) | **28\u202fG** | \u00a72 |\n| Time\u2011scale for early ingress modeling (pre\u2011transit) | **Early ingress** (no separate duration) | \u00a72 |\n\n---\n\n### Formulas / Equation Fragments Mentioned  \n\n- **Two\u2011stage penetration:**  \n  1. Boundary current change \u2192 surface charge.  \n  2. Field polarizes near\u2011wall layer (\u2248\u202f1\u202fr\u209a).  \n  3. Formation of **displacement current** \u2192 **Amp\u00e8re force** accelerates plasma inside the double layer.  \n\n- **Drift\u2011velocity crossover:**  \n  \\[\n  v_{\\text{plasma}} \\approx v_{\\text{drift}} \\quad\\text{(time } \\tau\\sim 1/\\Omega_{p}\\text{)}\n  \\]  \n  At this moment the electric field in the plasma vanishes; in a fixed frame it attains equilibrium values.  \n\n- **Fast magnetosonic wave propagation:**  \n  \u201cThe front of variation of the electric field penetrates the plasma with the velocity of a **fast magnetosonic wave**.\u201d (no explicit speed given)  \n\n- **Pressure redistribution & gradients:**  \n  \u201cA change in the convection velocity field causes a redistribution of plasma pressure\u2026 The appearance of corresponding gradients signifies the penetration of current into plasma.\u201d  \n\n*(No explicit stagnation\u2011enthalpy expression or re\u2011entry\u2011heating rate appears in the excerpt.)*\n\n---\n\n### Log Entries  \n\n| # | Entry ID | Summary |\n|---|----------|---------|\n| 1 | **E1** | Generation of surface charge at the bow\u2011shock boundary; near\u2011wall polarization layer thickness \u2248\u202f1\u202fr\u209a (proton gyroradius). |\n| 2 | **E2** | Displacement current formation \u2192 Ampere force accelerates plasma inside the double layer. |\n| 3 | **E3** | Plasma velocity reaches drift velocity at \\(t\\sim 1/\\Omega_{p}\\); electric field disappears locally, while remaining at equilibrium in the lab frame. |\n| 4 | **E4** | Electric\u2011field front propagates inward as a **fast magnetosonic wave**. |\n| 5 | **E5** | Bow\u2011shock detection for HD\u202f189733b: pre\u2011transit absorption 125\u202fmin before optical transit; projected distance 7.2\u202fR\u209a; magnetic field 28\u202fG; in\u2011transit absorption depth \u2248\u202f50\u202f% lower. |\n| 6 | **E6** | Model assumes early ingress of a planetary bow shock; yields large standoff distance \u2192 implies strong equatorial field (28\u202fG). |\n\n---\n\n### Remarks  \n\n- **Stagnation enthalpy** and **re\u2011entry heating** rates are **not presented** in the supplied abstracts; consequently no quantitative values can be assigned.  \n- **Boundary\u2011layer ionization** is referenced implicitly via the \u201cnear\u2011wall layer \u2026 thickness on the order of one gyroradius of protons\u201d and the formation of a displacement current that drives the Ampere force.  \n- **Mach\u2011related quantities** (e.g., Mach number of the incoming flow) are absent; only the presence of a **fast magnetosonic wave** is noted.  \n\n--- \n\n*All numbers above are taken verbatim from the provided arXiv abstracts; no fictitious values have been introduced.*",
+        "timestamp": "2026-11-15 13:29:30",
+        "category": "hypersonic_thermodynamics",
+        "sources": [
+            {
+                "title": "Conditions of excitation of magnetospheric convection by the electric current generated in the bow shock",
+                "url": "http://arxiv.org/abs/physics/0306041v1"
+            },
+            {
+                "title": "Optical hydrogen absorption consistent with a thin bow shock leading the hot Jupiter HD 189733b",
+                "url": "http://arxiv.org/abs/1507.05916v3"
+            }
+        ]
+    },
+    {
+        "fact": "```markdown\n# Technical Log Entry\n\n**Query:** limit order book mechanics | market micro-structure | latency arbitrage | stochastic point processes | market impact equations\n\n**Status:** Context-bound; partial overlap. Latency arbitrage and stochastic point processes were not directly covered in the supplied context.\n\n**Sources in context:**\n- Wikipedia \u2014 Limit (mathematics)\n- Merriam-Webster \u2014 limit\n- Cambridge Dictionary \u2014 limit\n- Merriam-Webster \u2014 LIMIT Synonyms\n- Symbolab \u2014 Limit Calculator\n- arXiv \u2014 Market Impact in a Latent Order Book (1802.06101v4)\n- arXiv \u2014 An Optimal Execution Problem with Market Impact (0907.3282v8)\n\n**Extracted constants / data points:**\n- 6 days ago\n- 72\n- 1871\n- 1647\n- 1687\n- 1817\n- 1821\n- 1905\n- 1908\n- thirty years after Bolzano\u2019s death\n- 1802.06101v4\n- 0907.3282v8\n- \u03b5 and \u03b4\n- Proposition X.1\n\n**Extracted formulas / notation:**\n- Limit notation: \u201cthe limit of of as approaches equals\u201d\n- Tends-to notation: \u201cthe limit of of as approaches equals\u201d / right arrow notation\n- Bolzano (1817) developed epsilon-delta basics; Cauchy (1821) followed by Weierstrass formalized the (\u03b5, \u03b4)-definition.\n\n**Market impact / execution extracts:**\n- Latent order book of \\cite{donier2015fully}: promising agent-based model; agents exhibit mean-reversion; mean-field assumption; average density; price impact; no closed-form solution; numerical results; simulation scheme.\n- Optimal execution: continuous-time market model; market impact; stochastic control; value function; right-continuity at time origin; semi-group property (Bellman principle); viscosity solution of Hamilton-Jacobi-Bellman equation; Black-Scholes type market with nonlinear market impact; not block liquidation but gradual liquidation, even when trader is risk-neutral.\n\n**Not present / unverified:**\n- No concrete market impact numeric values.\n- No latency/arbitrage parameters.\n- No stochastic point process parameters.\n- No explicit numeric market impact equation constants beyond those above.\n\n**Technical log entry block:**\n\n- **Query:** limit order book mechanics | market micro-structure | latency arbitrage | stochastic point processes | market impact equations\n- **Status:** Context-bound, partial.\n- **Verified constants/data:** 6 days ago; 72; 1871; 1647; 1687; 1817; 1821; 1905; 1908; thirty years; 1802.06101v4; 0907.3282v8; \u03b5; \u03b4; Proposition X.1.\n- **Verified formulas/concepts:** limit notation; tends-to notation; epsilon-delta; mean-field order book; market impact; stochastic control; value function; right-continuity; semi-group/Bellman; viscosity solution; Hamilton-Jacobi-Bellman; Black-Scholes nonlinear impact; gradual liquidation.\n- **Market impact facts:** latent order book of donier2015fully; mean-reversion; mean-field average density; no closed-form solution; numerical simulation.\n- **Execution facts:** continuous-time market model; market impact; stochastic control; right-continuity at time origin; gradual liquidation not block liquidation.\n- **Open items:** latency arbitrage; stochastic point processes; concrete market impact values.\n- **Integrity:** No fabricated numbers; values extracted only from supplied context.\n```",
+        "timestamp": "2026-11-15 13:30:24",
+        "category": "high_frequency_trading",
+        "sources": [
+            {
+                "title": "Limit (mathematics) - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Limit_(mathematics)"
+            },
+            {
+                "title": "LIMIT Definition & Meaning - Merriam-Webster",
+                "url": "https://www.merriam-webster.com/dictionary/limit"
+            },
+            {
+                "title": "LIMIT | English meaning - Cambridge Dictionary",
+                "url": "https://dictionary.cambridge.org/dictionary/english/limit"
+            },
+            {
+                "title": "LIMIT Synonyms: 72 Similar and Opposite Words | Merriam ...",
+                "url": "https://www.merriam-webster.com/thesaurus/limit"
+            },
+            {
+                "title": "Limit Calculator - Symbolab",
+                "url": "https://www.symbolab.com/solver/limit-calculator"
+            },
+            {
+                "title": "Market Impact in a Latent Order Book",
+                "url": "http://arxiv.org/abs/1802.06101v4"
+            },
+            {
+                "title": "An Optimal Execution Problem with Market Impact",
+                "url": "http://arxiv.org/abs/0907.3282v8"
+            }
+        ]
+    },
+    {
+        "fact": "**Technical Log Entry Block**\n\n**Requested subject:** Delta Force Hawk Ops video game patch notes \u2014 weapon meta, weapon tuning, armor penetration, damage values\n\n**Extraction result:** NO MATCHING DATA FOUND\n\nThe provided context contains **zero** references to \"Delta Force Hawk Ops,\" any video game patch notes, weapon meta data, weapon tuning parameters, armor penetration mechanics, or damage values.\n\n**What the context actually contains (for audit traceability):**\n- Delta Air Lines corporate/history data (founded March 2, 1925; fleet size 1,005; destinations 311/325; revenue US$63.4B; employees 103,000; IATA DL / ICAO DAL / callsign DELTA; AOC DALA026A; ISIN US2473617023)\n- arXiv physics/0510052v5: B61-7 warhead penetration figures \u2014 30 m into concrete, 150 m into earth (nuclear ordnance, not game data)\n- arXiv 2207.14140v1: NEAT + Deep Q-learning on \"Flappy Bird\" (algorithmic RL paper, no weapon/armor/damage data)\n\n**Action taken:** No numbers, formulas, or data points were extracted or generated for the requested topic. Fabricating patch-note values would violate the no-invention constraint.\n\n**Recommendation:** Supply the actual Delta Force Hawk Ops patch-notes source text if weapon-meta/tuning/armor-penetration/damage extraction is required.",
+        "timestamp": "2026-11-15 13:31:21",
+        "category": "gaming",
+        "sources": [
+            {
+                "title": "Delta Air Lines - Wikipedia",
+                "url": "https://en.m.wikipedia.org/wiki/Delta_Air_Lines"
+            },
+            {
+                "title": "Delta Air Lines - Airline Tickets and Airfare to Worldwide ...",
+                "url": "https://www.delta.com/"
+            },
+            {
+                "title": "Book a Flight - Delta Air Lines",
+                "url": "https://www.delta.com/flightsearch/book-a-flight"
+            },
+            {
+                "title": "Delta (@Delta) / X",
+                "url": "https://x.com/Delta"
+            },
+            {
+                "title": "Delta (DL) - Flights, Airline Tickets & Reviews - KAYAK",
+                "url": "https://www.kayak.com/Delta.DL.airline.html"
+            },
+            {
+                "title": "The B61-based \"Robust Nuclear Earth Penetrator:\" Clever retrofit or headway towards fourth-generation nuclear weapons?",
+                "url": "http://arxiv.org/abs/physics/0510052v5"
+            },
+            {
+                "title": "Playing a 2D Game Indefinitely using NEAT and Reinforcement Learning",
+                "url": "http://arxiv.org/abs/2207.14140v1"
+            }
+        ]
+    },
+    {
+        "fact": "### Technical Log Entry: ESP32-WROOM-32 Hardware Datasheet Configurations\n**Query:** clock gating, power limits, registry configurations  \n**Extracted from context:** Wikipedia (ESP32 article), Espressif Systems product page, arXiv:2603.09333v1 (Dynamic Precision Math Engine)\n\n| Parameter | Value | Source |\n|---|---|---|\n| CPU Architecture | Xtensa LX6, 32-bit dual-core, 240 MHz | Wikipedia table; arXiv paper |\n| SRAM | 520 KiB | Wikipedia table |\n| Operating Voltage | 3.3 V DC | Wikipedia table |\n| Operating Temperature Range | \u201340\u00b0C to +125\u00b0C | Espressif Systems page |\n| Power Management Features | Fine-grained clock gating, various power modes, dynamic power scaling | Espressif Systems page |\n| CORDIC Trigonometric Module (ESP32-WROOM-32) | Median latency: 293 cycles (sine & cosine) | arXiv paper (300 paired measurements) |\n| Math Library Speedup | Mean: 18.5x and 24.7x compared to standard math library | arXiv paper |\n| Precision Switching Mechanism | Runtime precision switching via function pointer dispatch, FreeRTOS-compatible sync protocol | arXiv paper |\n| Energy Consumption Profile | Context notes higher energy consumption of floating-point vs. integer arithmetic; design targets ultra-low power for mobile/wearable IoT | Espressif Systems page |\n| Specific Power Limits (mW/mA) | Not provided in source text | \u2014 (context references qualitative power characteristics only) |\n\n*Only data points explicitly present in the provided context are included. No fictional numbers, placeholders, or inferred specifications beyond the source text are added.*",
+        "timestamp": "2026-11-15 13:32:25",
+        "category": "electronics",
+        "sources": [
+            {
+                "title": "ESP32 - Wikipedia",
+                "url": "https://en.m.wikipedia.org/wiki/ESP32"
+            },
+            {
+                "title": "ESP32 Wi-Fi & Bluetooth SoC | Espressif Systems",
+                "url": "https://www.espressif.com/en/products/socs/esp32"
+            },
+            {
+                "title": "Getting Started with ESP32: A Complete Beginner\u2019s Guide (2026)",
+                "url": "https://iotstarters.com/getting-started-with-esp32-beginners-guide/"
+            },
+            {
+                "title": "Amazon.com: Esp32",
+                "url": "https://www.amazon.com/esp32/s?k=esp32"
+            },
+            {
+                "title": "ESP32 Datasheet",
+                "url": "https://documentation.espressif.com/esp32_datasheet_en.html"
+            },
+            {
+                "title": "Dynamic Precision Math Engine for Linear Algebra and Trigonometry Acceleration on Xtensa LX6 Microcontrollers",
+                "url": "http://arxiv.org/abs/2603.09333v1"
+            },
+            {
+                "title": "Real-time Power System Simulation with Hardware Devices through DNP3 in Cyber-Physical Testbed",
+                "url": "http://arxiv.org/abs/2101.05965v2"
+            }
+        ]
+    },
+    {
+        "fact": "```markdown\n### Technical Log Entry\n\n**Query:**  \nStructural steel 4140 mechanical properties handbook tensile yield strength metrics dimensions\n\n**Direct 4140 steel data found in provided context:**  \n- None. No 4140 steel composition, yield strength, tensile strength, elongation, hardness, dimensional data, or handbook values are present in the provided context.\n\n---\n\n#### Verified real extracted material/mechanical data points\n\n| Parameter | Extracted Value | Unit / Note | Source Context |\n|---|---:|---|---|\n| Medium manganese steel name | Novalloy | \u2014 | arXiv:2103.10782v2 |\n| Medium manganese steel composition | Fe-8.3Mn-3.8Al-1.8Si-0.5C-0.06V-0.05Sn | Alloying elements listed by weight | arXiv:2103.10782v2 |\n| Manganese content descriptor | 8 wt% Mn | Given in title/context | arXiv:2103.10782v2 |\n| Yield strength | 1 | GPa | arXiv:2103.10782v2 |\n| Tensile strength | 1.13 | GPa | arXiv:2103.10782v2 |\n| Ductility | 41 | % | arXiv:2103.10782v2 |\n| Cold rolling reduction | up to 20 | % reduction | arXiv:2103.10782v2 |\n| Limestone block compressive strength | 30 to 250 | MPa | Wikipedia: Structural engineering |\n| Unit relation stated | MPa = Pa \u00d7 10^6 | Pressure unit conversion note | Wikipedia: Structural engineering |\n\n---\n\n#### Relevant structural engineering constants / relations present in context\n\n| Item | Extracted Value | Note |\n|---|---|---|\n| Earliest cited structural engineering date | 2700 B.C. | Step pyramid for Pharaoh Djoser |\n| Hooke's law | 1660 | Robert Hooke |\n| Isaac Newton's *Principia* publication | 1687 | Contains laws of motion |\n| Euler\u2013Bernoulli beam equation | 1750 | Named structural engineering relation |\n| Daniel Bernoulli principle of virtual work | 1700\u20131782 | Historical range given |\n| Leonhard Euler buckling theory | 1707\u20131783 | Historical range given |\n\n---\n\n#### Missing requested 4140 metrics\n\n| Requested Field | Status in Provided Context |\n|---|---|\n| 4140 steel yield strength | Not present |\n| 4140 steel tensile strength | Not present |\n| 4140 steel elongation / ductility | Not present |\n| 4140 steel hardness | Not present |\n| 4140 steel impact toughness | Not present |\n| 4140 steel dimensions / section sizes | Not present |\n| 4140 steel handbook table values | Not present |\n\n**Log status:** No fabricated or inferred 4140 values added. Only real numbers directly present in the supplied context are recorded above.\n```",
+        "timestamp": "2026-11-15 13:33:04",
+        "category": "engineering",
+        "sources": [
+            {
+                "title": "Structural engineering - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Structural_engineering"
+            },
+            {
+                "title": "STRUCTURAL Definition & Meaning - Merriam-Webster",
+                "url": "https://www.merriam-webster.com/dictionary/structural"
+            },
+            {
+                "title": "STRUCTURAL | Structural Repair & Preservation Services",
+                "url": "https://www.structural.net/"
+            },
+            {
+                "title": "STRUCTURAL | English meaning - Cambridge Dictionary",
+                "url": "https://dictionary.cambridge.org/dictionary/english/structural"
+            },
+            {
+                "title": "About Us - Structural",
+                "url": "https://www.structural.net/about/"
+            },
+            {
+                "title": "Statistical analysis of the material, geometrical and imperfection characteristics of structural stainless steels and members",
+                "url": "http://arxiv.org/abs/2010.14777v2"
+            },
+            {
+                "title": "Microstructure evolution and tensile behaviour of a cold rolled 8 wt\\% Mn medium manganese steel",
+                "url": "http://arxiv.org/abs/2103.10782v2"
+            }
+        ]
+    },
+    {
+        "fact": "**Technical Log Entry: Orbital Mechanics \u2013 Vis\u2011viva Equation, \u0394v, Trajectories, and Planetary Physics Parameters**  \n\n---  \n\n### Source Material\n| Reference | Extracted Content |\n|-----------|-------------------|\n| **Orbital (novel)** | \u2022 Each chapter covers a **single 90\u2011minute orbit** around Earth.<br>\u2022 **16 orbits** occur in a 24\u2011hour period. |\n| **General Relativistic Approach to the Vis\u2011viva Equation on Schwarzschild Metric** (arXiv:2404.10302v1) | \u2022 Introduces a **relativistic modification** to the vis\u2011viva equation.<br>\u2022 The updated equation **reduces to the traditional Newtonian vis\u2011viva equation** under classical conditions. |\n| **1/1 resonant periodic orbits in three dimensional planetary systems** (arXiv:1410.4946v1) | \u2022 Study of a **two\u2011planet 1/1 mean\u2011motion resonance** (co\u2011orbital motion) with **non\u2011zero mutual inclination**.<br>\u2022 **Bifurcations** of planar to spatial periodic orbits exist only for **planetary mass\u2011ratio**  \u03c1\u00a0=\u00a0m\u2082/m\u2081\u00a0<\u00a00.0205.<br>\u2022 For **0\u00a0<\u00a0\u03c1\u00a0<\u00a00.0205**, families of spatial periodic orbits are computed and their **linear stability** assessed.<br>\u2022 Spatial families form **bridges** that start and end at the same planar family; **mutual inclination varies** along them. |\n| **Orbital (novel) publication data** | \u2022 Publication dates: **2\u202fNov\u202f2023 (UK)**, **5\u202fDec\u202f2023 (US)**.<br>\u2022 ISBN (hardcover UK): **978\u20111\u20117873\u20113434\u20112**.<br>\u2022 Page count: **144\u202fpp**.<br>\u2022 Awards: **2024 Booker Prize**, **Hawthornden Prize**, short\u2011listed for **Orwell Prize** and **Ursula K. Le Guin Prize**. |\n| **Other Orbital entries** | \u2022 No additional orbital\u2011mechanics data (e.g., \u0394v, trajectory parameters, planetary constants) are present. |\n\n---  \n\n### Extracted Numerical Parameters\n| Parameter | Value | Units / Description |\n|-----------|-------|---------------------|\n| Orbital period (reference) | **90** | minutes per orbit |\n| Orbits per 24\u202fh | **16** | dimensionless |\n| Mass\u2011ratio threshold (\u03c1) | **<\u202f0.0205** | dimensionless (m\u2082/m\u2081) |\n| Novel UK publication date | **2\u202fNov\u202f2023** | day/month/year |\n| Novel US publication date | **5\u202fDec\u202f2023** | day/month/year |\n| ISBN (hardcover UK) | **978\u20111\u20117873\u20113434\u20112** | \u2013 |\n| Page count | **144** | pages |\n\n---  \n\n### Formulas / Equations (as referenced)\n- **Traditional vis\u2011viva equation** is implicitly used:  \n  \\[ v^{2} = \\mu\\left(\\frac{2}{r} - \\frac{1}{a}\\right) \\]  \n  *(Note: the exact algebraic form is not reproduced in the excerpt; only the existence of the Newtonian vis\u2011viva equation is mentioned.)*\n- **Relativistic modification** (arXiv:2404.10302v1) reduces to the above under Newtonian limits; specific corrected form is not provided in the supplied text.\n\n---  \n\n### \u0394v, Trajectory, and Planetary Physics\n- **\u0394v calculations**, explicit **trajectory parameters**, and **planetary physics constants** (e.g., gravitational parameters, specific energies) are **not present** in the provided excerpts.  \n- The only dynamical parameters directly reported are the **orbital period (90\u202fmin)**, **orbit count (16 per day)**, and the **mass\u2011ratio threshold (\u03c1\u202f<\u202f0.0205)**.\n\n---  \n\n### Notes\n- All numerical values and formulas above are **directly extracted** from the supplied context.  \n- Qualitative descriptors (e.g., \u201cnon\u2011zero mutual inclination\u201d, \u201clinear stability\u201d) are retained as variable identifiers where they are the only quantitative information available.  \n- No fabricated or placeholder data has been introduced.",
+        "timestamp": "2026-11-15 13:33:31",
+        "category": "astrophysics",
+        "sources": [
+            {
+                "title": "Orbital (novel) - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Orbital_(novel)"
+            },
+            {
+                "title": "Orbital (band) - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Orbital_(band)"
+            },
+            {
+                "title": "Orbital by Samantha Harvey | Goodreads",
+                "url": "https://www.goodreads.com/book/show/123136728-orbital"
+            },
+            {
+                "title": "Orbital \u2014 Data Centers in Space",
+                "url": "https://orbital.inc/"
+            },
+            {
+                "title": "Homepage - ORBITAL",
+                "url": "https://www.orbitalofficial.com/"
+            },
+            {
+                "title": "General Relativistic Approach to the Vis-viva Equation on Schwarzschild Metric",
+                "url": "http://arxiv.org/abs/2404.10302v1"
+            },
+            {
+                "title": "1/1 resonant periodic orbits in three dimensional planetary systems",
+                "url": "http://arxiv.org/abs/1410.4946v1"
+            }
+        ]
+    },
+    {
+        "fact": "**Technical Log Entry: Camera Sensor Pixel Binning Mathematics, Signal\u2011to\u2011Noise Ratio (SNR) Formatting Equations**\n\n*Extracted directly from the provided context; no fictional data introduced.*\n\n```markdown\n## Log Entry Summary\n**Topic:** Camera sensor pixel binning mathematics & signal\u2011to\u2011noise ratio (SNR) formatting equations  \n**Source Context:** ATLAS Planar Pixel Sensor R&D Project (arXiv) and ATLAS Pixel Project (arXiv) \u2013 excerpts from the provided raw text  \n\n### Extracted Quantitative Data\n| Parameter | Value / Description | Source Reference |\n|-----------|---------------------|------------------|\n| **Luminosity upgrade** | 5\u202f\u2013\u202f10\u202f\u00d7 increase in peak luminosity by **2021** | \u201cThe foreseen luminosity upgrade for the LHC (a factor of 5\u201110 more in peak luminosity by 2021)\u201d |\n| **ATLAS R&D collaboration size** | **17** institutes, **>\u202f80** scientists | \u201cthe ATLAS Planar Pixel Sensor R&D Project was established comprising 17 institutes and more than 80 scientists.\u201d |\n| **Readout electronics rate** | **40\u202fMHz** radiation\u2011hard readout electronics | \u201csegmented silicon detectors with 40MHz radiation\u2011hard readout electronics.\u201d |\n| **Sensor geometry** | Thin silicon tiles segmented into a **pixel geometry** (provides 2\u2011D space\u2011point information) | \u201cthe thin silicon tiles will be segmented into a pixel geometry providing two\u2011dimensional space\u2011point information.\u201d |\n| **Design focus** | High\u2011fluence performance, low thresholds, slim/active\u2011edge designs, cost\u2011reduction for large\u2011area instrumentation | \u201cperformance of planar pixel sensors at highest fluences\u2026 slim or active edge designs\u2026 operation of highly irradiated sensors at low thresholds\u2026\u201d |\n\n### Observations on Pixel Binning & SNR Equations\n- **Pixel binning mathematics**: No explicit binning formulas (e.g., equations for combined pixel size, charge summation, or effective pixel pitch) were present in the supplied excerpts.  \n- **Signal\u2011to\u2011noise ratio (SNR) equations**: No SNR expressions or quantitative SNR values were provided in the context.  \n\n### Summary\nThe supplied text yields concrete numerical constraints relevant to high\u2011luminosity LHC tracker development (luminosity scaling, readout rate, collaboration size) and describes the use of pixel\u2011geometry sensors, but it does **not** contain specific pixel\u2011binning formulas or SNR equations. Any future technical log entries should reference the full ATLAS R&D documentation for those detailed mathematical relationships.\n```",
+        "timestamp": "2026-11-15 13:34:03",
+        "category": "cameras",
+        "sources": [
+            {
+                "title": "Camera - Wikipedia",
+                "url": "https://en.m.wikipedia.org/wiki/Camera"
+            },
+            {
+                "title": "Windows Camera - Free download and install on Windows ...",
+                "url": "https://apps.microsoft.com/detail/9wzdncrfjbbg"
+            },
+            {
+                "title": "Amazon.com: Camera",
+                "url": "https://www.amazon.com/camera/s?k=camera"
+            },
+            {
+                "title": "Digital Cameras & Digital Camera Accessories - Best Buy",
+                "url": "https://www.bestbuy.com/site/cameras-camcorders/digital-cameras/abcat0401000.c?id=abcat0401000"
+            },
+            {
+                "title": "View Live Cameras - 511GA",
+                "url": "https://511ga.org/cctv"
+            },
+            {
+                "title": "Recent progress of the ATLAS Planar Pixel Sensor R&D Project",
+                "url": "http://arxiv.org/abs/1109.5944v1"
+            },
+            {
+                "title": "The ATLAS Pixel Project",
+                "url": "http://arxiv.org/abs/hep-ex/9903035v1"
+            }
+        ]
+    },
+    {
+        "fact": "## Technical Log Entry \u2014 Query: `terminal ballistics projectile deformation cavity formation wounding criteria metrics`\n\n**Extraction rule:** only verbatim numbers/citations/relations present in the supplied context. No placeholders, no derived values.\n\n**Term-scope note:** the \u201cTerminal\u201d Wikipedia blocks are terminal *emulators* (macOS Terminal, Windows Terminal) and contain no ballistics data; they are excluded from the metrics below (out-of-scope real numbers noted in \u00a7E only).\n\n### A. Relevant sources in context\n| Source | ID | Topic |\n|---|---|---|\n| Onset of cavity deformation upon subsonic motion of a projectile in a fluid complex plasma | arXiv:1301.6597v3 | projectile\u2013cavity deformation |\n| Misleading reference to unpublished wound ballistics data regarding distant injuries | arXiv:0812.4927v1 | wound-ballistics citation correction |\n\n### B. Extracted real data points\n- Wound ballistics citation corrected: article **J Trauma 29:10-18, 1989** cites *unpublished* wound-ballistics data to claim \u201cdistant injuries are a myth.\u201d\n- Actual data **published in 1990** and \u201ccontains a number of detailed examples of distant injuries.\u201d\n- Reference metadata: Bellamy RF, Zajtchuk R. *The physics and biophysics of wound ballistics.* In: Zajtchuk R, ed. *Textbook of Military Medicine, Part I: Warfare, Weaponry, and the Casualty*, **Vol. 5**, Conventional Warfare: Ballistic, Blast, and Burn Injuries. Washington, DC: Office of the Surgeon General, Dept. of the Army, USA; **1990: 107-162**.\n- Cavity model (arXiv:1301.6597v3): **Navier\u2013Stokes equation for a compressible fluid** with friction between dust particles and neutral-gas atoms; projectile at **subsonic** velocity in a dust cloud.\n- Deformation criterion (qualitative): pressure of dust cloud at cavity boundary behind projectile **can become negative** \u2192 microscopic void free of dust particles (\u201ccavity deformation\u201d).\n- Trend relation: corresponding **threshold velocity decreases with increasing cavity size**; measuring that velocity allows estimation of the **static pressure inside the dust cloud**.\n\n### C. Formulas\nNone reproduced in context. Only the governing model is named (compressible Navier\u2013Stokes + dust\u2013gas friction); no equation, coefficients, or threshold value is printed.\n\n### D. Not present (must not be fabricated)\nNo numeric threshold velocity, pressure magnitude, Mach number, projectile mass/diameter, impact energy, temporary/permanent cavity dimensions, tissue metrics, distance thresholds for \u201cdistant injuries,\u201d and no game data points.\n\n### E. Out-of-scope real numbers (excluded as non-ballistic)\nTerminal emulators only: Terminal.app stable **2.15 (464)** / Sept 15 2025; Windows Terminal stable **1.25.3131** and Preview **1.26.3133** / Nov 11 2026; Cascadia Code bundled since **0.5.2762.0**. Not usable as ballistics metrics.",
+        "timestamp": "2026-11-15 13:34:26",
+        "category": "terminal ballistics",
+        "sources": [
+            {
+                "title": "Terminal (macOS) - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Terminal_(macOS)"
+            },
+            {
+                "title": "Windows Terminal - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Windows_Terminal"
+            },
+            {
+                "title": "Windows Terminal installation | Microsoft Learn",
+                "url": "https://learn.microsoft.com/en-us/windows/terminal/install"
+            },
+            {
+                "title": "GitHub - microsoft/terminal: The new Windows Terminal and the...",
+                "url": "https://github.com/microsoft/terminal"
+            },
+            {
+                "title": "Terminal Temple | Online Terminal Simulator",
+                "url": "https://www.terminaltemple.com/"
+            },
+            {
+                "title": "Onset of cavity deformation upon subsonic motion of a projectile in a fluid complex plasma",
+                "url": "http://arxiv.org/abs/1301.6597v3"
+            },
+            {
+                "title": "Misleading reference to unpublished wound ballistics data regarding distant injuries",
+                "url": "http://arxiv.org/abs/0812.4927v1"
+            }
+        ]
+    },
+    {
+        "fact": "```markdown\n**Technical Log Entry:**  \nNo real numbers, formulas, or game data points related to external ballistics drag coefficient, bullet drop, wind drift, or trajectory calculation were found in the provided context.\n```",
+        "timestamp": "2026-11-15 13:40:45",
+        "category": "external ballistics",
+        "sources": [
+            {
+                "title": "EXTERNAL Definition & Meaning - Merriam-Webster",
+                "url": "https://www.merriam-webster.com/dictionary/external"
+            },
+            {
+                "title": "EXTERNAL Synonyms: 43 Similar and Opposite Words - ...",
+                "url": "https://www.merriam-webster.com/thesaurus/external"
+            },
+            {
+                "title": "EXTERNAL Definition & Meaning | Dictionary.com",
+                "url": "https://www.dictionary.com/browse/external"
+            },
+            {
+                "title": "EXTERNAL | definition in the Cambridge English Dictionary",
+                "url": "https://dictionary.cambridge.org/us/dictionary/english/external"
+            },
+            {
+                "title": "External - definition of external by The Free Dictionary",
+                "url": "https://www.thefreedictionary.com/external"
+            },
+            {
+                "title": "Inventions on Drag and Drop in GUI",
+                "url": "http://arxiv.org/abs/1404.7121v1"
+            },
+            {
+                "title": "Dynamic Trajectory Adaptation for Efficient UAV Inspections of Wind Energy Units",
+                "url": "http://arxiv.org/abs/2411.17534v1"
+            }
+        ]
+    },
+    {
+        "fact": "# Technical Log Entry\n\n**Query Topic:** `internal ballistics chamber pressure peak propellant burn rate expansion ratio equations`  \n**Source Context:** Provided raw text (`.internal` domain documentation, dictionary definitions, arXiv fluorescence pressure measurements, arXiv muon spin rotation high-pressure research)  \n**Extraction Status:** No matching data found\n\n## Extracted Data Points\n| Field | Value | Source |\n|-------|-------|--------|\n| Chamber pressure peak | Not present in context | \u2014 |\n| Propellant burn rate | Not present in context | \u2014 |\n| Expansion ratio | Not present in context | \u2014 |\n| Internal ballistics equations | Not present in context | \u2014 |\n\n## Relevant Pressure-Related Content in Context (Unrelated to Ballistics)\n- **Fluorescence pressure measurement paper** (arXiv:2305.08243v1):  \n  - Pressure indicator materials: ruby (Cr\u00b3\u207a:Al\u2082O\u2083) and strontium tetraborate (Sm\u00b2\u207a:SrB\u2084O\u2087)  \n  - Green LED average wavelength: \u03bb\u2090\u1d65 ~ 530 nm  \n  - Setups: piston-cylinder cell and diamond anvil cell fluorescence pressure measurement  \n\n- **High pressure research using muons** (arXiv:1603.08847v1):  \n  - Thermodynamical parameters: pressure, temperature, magnetic field  \n  - Technique: Muon spin rotation/relaxation (muSR)  \n  - Facility: Paul Scherrer Institute (PSI, Switzerland)\n\n**Note:** The requested internal ballistics parameters (chamber pressure peak, propellant burn rate, expansion ratio, associated equations) do not appear anywhere in the provided context. No values were invented or substituted.",
+        "timestamp": "2026-11-15 13:41:05",
+        "category": "internal ballistics",
+        "sources": [
+            {
+                "title": ".internal - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/.internal"
+            },
+            {
+                "title": "INTERNAL Definition & Meaning - Merriam-Webster",
+                "url": "https://www.merriam-webster.com/dictionary/internal"
+            },
+            {
+                "title": "INTERNAL | English meaning - Cambridge Dictionary",
+                "url": "https://dictionary.cambridge.org/dictionary/english/internal"
+            },
+            {
+                "title": "INTERNAL Definition & Meaning | Dictionary.com",
+                "url": "https://www.dictionary.com/browse/internal"
+            },
+            {
+                "title": "Internal - definition of internal by The Free Dictionary",
+                "url": "https://www.thefreedictionary.com/internal"
+            },
+            {
+                "title": "The use of LEDs as a light source for fluorescence pressure measurements",
+                "url": "http://arxiv.org/abs/2305.08243v1"
+            },
+            {
+                "title": "High pressure research using muons at the Paul Scherrer Institute",
+                "url": "http://arxiv.org/abs/1603.08847v1"
+            }
+        ]
+    },
+    {
+        "fact": "## Technical Log Entry \u2014 Continuum Mechanics: Stress/Strain, Constitutive Relations, Material Mechanics\n\n**Log Class:** Verified-context extraction  \n**Domain:** Continuum mechanics / constitutive modeling / fractional mechanics  \n**Scope:** Stress and strain decomposition, constitutive and compliance relations, strain energy, viscoelastic and diffusion-wave formulations  \n**Data Rule:** Only values, formulas, and identifiers appearing in the supplied context are recorded; no synthetic constants or placeholder variables are inserted.\n\n---\n\n### 1. Source Records\n\n| Record ID | Source Title | Locator | Extracted Technical Content |\n|---|---|---|---|\n| CM-01 | *Multiplying decomposition of stress/strain, constitutive/compliance relations, and strain energy* | `arXiv:1211.2693v1` \u2014 http://arxiv.org/abs/1211.2693v1 | Decomposition of stress/strain into pressure\u2013deviatoric and volumetric\u2013deviatoric pairs; multiplying decomposition tensors/matrices applied to stress, strain, constitutive relation, and compliance relation; FEM/BEM applicability. |\n| CM-02 | *Fractional Calculus: Some Basic Problems in Continuum and Statistical Mechanics* | `arXiv:1201.0863v1` \u2014 http://arxiv.org/abs/1201.0863v1 | Fractional viscoelastic models; Basset problem; Brownian motion; fractional diffusion-wave equation; parameter range \\(0<\\beta<2\\); Wright-type auxiliary functions. |\n\n---\n\n### 2. Extracted Decomposition Data \u2014 CM-01\n\n**Conventional decomposition recorded in context:**\n\n- Stress \u2192 pair of **pressure** and **deviatoric stress**\n- Strain \u2192 pair of **volumetric strain** and **deviatoric strain**\n\n**Limitation stated in context:**\n\n- Conventional decomposition focuses only on individual stress and strain.\n- Therefore, it cannot be directly applied to formulations in the **Finite Element Method (FEM)** or **Boundary Element Method (BEM)**.\n\n**Proposed decomposition recorded in context:**\n\n- Adopts **multiplying decomposition tensors or matrices**.\n- Applies not only to **stress** and **strain** but also to:\n  - **constitutive relation**\n  - **compliance relation**\n- Practical usage demonstrated for **FEM** and **BEM** in terms of **tensors** and **matrices**.\n\n**Technical characterization from context:**\n\n- Described as simpler, more general, and widely applicable than the conventional decomposition.\n- Includes **strain energy** in the article title/scope.\n\n---\n\n### 3. Extracted Fractional-Mechanics Parameters \u2014 CM-02\n\n| Parameter / Formula | Value or Range | Contextual Meaning |\n|---|---:|---|\n| Fractional derivative order in diffusion-wave equation | \\(0<\\beta<2\\) | Obtained from classical diffusion equation by replacing first-order time derivative with a fractional derivative of order \\(\\beta\\). |\n| Slow-diffusion regime | \\(0<\\beta<1\\) | Distinguished as slow-diffusion processes. |\n| Intermediate regime | \\(1<\\beta<2\\) | Distinguished as intermediate processes. |\n\n**Additional extracted formulations and model elements:**\n\n- Fractional calculus applied to **viscoelastic bodies** (Sect. 1).\n- Fractional calculus applied to **unsteady motion of a particle in a viscous fluid**, i.e. the **Basset problem** (Sect. 2).\n- Fractional calculus used to introduce **intermediate models of viscoelasticity** that generalize classical **spring-dashpot models**.\n- Hydrodynamic model used to revisit the classical theory of **Brownian motion** (Sect. 3).\n- Fractional tools explain **long tails** in:\n  - velocity correlation\n  - displacement variance\n- **Fractional diffusion-wave equation** considered in Sect. 4.\n- Fundamental solutions / **Green functions** expressed in terms of **two interrelated auxiliary functions** in the **similarity variable**.\n- These auxiliary functions are stated to be of **Wright type** (see Appendix of the source).\n\n---\n\n### 4. Material-Mechanics Model Map\n\n| Model / Relation | Source | Extracted Description |\n|---|---|---|\n| Stress decomposition | CM-01 | Pressure + deviatoric stress. |\n| Strain decomposition | CM-01 | Volumetric strain + deviatoric strain. |\n| Constitutive relation decomposition | CM-01 | Handled via multiplying decomposition tensors/matrices. |\n| Compliance relation decomposition | CM-01 | Handled via multiplying decomposition tensors/matrices. |\n| Strain energy | CM-01 | Included in the decomposition framework per title/scope. |\n| Viscoelastic intermediate models | CM-02 | Fractional-calculus models generalizing classical spring-dashpot models. |\n| Basset problem | CM-02 | Unsteady motion of a particle in a viscous fluid. |\n| Brownian motion | CM-02 | Revisited via a hydrodynamic model; long tails in velocity correlation and displacement variance. |\n| Fractional diffusion-wave equation | CM-02 | Classical diffusion equation with first-order time derivative replaced by fractional derivative of order \\(0<\\beta<2\\). |\n\n---\n\n### 5. Applicability Notes\n\n- **FEM/BEM:** CM-01 explicitly targets tensor and matrix formulations for FEM and BEM.\n- **Regime discrimination:** CM-02 uses \\(\\beta\\) ranges to separate slow-diffusion \\((0<\\beta<1)\\) from intermediate \\((1<\\beta<2)\\) behavior.\n- **Solution representation:** CM-02 represents Green functions through Wright-type auxiliary functions in a similarity variable.\n\n---\n\n### 6. Provenance / Exclusions\n\n- Included: arXiv records `1211.2693v1` and `1201.0863v1`.\n- Excluded as non-topical for this log: *Continuum* TV series records, IMDb entry, AAN *Continuum* CME journal page, Merriam-Webster dictionary entry, and Continuum Global Solutions corporate page.\n- No numerical values or formulas were inferred beyond those explicitly present in the supplied context.",
+        "timestamp": "2026-11-15 13:41:31",
+        "category": "continuum mechanics",
+        "sources": [
+            {
+                "title": "Continuum (TV series) - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Continuum_(TV_series)"
+            },
+            {
+                "title": "Continuum (TV Series 2012\u20132015) - IMDb",
+                "url": "https://www.imdb.com/title/tt1954347/"
+            },
+            {
+                "title": "Continuum: Lifelong learning in Neurology",
+                "url": "https://continuum.aan.com/"
+            },
+            {
+                "title": "CONTINUUM Definition & Meaning - Merriam-Webster",
+                "url": "https://www.merriam-webster.com/dictionary/continuum"
+            },
+            {
+                "title": "Continuum Global Solutions | Transforming Customer Experiences",
+                "url": "https://www.continuumgbl.com/"
+            },
+            {
+                "title": "Multiplying decomposition of stress/strain, constitutive/compliance relations, and strain energy",
+                "url": "http://arxiv.org/abs/1211.2693v1"
+            },
+            {
+                "title": "Fractional Calculus: Some Basic Problems in Continuum and Statistical Mechanics",
+                "url": "http://arxiv.org/abs/1201.0863v1"
+            }
+        ]
+    },
+    {
+        "fact": "## Technical Log Entry: Penetration Mechanics\n\n**Requested Parameters:** penetration mechanics recht ipson model hydrodynamic penetration depth armor velocity\n\n**Context Analysis:**  \nThe provided text does not contain any data, formulas, or references matching the specified parameters (`recht ipson model`, `hydrodynamic penetration depth`, `armor velocity`, etc.). The source materials cover:\n- Biological/sexual penetration (Wikipedia, dictionaries, Psychology Today)\n- Large Language Model usage in scholarly writing (arXiv)\n- Machine learning prediction of granular intruder penetration depth (arXiv)\n\n**Extracted Data from Context (directly cited, no invention):**  \n- From arXiv: *\"Prediction of the maximum penetration of a circular intruder in a two-dimensional granular bed from its early trajectory using Machine Learning\"*:\n  - 100 DEM simulations with varying intruder density\n  - Kinematic features extracted from the first 50 ms of impact\n  - Ridge and Random Forest models used to predict maximum penetration depth\n  - A single feature (intruder height at 50 ms) concentrates almost all predictive power, indicating density information is already encoded in the early impact response\n- No formulas, armor velocity metrics, or hydrodynamic penetration depth values appear in the provided text.\n\n**Conclusion:**  \nA technical log entry with real numbers/formulas for the exact requested topic cannot be compiled, as the context lacks matching data. All quoted values are extracted verbatim from the given sources without placeholder variables or fabricated numbers.\n\n```markdown\n## Technical Log Entry: Penetration Mechanics\n\n**Requested Parameters:** penetration mechanics recht ipson model hydrodynamic penetration depth armor velocity\n\n**Context Analysis:**  \nThe provided text does not contain any data, formulas, or references matching the specified parameters (`recht ipson model`, `hydrodynamic penetration depth`, `armor velocity`, etc.). The source materials cover:\n- Biological/sexual penetration (Wikipedia, dictionaries, Psychology Today)\n- Large Language Model usage in scholarly writing (arXiv)\n- Machine learning prediction of granular intruder penetration depth (arXiv)\n\n**Extracted Data from Context (directly cited, no invention):**  \n- From arXiv: *\"Prediction of the maximum penetration of a circular intruder in a two-dimensional granular bed from its early trajectory using Machine Learning\"*:\n  - 100 DEM simulations with varying intruder density\n  - Kinematic features extracted from the first 50 ms of impact\n  - Ridge and Random Forest models used to predict maximum penetration depth\n  - A single feature (intruder height at 50 ms) concentrates almost all predictive power, indicating density information is already encoded in the early impact response\n- No formulas, armor velocity metrics, or hydrodynamic penetration depth values appear in the provided text.\n\n**Conclusion:**  \nA technical log entry with real numbers/formulas for the exact requested topic cannot be compiled, as the context lacks matching data. All quoted values are extracted verbatim from the given sources without placeholder variables or fabricated numbers.\n```\n```",
+        "timestamp": "2026-11-15 13:42:12",
+        "category": "penetration mechanics",
+        "sources": [
+            {
+                "title": "Penile\u2013vaginal intercourse - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Penile\u2013vaginal_intercourse"
+            },
+            {
+                "title": "PENETRATION Definition & Meaning - Merriam-Webster",
+                "url": "https://www.merriam-webster.com/dictionary/penetration"
+            },
+            {
+                "title": "Sexual penetration - Wikiwand",
+                "url": "https://www.wikiwand.com/en/Sexual_penetration"
+            },
+            {
+                "title": "PENETRATION | English meaning - Cambridge Dictionary",
+                "url": "https://dictionary.cambridge.org/dictionary/english/penetration"
+            },
+            {
+                "title": "What Does Penetration Actually 'Feel' Like? | Psychology Today",
+                "url": "https://www.psychologytoday.com/us/blog/the-erotic-brain/202607/what-does-penetration-actually-feel-like"
+            },
+            {
+                "title": "Large Language Models Penetration in Scholarly Writing and Peer Review",
+                "url": "http://arxiv.org/abs/2502.11193v1"
+            },
+            {
+                "title": "Prediction of the maximum penetration of a circular intruder in a two-dimensional granular bed from its early trajectory using Machine Learning",
+                "url": "http://arxiv.org/abs/2609.17968v1"
+            }
+        ]
+    },
+    {
+        "fact": "```markdown\n# TECHNICAL LOG ENTRY\nQuery: robotic arm kinematics denavit hartenberg parameters actuator torque equations ros control\nExtraction rule: only values explicitly present in the supplied context; no invented numbers/formulas.\n\n| Field | Status | Extracted content (verbatim-anchored) | Source |\n|---|---|---|---|\n| Robotic arm kinematics | FOUND | \"Proportional Derivative-Pseudoinverse Jacobian (PD-PIJ) kinematics\" + \"Denavit Hartenberg forward kinematics\"; \"PD-PIJ inverse kinematics method\"; input = \"angles found by PD-PIJ\"; object detection via \"HSV-color model\" and \"centroid coordinate\"; iteration \"until the square end effector reached the target\"; analysis by \"Probability Density Function (PDF) and Weibull Probability Distribution\" | arXiv 2103.10461v2 |\n| Denavit\u2013Hartenberg parameters | NAME ONLY | Only the term \"Denavit Hartenberg\" appears. No numeric DH table (no a/\u03b1/d/\u03b8 values) is present in context \u2192 NOT AVAILABLE | arXiv 2103.10461v2 |\n| Actuator torque equations | NOT FOUND | Context gives qualitative actuator facts only: \"Actuators convert stored energy into movement\"; \"electric motors that rotate a wheel or gear\"; \"linear actuators ... move in and out\"; \"typically powered by oil or compressed air ... also ... electricity, usually via a motor\". No torque equation/formula is stated \u2192 NOT AVAILABLE | Wikipedia Robotics |\n| ROS control | NOT FOUND | No mention of ROS / Robot Operating System anywhere in context \u2192 NONE | \u2014 |\n\nReal numeric data points (traceable only)\n| Value | Meaning | Source |\n|---|---|---|\n| 94.46% | \"probability of success rate ... for euclidian distance error less than 1.2 cm\" (color-sorting task) | arXiv 2103.10461v2 |\n| 1.2 cm | euclidian distance error threshold for that success rate | arXiv 2103.10461v2 |\n| 1948 | first electronic autonomous robots by William Grey Walter, Bristol, England | Wikipedia Robot |\n| late 1940s | CNC machine tools by John T. Parsons and Frank L. Stulen | Wikipedia Robot |\n| 1954 | first commercial, digital, programmable robot (Unimate) built by George Devol | Wikipedia Robot |\n| 1961 | Unimate sold to General Motors; Inland Fisher Guide Plant, West Trenton, Ewing Township, New Jersey | Wikipedia Robot |\n| 1923 | term \"robot\" entered via Czech / R.U.R. (Karel Capek) | Wikipedia Robot |\n\nFormulas / equations present in context: none. The text names methods (PD-PIJ, DH forward kinematics, PDF, Weibull) but prints no symbolic equations; therefore no torque or DH equations are transcribed.\n\nAdjacent real actuator/power facts (no fabrication): humanoid robots \"most commonly run on nickel manganese cobalt\u2013based lithium-ion batteries\"; also lead\u2013acid, silver\u2013cadmium, generators/internal combustion, tether, solar, nuclear, compressed gases, flywheel energy storage.\n\nSources: http://arxiv.org/abs/2103.10461v2 ; http://arxiv.org/abs/1403.5204v3 ; https://en.m.wikipedia.org/wiki/Robotics ; https://en.m.wikipedia.org/wiki/Robot\n```",
+        "timestamp": "2026-11-15 13:42:52",
+        "category": "robotics",
+        "sources": [
+            {
+                "title": "Robotics - Wikipedia",
+                "url": "https://en.m.wikipedia.org/wiki/Robotics"
+            },
+            {
+                "title": "Robot - Wikipedia",
+                "url": "https://en.m.wikipedia.org/wiki/Robot"
+            },
+            {
+                "title": "Robotics | Definition, Components, Unimate, Applications ...",
+                "url": "https://www.britannica.com/technology/robotics"
+            },
+            {
+                "title": "ROBOTIC Definition & Meaning - Merriam-Webster",
+                "url": "https://www.merriam-webster.com/dictionary/robotic"
+            },
+            {
+                "title": "ROBOTS: Your Guide to the World of Robotics",
+                "url": "https://robotsguide.com/"
+            },
+            {
+                "title": "Robot Manipulator Control with Inverse Kinematics PD-Pseudoinverse Jacobian and Forward Kinematics Denavit Hartenberg",
+                "url": "http://arxiv.org/abs/2103.10461v2"
+            },
+            {
+                "title": "Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics",
+                "url": "http://arxiv.org/abs/1403.5204v3"
+            }
+        ]
+    },
+    {
+        "fact": "### TECHNICAL LOG ENTRY \u2014 DSM-5 / CBT / NEUROPLASTICITY QUERY\n\n**Query string:** `dsm-5 diagnostic criteria cognitive behavioral therapy protocols neuroplasticity neural pathways`\n\n**Source status:** Verified excerpts supplied from Wikipedia DSM and DSM-5 pages, Psychiatry.org DSM page, and an Internet Archive DSM-5-TR PDF listing. No primary CBT protocol text, neuroplasticity study data, or neural-pathway measurement data was supplied.\n\n**Data availability check**\n\n| Requested domain | Data present in supplied context | Status |\n|---|---|---|\n| DSM-5 diagnostic criteria | Partial: edition metadata, structure, selected revision notes, one criteria-format example | Extracted where numeric |\n| CBT protocols | None | **No data in context** |\n| Neuroplasticity | None | **No data in context** |\n| Neural pathways | None | **No data in context** |\n\n---\n\n### Verified numeric constants extracted from context\n\n| Field | Value | Source |\n|---|---:|---|\n| DSM first publication year | 1952 | DSM Wikipedia excerpt |\n| DSM-5 publication date | May 18, 2013 | DSM-5 Wikipedia infobox |\n| DSM-5 page count | 947 | DSM-5 Wikipedia infobox |\n| DSM-5 ISBN | 978-0-89042-554-1 | DSM-5 Wikipedia infobox |\n| DSM-5 OCLC | 830807378 | DSM-5 Wikipedia infobox |\n| DSM-5 Dewey Decimal | 616.89'075 | DSM-5 Wikipedia infobox |\n| DSM-5 LC Class | RC455.2.C4 | DSM-5 Wikipedia infobox |\n| DSM-5-TR publication year | 2022 | DSM-5 Wikipedia excerpt |\n| DSM-5-TR publication month | March 2022 | DSM Wikipedia excerpt |\n| DSM-5-TR revised disorders count | over 70 disorders | Internet Archive DSM-5-TR PDF excerpt |\n| DSM-5 section count | 3 sections, designated by Roman numerals | DSM-5 Wikipedia excerpt |\n| Example diagnostic threshold | 5 of 9 criteria for at least 6 months | DSM Wikipedia excerpt |\n| ICD/DSM international survey scope | 66 countries | DSM Wikipedia excerpt |\n| DSM coding baseline | Since 1980, every code listed in the DSM | DSM Wikipedia excerpt |\n\n---\n\n### Extracted DSM-5 structural / criteria data points\n\n- **DSM-5 edition:** Fifth Edition, 2013 update to the DSM.\n- **DSM-5-TR:** Revised version published in 2022; per the supplied PDF excerpt, published April 5, 2021 metadata and described as integrating original DSM-5 diagnostic criteria with modifications for **over 70 disorders**, plus a new diagnosis: **prolonged grief**.\n- **Section structure:** DSM-5 is divided into **three sections** using Roman numerals:\n  - Section I: DSM-5 basics\n  - Section II: [not detailed in supplied text]\n  - Section III: dimensional assessments\n- **Multiaxial system:** The **five-axis system** was removed in DSM-5.\n- **Criteria format example:** \u201cto be diagnosed with X disorder, one must fulfill **5 of 9 criteria** for at least **6 months**.\u201d\n- **Selected DSM-5 changes listed in context:**\n  - Asperger syndrome reconceptualized from a distinct disorder to an autism spectrum disorder.\n  - Subtypes of schizophrenia eliminated.\n  - \u201cBereavement exclusion\u201d for depressive disorders deleted.\n  - Gender identity disorder renamed/reconceptualized as gender dysphoria.\n  - Binge eating disorder included as a discrete eating disorder.\n  - Paraphilias renamed/reconceptualized as paraphilic disorders.\n  - \u201cNot otherwise specified\u201d split into other specified disorders and unspecified disorders.\n- **Reliability statement:** The APA has published that inter-rater reliability is low for many DSM-5 disorders, including **major depressive disorder** and **generalized anxiety disorder**. No numerical reliability coefficient is present in the supplied context.\n\n---\n\n### Requested domains with no extractable data\n\n- **CBT protocols:** No session counts, treatment durations, protocol steps, exposure hierarchies, homework frequencies, or outcome thresholds are present.\n- **Neuroplasticity:** No synaptic-plasticity rates, LTP/LTD parameters, BDNF values, cortical remapping intervals, or neuroimaging statistics are present.\n- **Neural pathways:** No tractography values, connectivity coefficients, pathway names with quantitative measures, or network metrics are present.\n\n**Log disposition:** Numeric DSM-5 bibliographic and structural constants extracted. CBT, neuroplasticity, and neural-pathway quantitative fields remain unresolved because the supplied context contains no such measurements.",
+        "timestamp": "2026-11-15 13:48:20",
+        "category": "psychology",
+        "sources": [
+            {
+                "title": "Diagnostic and Statistical Manual of Mental Disorders",
+                "url": "https://en.m.wikipedia.org/wiki/Diagnostic_and_Statistical_Manual_of_Mental_Disorders"
+            },
+            {
+                "title": "DSM-5 - Wikipedia",
+                "url": "https://en.m.wikipedia.org/wiki/DSM-5"
+            },
+            {
+                "title": "Psychiatry.org - DSM",
+                "url": "https://www.psychiatry.org/psychiatrists/practice/dsm"
+            },
+            {
+                "title": "Diagnostic and Statistical Manual of Mental Disorders, Fifth...",
+                "url": "https://ia800804.us.archive.org/6/items/dsm-5-tr_202412/DSM-5-TR.pdf"
+            },
+            {
+                "title": "DSM Library",
+                "url": "https://psychiatryonline.org/dsm"
+            }
+        ]
+    },
+    {
+        "fact": "**Technical Log Entry Block \u2013 \u00abnaca airfoil lift drag coefficient reynolds number chord length aerodynamics equations\u00bb**\n\n| Parameter | Value / Equation | Source / Context |\n|-----------|------------------|------------------|\n| **Lift Coefficient (C\u2097)** | *Not present in provided text* | \u2014 |\n| **Drag Coefficient (C_d)** | *Not present in provided text* | \u2014 |\n| **Reynolds Number (Re)** | *Not present in provided text* | \u2014 |\n| **Chord Length (c)** | *Not present in provided text* | \u2014 |\n| **Aerodynamic Equations** | *Not present in provided text* | \u2014 |\n\n**Notes:**  \n- The supplied context consists of information about the Neighborhood Assistance Corporation of America (NACA), its housing programs, events, and related services.  \n- No data regarding airfoil characteristics, Reynolds numbers, chord lengths, or aerodynamic equations are mentioned in the text.  \n- Consequently, no real numbers or formulas can be extracted for the requested aerodynamic parameters.",
+        "timestamp": "2026-11-15 13:49:27",
+        "category": "aerodynamics",
+        "sources": [
+            {
+                "title": "Home | NACA",
+                "url": "https://www.naca.com/"
+            },
+            {
+                "title": "NACA's Housing Programs",
+                "url": "https://www.naca.com/naca-programs/"
+            },
+            {
+                "title": "NACA | Home",
+                "url": "https://www.naca.org/"
+            },
+            {
+                "title": "NACA Member Portal",
+                "url": "https://portal.naca.com/login"
+            },
+            {
+                "title": "NACA Conferences",
+                "url": "https://www.naca.org/events/conferences.html"
+            }
+        ]
+    },
+    {
+        "fact": "# Technical Log Entry: CRISPR/Cas9 & CRISPR-Like Systems \u2014 Verified Context Extraction\n\n**Log ID:** CRISPR-LOG-2026-001  \n**Compilation Date:** 2026-10-28  \n**Source Corpus:** Ground News articles (2026-07-08 to 2026-10-28)  \n**Scope Constraint:** Only data points explicitly present in provided context. No inferred kinetics, no placeholder variables, no external database lookups.\n\n---\n\n## 1. CRISPR-Cas9 In Vivo Canine Application (Kindred Companion Sciences)\n\n| Parameter | Value | Source Reference |\n|-----------|-------|------------------|\n| **Date of announcement** | 2026-08-04 | Article 1 |\n| **Operator** | Matt Walker, Kindred Companion Sciences (founded 2020) | Article 1 |\n| **Editing system** | CRISPR-Cas9 | Article 1 |\n| **Target locus** | *Can f 1* gene (major dog allergen protein) | Article 1 |\n| **Cell type edited** | Dog skin cells | Article 1 |\n| **Founder animals** | Alfie & Bailey (beagles) | Article 1 |\n| **Phenotypic validation** | Skin-prick test: no reaction to saliva/fur | Article 1 |\n| **Protein detection** | No detectable Can f 1 protein | Article 1 |\n| **Regulatory status** | Commercial availability \u201cyears away\u201d; long-term health monitoring required | Article 1 |\n| **Ethical flag** | Bioethicist Arthur Caplan (NYU): may discourage shelter adoption | Article 1 |\n\n> **Note:** Context contains no data on gRNA sequence, Cas9 variant, delivery vector, editing efficiency (%), off-target analysis, or RNA polymerase/transcription/translation kinetics for this experiment.\n\n---\n\n## 2. AI-Discovered CRISPR-Like System: Array-Associated Reverse Transcriptases (ART)\n\n| Parameter | Value | Source Reference |\n|-----------|-------|------------------|\n| **Discovery date** | 2026-09-23 (announced) | Article 2 |\n| **Discovering agent** | Anthropic \u201cClaude\u201d AI model | Article 2 |\n| **Compute expenditure** | 210 million tokens processed in 21 hours | Article 2 |\n| **System name** | Array-Associated Reverse Transcriptases (ART) | Article 2 |\n| **Source genome** | Bacteriophage DNA (viruses infecting bacteria) | Article 2 |\n| **Structural hallmark** | Long array of repeating DNA sequences, CRISPR-reminiscent | Article 2 |\n| **Experimental validation** | Anthropic lab (SF Bay Area): confirmed DNA array produces distinct short RNAs | Article 2 |\n| **Claimed potential** | \u201cMay constitute a new gene editing mechanism\u201d (Dario Amodei, UN Security Council remarks) | Article 2 |\n| **Independent assessment** | Microbiologists: no proven therapeutic utility; requires peer-reviewed reproducibility | Article 2 |\n\n> **Note:** Context provides no ART protein sequence, reverse transcriptase kinetics, RNA polymerase interaction data, transcription/translation coupling details, or comparison metrics to Cas9.\n\n---\n\n## 3. CRISPR Prime Editing \u2014 First In-Body Human Administration\n\n| Parameter | Value | Source Reference |\n|-----------|-------|------------------|\n| **Date** | 2026-10-28 | Article 3 |\n| **Modality** | CRISPR Prime Editing (high-precision gene editor) | Article 3 |\n| **Indication** | Wilson disease | Article 3 |\n| **Trial phase** | Clinical trial (first patient dosed) | Article 3 |\n| **Therapeutic goal** | \u201cOne-and-done fix\u201d | Article 3 |\n\n> **Note:** No pegRNA sequence, prime editor architecture (PE variant), delivery method, editing efficiency, or molecular pathway data in context.\n\n---\n\n## 4. First CRISPR-Based Therapy Patient in Germany\n\n| Parameter | Value | Source Reference |\n|-----------|-------|------------------|\n| **Date** | 2026-10-01 | Article 4 |\n| **Site** | Charit\u00e9, Berlin | Article 4 |\n| **Milestone** | First patient in Germany treated with CRISPR-based drug | Article 4 |\n| **Historical anchor** | CRISPR developers awarded Nobel Prize 2020 | Article 4 |\n\n> **Note:** No drug name, target gene, vector, or mechanistic data provided.\n\n---\n\n## 5. FDA-Approved CRISPR Gene Therapy for Pediatric Sickle Cell Disease\n\n| Parameter | Value | Source Reference |\n|-----------|-------|------------------|\n| **Date** | 2026-07-08 | Article 5 |\n| **Indication** | Sickle cell disease (young children) | Article 5 |\n| **Regulatory action** | FDA approval for expanded pediatric access | Article 5 |\n\n> **Note:** No product name (e.g., exa-cel / Casgevy), target (BCL11A enhancer), editing efficiency, or transcriptional/translational mechanism details in context.\n\n---\n\n## 6. Gap Analysis: Requested Molecular Pathway Topics vs. Context Coverage\n\n| Requested Topic | Coverage in Provided Context |\n|-----------------|------------------------------|\n| **GNA sequencing** | Not mentioned (possible typo for DNA/RNA sequencing; no sequencing data present) |\n| **RNA polymerase interactions** | Not mentioned |\n| **Transcription kinetics** | Not mentioned |\n| **Translation mechanisms** | Not mentioned |\n| **Molecular pathway maps** | Not mentioned |\n| **Cas9 kinetic parameters (kcat, Km, kon/koff)** | Not mentioned |\n| **gRNA design rules / PAM constraints** | Not mentioned |\n| **Prime editor pegRNA architecture** | Not mentioned |\n| **ART reverse transcriptase processivity / fidelity** | Not mentioned |\n\n---\n\n## 7. Verified Constants & Fixed References from Context\n\n- **Nobel Prize year for CRISPR:** 2020 (Article 4)\n- **Kindred Companion Sciences founding year:** 2020 (Article 1)\n- **Claude token throughput:** 10 million tokens/hour (210M / 21h) \u2014 derived from Article 2\n- **Earliest clinical in-body prime editing report in corpus:** 2026-10-28 (Article 3)\n- **Earliest pediatric sickle cell CRISPR approval in corpus:** 2026-07-08 (Article 5)\n\n---\n\n**End of Log.**  \n*No synthetic numbers, kinetic models, or pathway diagrams generated. All entries trace to verbatim context snippets.*",
+        "timestamp": "2026-11-15 13:49:46",
+        "category": "molecular_biology",
+        "sources": [
+            {
+                "title": "Scientists Use CRISPR to Create Allergy-Free Beagles",
+                "url": "https://ground.news/article/scientists-use-crispr-to-create"
+            },
+            {
+                "title": "Claude Discovers CRISPR-Like Enzyme System - Ground News",
+                "url": "https://ground.news/article/claude-discovers-crispr-like-enzyme-system_1b141f"
+            },
+            {
+                "title": "Scientists edit human DNA inside the body for the first time",
+                "url": "https://ground.news/article/a-first-for-crispr-powerful-prime-editing-alters-dna-directly-in-the-human-body"
+            },
+            {
+                "title": "At the Charit\u00e9 in Berlin: First Patient in Germany Treated with...",
+                "url": "https://ground.news/article/first-patient-in-germany-treated-with-gene-scissors"
+            },
+            {
+                "title": "Gene therapy for children with sickle cell disease approved by...",
+                "url": "https://ground.news/article/gene-therapy-for-children-with-sickle-cell-disease-approved-by-fda_68fdc9"
+            }
+        ]
+    },
+    {
+        "fact": "No relevant cryptographic data, engineering constants, key generation logs, or initialization vector specifications were found in the provided context.\n\nThe source text is exclusively about **AES Ohio**, an electric utility company, and contains information regarding:\n\n- Customer account access and bill payment\n- Customer service phone numbers (Residential: 800-433-8500; Business: 800-253-5801; TTY-TTD: 800-750-0750)\n- A four-year grid modernization plan\n- A 25-year-old customer system upgrade\n- PUCO-certified energy supplier choice in Ohio\n- Community impact reports and payment assistance programs\n\nThere is no mention of AES-256 encryption, RSA key generation, Curve25519, discrete logarithm mathematics, or cryptographic initialization vectors in the provided raw text. Per instructions, no dummy numbers, placeholder variables, or fictional technical entries have been generated.",
+        "timestamp": "2026-11-15 13:50:52",
+        "category": "cryptography",
+        "sources": [
+            {
+                "title": "Homepage | AES Ohio",
+                "url": "https://www.aes-ohio.com/"
+            },
+            {
+                "title": "My AES Ohio offers convenient, secure online access to your ...",
+                "url": "https://www.aes-ohio.com/my-account"
+            },
+            {
+                "title": "AES Ohio - Log in - MyAES Web Portal",
+                "url": "https://myprofile.aes-ohio.com/"
+            },
+            {
+                "title": "AES | Accelerating the Future of Global Energy",
+                "url": "https://www.aes.com/"
+            },
+            {
+                "title": "Log in | AES",
+                "url": "https://www.aes.com/member/login"
+            }
+        ]
+    },
+    {
+        "fact": "# Technical Log Entry: Iron-Carbon Phase Diagram / Martensite-Austenite / Tempering / TTT Curves\n\n**Source Context**: Two arXiv preprints provided (Cu-Al-Ni shape-memory alloy nucleation study; Modular Test-Time Training framework)\n\n---\n\n## Data Extraction Status\n\n| Topic | Data Found in Context? | Notes |\n|-------|------------------------|-------|\n| Iron-carbon phase diagram | **No** | Context discusses Cu-Al-Ni alloy, not Fe-C system |\n| Martensite/austenite in steel | **No** | First paper: 2H-martensite \u2192 bcc austenite in Cu-Al-Ni single crystal |\n| Tempering heat treatment | **No** | Not addressed in either paper |\n| Hardness measurements | **No** | No mechanical property data reported |\n| TTT curves (Time-Temperature-Transformation) | **No** | \"TTT\" in second paper = Test-Time Training (ML), not steel transformation kinetics |\n\n---\n\n## Relevant Extracted Content (Non-Steel)\n\n### From arXiv:1310.2533v1 (Cu-Al-Ni Shape-Memory Alloy)\n- **Material**: Cu-Al-Ni, mechanically stabilized 2H-martensite\n- **Transformation**: Nucleation of **bcc austenite** from 2H-martensite\n- **Trigger**: Localized heating (optical microscopy observation)\n- **Key observation**: Nucleation occurs **after a time delay**; nucleation points **always at sample corners** (rectangular bar in austenite reference configuration), regardless of heating location\n- **Model**: Simplified nonlinear elasticity \u2192 martensite is local energy minimizer w.r.t. localized variations in interior/faces/edges, **but not at certain corners** where localized microstructure lowers energy\n\n### From arXiv:2608.07110v1 (Modular Test-Time Training)\n- **Domain**: Sequence modeling / online learning (fast-weight networks)\n- **TTT definition**: Test-Time Training = online learning with internal learning rule\n- **Framework**: Modular TTT = DAG representation of inner learner; exposes fast-weight network, loss function, learning rate, weight decay, normalization as design dimensions\n- **Ablation findings** (on unspecified benchmarks):\n  - Small learning-rate initialization, weight decay, single-layer nonlinearity \u2192 improve performance\n  - MSE vs inner-product losses \u2192 similar performance\n  - Deeper fast-weight networks + normalization \u2192 hurt performance (induce excessively large activations)\n  - Residual connections + gating \u2192 little measurable benefit\n- **Trained models**: 410M and 1.45B parameters on 100B tokens\n- **Performance**: Training loss & benchmark performance comparable to **Gated DeltaNet**\n\n---\n\n## Conclusion\n**No data points, formulas, or constants relevant to iron-carbon phase diagrams, steel martensite/austenite transformations, tempering heat treatments, hardness testing, or steel TTT (Time-Temperature-Transformation) curves exist in the provided context.** The two papers address unrelated topics: (1) martensite-austenite nucleation in a Cu-Al-Ni shape-memory alloy, and (2) a machine learning framework called \"Modular TTT\" (Test-Time Training).",
+        "timestamp": "2026-11-15 13:51:12",
+        "category": "metallurgy",
+        "sources": [
+            {
+                "title": "Nucleation of austenite in mechanically stabilized martensite by localized heating",
+                "url": "http://arxiv.org/abs/1310.2533v1"
+            },
+            {
+                "title": "Modular TTT: Rethinking Test-Time Training as Composable Modules",
+                "url": "http://arxiv.org/abs/2608.07110v1"
+            }
+        ]
+    },
+    {
+        "fact": "**Technical Log Entry**\n\n- **RTT Reduction (DRL vs TCP Cubic)**: **46.29\u202f%**  \n- **RTT Reduction (DRL vs TCP New Reno)**: **32.40\u202f%**  \n- **Throughput Difference (DRL vs TCP Cubic)**: **\u20113.79\u202f%** (statistically insignificant, *p*\u202f>\u202f0.05)  \n- **Throughput Difference (DRL vs TCP New Reno)**: **+0.38\u202f%** (comparable)  \n- **Packet Loss**: **Near\u2011zero** for DRL; **significant buffer overflow** observed for TCP Cubic.  \n- **Throughput**: **Comparable** to TCP Cubic and TCP New Reno (within \u00b10.38\u202f%).  \n\n*All values are taken directly from the verified context; no fictional numbers are introduced.*",
+        "timestamp": "2026-11-15 13:52:15",
+        "category": "networking",
+        "sources": [
+            {
+                "title": "A Deep Reinforcement Learning-Based TCP Congestion Control Algorithm: Design, Simulation, and Evaluation",
+                "url": "http://arxiv.org/abs/2508.01047v3"
+            },
+            {
+                "title": "Effect of different packet sizes on RED performance",
+                "url": "http://arxiv.org/abs/cs/0001005v1"
+            }
+        ]
+    },
+    {
+        "fact": "### Technical Log Entry: Thermodynamic Cycles & Heat Engine Metrics\n\n**Requested Topics:** Carnot cycle efficiency, entropy, enthalpy change, Gibbs free energy equations, gas laws  \n**Source Context:** arXiv:1803.03734v2 \u2014 *\"Quantum heat engine based on trapped Bose gases: Its maximum efficiency can approach the Carnot value at finite power\"*\n\n**Extracted Data:**\n- **Carnot efficiency condition:** Phase transitions can enable a quantum heat engine to approach Carnot efficiency at finite power if and only if specific heat, correlation length, and dynamical exponents $\\alpha, \\nu, z$ fulfill $\\alpha - z\\nu > 0$.\n- **Bose-Einstein-condensation regime:** Near the BEC point with $\\alpha - z\\nu < 0$, energy fluctuations could enable attainment of Carnot efficiency with nonvanishing power.\n- **Engine model:** Quantum Otto heat engines based on a trapped dilute Bose gas belonging to the same universality as the $XY$ model.\n- **Efficiency expression:** A general expression of efficiency includes correction due to interaction and fluctuations at the critical point (explicit formula not printed in provided snippet).\n\n**Not Present in Provided Context:**\n- Carnot efficiency formula ($1 - T_c/T_h$)\n- Entropy change equations ($\\Delta S$, $dS = \\delta Q_{\\mathrm{rev}}/T$)\n- Enthalpy change equations ($\\Delta H$)\n- Gibbs free energy equations ($G = H - TS$, $\\Delta G$)\n- Gas laws ($PV = nRT$, etc.)\n- Numerical values for temperature, pressure, volume, energy, or entropy associated with the above topics",
+        "timestamp": "2026-11-15 13:53:05",
+        "category": "thermodynamics",
+        "sources": [
+            {
+                "title": "Gelagen Reviews 2026: The Pink Skin Gummy Contains No Gelatin or...",
+                "url": "https://health.yahoo.com/wellness/nutrition/vitamins-supplements/articles/gelagen-reviews-2026-pink-skin-022445246.html"
+            },
+            {
+                "title": "Gelagen Korean Gummies Review: Scam or Legit?",
+                "url": "https://www.scamadviser.com/articles/gelagen-review-do-gelagen-korean-gummies-for-skin-work-or-a-scam"
+            },
+            {
+                "title": "Gelagen Review: Does This Pink Beauty Gummy Actually Work?",
+                "url": "https://www.healthinsiders.com/gelagen-review"
+            },
+            {
+                "title": "Gelagen Gummies Reviews 2026 - Is This Korean-Inspired Skin...",
+                "url": "https://yourhealthmagazine.net/article/reviews/gelagen-gummies-reviews-2026-is-this-korean-inspired-skin-formula-legit-or-overhyped/"
+            },
+            {
+                "title": "Gelagen Review: Our Full 90-Day Independent Assessment",
+                "url": "https://gellagen.com/blog/gelagen-review-90-days.html"
+            },
+            {
+                "title": "Magnetic properties of wurtzite (Ga,Mn)As",
+                "url": "http://arxiv.org/abs/2101.07194v1"
+            },
+            {
+                "title": "Quantum heat engine based on trapped Bose gases: Its maximum efficiency can approach the Carnot value at finite power",
+                "url": "http://arxiv.org/abs/1803.03734v2"
+            }
+        ]
+    },
+    {
+        "fact": "## Technical Log Entry\n\n**Topic:** transformer architecture attention mechanism weights backpropagation gradient descent math equations  \n**Scope:** Verified only against the supplied context. Missing items are explicitly marked as not present rather than inferred.\n\n### Verified Numerical Constants\n\n| Item | Value | Context source |\n|---|---:|---|\n| Electrical transformer inventor | Michael Faraday | Wikipedia \u2014 Transformer |\n| Electrical transformer invention year | 1831 | Wikipedia \u2014 Transformer |\n| Faraday\u2019s law of induction discovered | 1831 | Wikipedia \u2014 Transformer |\n| First constant-potential transformer | 1885 | Wikipedia \u2014 Transformer |\n| Elman network | 1990 | Wikipedia \u2014 Transformer (deep learning) |\n| LSTM technical report | 1995 | Wikipedia \u2014 Transformer (deep learning) |\n| LSTM formal publication | 1997 | Wikipedia \u2014 Transformer (deep learning) |\n| Seq2seq origin papers | 2014 | Wikipedia \u2014 Transformer (deep learning) |\n| Transformer paper | 2017, \u201cAttention Is All You Need,\u201d Google researchers | Wikipedia \u2014 Transformer (deep learning) |\n| Machine translation model | 380M parameters, two LSTMs | Wikipedia \u2014 Transformer (deep learning) |\n| Momentum Transformer arXiv ID | 2112.08534v3 | arXiv context |\n| Quadratic-number nodes arXiv ID | 1911.05402v1 | arXiv context |\n\n### Verified Formulas / Mathematical Relations\n\n- Ideal transformer net magnetomotive force condition:  \n  \\[\n  i_p n_p - i_s n_s = 0\n  \\]\n  Source: Wikipedia \u2014 Transformer.\n\n- Ideal transformer winding voltage ratio is equal to the winding turns ratio.  \n  Source: Wikipedia \u2014 Transformer.\n\n- Load impedance referred to the primary circuit is equal to the turns ratio squared times the secondary circuit load impedance.  \n  Source: Wikipedia \u2014 Transformer.\n\n- Faraday\u2019s law is described as the induced-voltage effect in a coil due to changing magnetic flux; no explicit equation is given in the context.  \n  Source: Wikipedia \u2014 Transformer.\n\n- Standard self-attention computational and memory costs grow quadratically with sequence length.  \n  Source: Wikipedia \u2014 Transformer (deep learning).\n\n- In the quadratic-number paper: for a two-layered fully connected neural network, gradient descent on a quadratic loss function finds optimal input-layer weights for global minima in linear time, provided the activation function satisfies mild conditions and neuron count exceeds a threshold. No numeric threshold or equation is provided in the context.  \n  Source: arXiv 1911.05402v1.\n\n### Attention / Architecture Data Points\n\n- Deep-learning transformers use multi-head attention, tokens, an embedding layer, context windows, and unmasked tokens.\n- Self-attention alone is permutation-invariant; transformers inject positional information via positional encodings or learned positional embeddings.\n- Transformers allow parallel processing of tokens during training, unlike sequential RNN/LSTM processing.\n- The Momentum Transformer is an attention-based deep-learning architecture and an attention-LSTM hybrid; it uses multiple attention heads to capture concurrent regimes or temporal dynamics occurring at different timescales.\n- The Momentum Transformer context mentions adaptation during the SARS-CoV-2 crisis and performance when considering returns net of transaction costs, but provides no numeric performance values.\n- Quantization in transformer models represents weights, activations, or both in lower-precision numerical formats than floating-point training formats. No specific precision values are given.\n\n### Weights / Backpropagation / Gradient Descent\n\n- The deep-learning transformer context mentions quantization of **weights** and **activations**, but gives no numerical precision values.\n- The gradient-descent context mentions optimal **weights of the input layer**, **quadratic loss**, **global minima**, and **linear time**, but gives no numeric threshold or explicit update equation.\n- **Backpropagation** is not described in the supplied context.\n- Explicit attention-score equations, weight-update equations, or backpropagation equations are not present in the supplied context.\n\n### Game Data Points\n\nNone present in the provided context.",
+        "timestamp": "2026-11-15 13:53:52",
+        "category": "machine_learning",
+        "sources": [
+            {
+                "title": "Transformer - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Transformer"
+            },
+            {
+                "title": "Transformer (deep learning) - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Transformer_(deep_learning)"
+            },
+            {
+                "title": "Transformer - Simple English Wikipedia, the free encyclopedia",
+                "url": "https://simple.wikipedia.org/wiki/Transformer"
+            },
+            {
+                "title": "Transformer | Definition, Types, & Facts | Britannica",
+                "url": "https://www.britannica.com/technology/transformer-electronics"
+            },
+            {
+                "title": "Transformer - GeeksforGeeks",
+                "url": "https://www.geeksforgeeks.org/physics/transformer/"
+            },
+            {
+                "title": "Trading with the Momentum Transformer: An Intelligent and Interpretable Architecture",
+                "url": "http://arxiv.org/abs/2112.08534v3"
+            },
+            {
+                "title": "Quadratic number of nodes is sufficient to learn a dataset via gradient descent",
+                "url": "http://arxiv.org/abs/1911.05402v1"
+            }
+        ]
+    },
+    {
+        "fact": "## Technical Log Entry: Navier-Stokes Equations & Fluid Dynamics Parameters\n\n**Query**: navier stokes equations bernoulli equation laminar turbulent viscosity fluid dynamics parameters  \n**Source Context**: Provided raw text (Alphabet Belgium leasing pages + 2 arXiv abstracts)  \n**Extraction Status**: **NO RELEVANT TECHNICAL DATA FOUND**\n\n---\n\n### Context Analysis\n\n| Source | Content Type | Relevant Data Extracted |\n|--------|--------------|-------------------------|\n| `https://www.alphabet.com/en-be/companies/leasing-solutions/operational-lease/fuel-management.html` | Fleet fuel management marketing | None \u2014 commercial leasing content |\n| `https://fleetreporting.alphabet.com/` | Fleet reporting platform description | None |\n| `https://invoices.alphabet.com/alphabet/Login.action` | Login page | None |\n| `https://www.alphabet.com/en-be/about-alphabet/news-and-trends.html` | News/trends portal | None |\n| `https://fleetagent.alphabet.com/eweb.webf23_001.show` | Privacy notice / login | None |\n| `arXiv:1105.0582v2` | Paper abstract only | **Title**: \"Drifting Solutions with Elliptic Symmetry for the Compressible Navier-Stokes Equations with Density-dependent Viscosity\"<br>**Method**: Characteristic method \u2192 drifting solutions with elliptic symmetry<br>**Reference**: Yuen M.W. (2008), *J. Math. Phys.* 49, 113102 (viscosity variables) |\n| `arXiv:1806.10081v10` | Paper abstract only | **Claim**: New method for proving global solutions for 3D Navier-Stokes<br>**Target**: Clay Institute Millennium Prize Problem |\n\n---\n\n### Missing Data Points (Not Present in Context)\n\n| Parameter / Formula | Status |\n|---------------------|--------|\n| Navier-Stokes equations (any form) | \u274c Not provided |\n| Bernoulli equation | \u274c Not provided |\n| Laminar/turbulent flow criteria (Reynolds number, etc.) | \u274c Not provided |\n| Viscosity coefficients (\u03bc, \u03bd, density-dependent functions) | \u274c Not provided |\n| Emden dynamical system equations | \u274c Referenced only |\n| Yuen (2008) analytical solution details | \u274c Citation only |\n| Clay Millennium Prize problem statement | \u274c Referenced only |\n| Numerical values, constants, or simulation parameters | \u274c Not provided |\n\n---\n\n### Conclusion\n\nThe provided context contains **only high-level abstracts** of two arXiv preprints and unrelated commercial fleet-management pages. **No equations, numerical constants, viscosity models, Reynolds-number thresholds, or fluid-dynamics parameters are present.**  \n\nPer instructions: *no dummy numbers or placeholders are generated.*\n\n---",
+        "timestamp": "2026-11-15 13:54:24",
+        "category": "fluid_dynamics",
+        "sources": [
+            {
+                "title": "Fuel management for leased cars | Alphabet Belgium",
+                "url": "https://www.alphabet.com/en-be/companies/leasing-solutions/operational-lease/fuel-management.html"
+            },
+            {
+                "title": "Fleet Reporting",
+                "url": "https://fleetreporting.alphabet.com/"
+            },
+            {
+                "title": "Login - Alphabet",
+                "url": "https://invoices.alphabet.com/alphabet/Login.action"
+            },
+            {
+                "title": "News & Trends | Alphabet Belgium",
+                "url": "https://www.alphabet.com/en-be/about-alphabet/news-and-trends.html"
+            },
+            {
+                "title": "My Alphabet",
+                "url": "https://fleetagent.alphabet.com/eweb.webf23_001.show"
+            },
+            {
+                "title": "Drifting Solutions with Elliptic Symmetry for the Compressible Navier-Stokes Equations with Density-dependent Viscosity",
+                "url": "http://arxiv.org/abs/1105.0582v2"
+            },
+            {
+                "title": "Existence and Smoothness of Navier-Stokes Equations",
+                "url": "http://arxiv.org/abs/1806.10081v10"
+            }
+        ]
+    },
+    {
+        "fact": "```markdown\n## Technical Log Entry\n\n**Entry topic:** electrophilic aromatic substitution reaction mechanism sn1 sn2 activation energy pathways  \n**Status:** NO RELEVANT DATA IN SUPPLIED CONTEXT  \n**Data extraction result:** No chemistry-specific numbers, formulas, activation-energy values, reaction pathways, or mechanism constants are present in the verified raw context.\n\n### Extracted Relevant Data\n| Field | Value |\n|---|---|\n| Electrophilic aromatic substitution mechanism data | Not present |\n| SN1 pathway data | Not present |\n| SN2 pathway data | Not present |\n| Activation energy values | Not present |\n| Reaction energy formulas | Not present |\n| Kinetic/thermodynamic constants | Not present |\n\n### Context Verification\nThe supplied context contains:\n- Google Translate product/about/UI text\n- Google Translate language-list text\n- arXiv abstracts for the Dark Energy Survey\n- arXiv abstract for LSST Dark Energy Science Collaboration\n\nNone of these sources contain electrophilic aromatic substitution, SN1/SN2, or activation-energy pathway data.\n\n### Compilation Decision\nNo technical log values were generated. No fictional numbers or placeholder constants were inserted.\n```",
+        "timestamp": "2026-11-15 13:55:07",
+        "category": "organic_chemistry",
+        "sources": [
+            {
+                "title": "Google Translate - A Personal Interpreter on Your Phone or...",
+                "url": "https://translate.google.com/about/"
+            },
+            {
+                "title": "Google Translate",
+                "url": "https://translate.google.com/"
+            },
+            {
+                "title": "Google Translate",
+                "url": "https://translate.google.com/details"
+            },
+            {
+                "title": "Google Translate",
+                "url": "https://translate.google.com/websitetranslationui"
+            },
+            {
+                "title": "Google Traductor: Un int\u00e9rprete personal en tu tel\u00e9fono o...",
+                "url": "https://translate.google.com/intl/es-419/about/"
+            },
+            {
+                "title": "The Dark Energy Survey",
+                "url": "http://arxiv.org/abs/astro-ph/0510346v1"
+            },
+            {
+                "title": "Large Synoptic Survey Telescope: Dark Energy Science Collaboration",
+                "url": "http://arxiv.org/abs/1211.0310v1"
+            }
+        ]
     }
 ]
